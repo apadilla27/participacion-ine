@@ -1,0 +1,34 @@
+clave,slug,nombre,nombre_corto,abreviatura,region
+0,nacional,Nacional,Nacional,NAL,
+1,aguascalientes,Aguascalientes,Aguascalientes,AGS,Centro Norte
+2,baja-california,Baja California,Baja California,BC,Norte
+3,baja-california-sur,Baja California Sur,Baja California Sur,BCS,Centro Norte
+4,campeche,Campeche,Campeche,CAMP,Sur
+5,coahuila,Coahuila de Zaragoza,Coahuila,COAH,Norte
+6,colima,Colima,Colima,COL,Centro Norte
+7,chiapas,Chiapas,Chiapas,CHIS,Sur
+8,chihuahua,Chihuahua,Chihuahua,CHIH,Norte
+9,ciudad-de-mexico,Ciudad de México,Ciudad de México,CDMX,Centro
+10,durango,Durango,Durango,DGO,Centro Norte
+11,guanajuato,Guanajuato,Guanajuato,GTO,Centro
+12,guerrero,Guerrero,Guerrero,GRO,Sur
+13,hidalgo,Hidalgo,Hidalgo,HGO,Centro
+14,jalisco,Jalisco,Jalisco,JAL,Centro Norte
+15,estado-de-mexico,México,Estado de México,MEX,Centro
+16,michoacan,Michoacán de Ocampo,Michoacán,MICH,Centro Norte
+17,morelos,Morelos,Morelos,MOR,Centro
+18,nayarit,Nayarit,Nayarit,NAY,Centro Norte
+19,nuevo-leon,Nuevo León,Nuevo León,NL,Norte
+20,oaxaca,Oaxaca,Oaxaca,OAX,Sur
+21,puebla,Puebla,Puebla,PUE,Centro
+22,queretaro,Querétaro,Querétaro,QRO,Centro
+23,quintana-roo,Quintana Roo,Quintana Roo,QROO,Sur
+24,san-luis-potosi,San Luis Potosí,San Luis Potosí,SLP,Centro Norte
+25,sinaloa,Sinaloa,Sinaloa,SIN,Centro Norte
+26,sonora,Sonora,Sonora,SON,Norte
+27,tabasco,Tabasco,Tabasco,TAB,Sur
+28,tamaulipas,Tamaulipas,Tamaulipas,TAMPS,Norte
+29,tlaxcala,Tlaxcala,Tlaxcala,TLAX,Centro
+30,veracruz,Veracruz de Ignacio de la Llave,Veracruz,VER,Sur
+31,yucatan,Yucatán,Yucatán,YUC,Sur
+32,zacatecas,Zacatecas,Zacatecas,ZAC,Centro Norte

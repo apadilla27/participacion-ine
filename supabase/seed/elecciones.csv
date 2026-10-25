@@ -1,0 +1,8 @@
+id,clave,slug,anio,tipo,fecha_jornada,es_presidencial,marco_cartografico,cargos,entidades_cubiertas,notas
+1,FED2009,fed2009,2009,federal,2009-07-05,false,DERFE 2021,Diputaciones federales,32,Elección intermedia.
+2,FED2012,fed2012,2012,federal,2012-07-01,true,DERFE 2021,"Presidencia, senadurías y diputaciones federales",32,Elección presidencial.
+3,FED2015,fed2015,2015,federal,2015-06-07,false,DERFE 2021,Diputaciones federales,32,Elección intermedia.
+4,FED2018,fed2018,2018,federal,2018-07-01,true,DERFE 2021,"Presidencia, senadurías y diputaciones federales",32,Elección presidencial.
+5,FED2021,fed2021,2021,federal,2021-06-06,false,DERFE 2021,Diputaciones federales,32,Elección intermedia.
+6,FED2024,fed2024,2024,federal,2024-06-02,true,DERFE 2023,"Presidencia, senadurías y diputaciones federales",32,"Elección presidencial. Incluye en tabla aparte las modalidades de voto en prisión preventiva y voto anticipado."
+7,PJ2025,pj2025,2025,judicial,2025-06-01,false,DERFE 2025,"Ministraturas, magistraturas y juzgados de distrito del Poder Judicial de la Federación",31,"Proceso Electoral Extraordinario del Poder Judicial de la Federación 2024-2025. Los datos abiertos no incluyen Campeche."
