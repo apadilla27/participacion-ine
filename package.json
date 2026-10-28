@@ -7,6 +7,7 @@
   },
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/verificar-datos.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
@@ -14,6 +15,10 @@
     "check": "npm run typecheck && npm run lint",
     "etl": "etl\\.venv\\Scripts\\python.exe -I etl/run_etl.py",
     "etl:dry": "etl\\.venv\\Scripts\\python.exe -I etl/run_etl.py --estados ags",
+    "datos": "etl\\.venv\\Scripts\\python.exe -I etl/export_web.py",
+    "datos:todo": "npm run etl && npm run datos && npm run verificar-datos",
+    "geo": "node etl/geo/entidades.mjs",
+    "verificar-datos": "node scripts/verificar-datos.mjs",
     "db:test-local": "node scripts/test-db-local.mjs",
     "db:push": "supabase db push",
     "db:load": "etl\\.venv\\Scripts\\python.exe -I etl/load.py",
@@ -37,6 +42,7 @@
     "@types/react-dom": "19.3.0",
     "eslint": "9.39.5",
     "eslint-config-next": "16.4.3",
+    "mapshaper": "0.7.100",
     "supabase": "2.122.0",
     "tailwindcss": "4.3.3",
     "typescript": "5.9.3"

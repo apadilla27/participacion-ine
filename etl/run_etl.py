@@ -24,7 +24,7 @@ import duckdb
 
 ETL_DIR = Path(__file__).resolve().parent
 PROYECTO = ETL_DIR.parent
-SEED_DIR = PROYECTO / "supabase" / "seed"
+SEED_DIR = ETL_DIR / "seed"
 SQL_DIR = ETL_DIR / "sql"
 OVERRIDES = ETL_DIR / "overrides_municipios.csv"
 REMAPEO = ETL_DIR / "remapeo_municipios.csv"
