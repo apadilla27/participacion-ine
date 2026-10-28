@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Pastel } from "@/app/_ui/Pastel";
 import { Segmento } from "@/app/_ui/Segmento";
-import { useAngosta } from "@/app/_ui/useAngosta";
+import { esAngosta, useAngosta } from "@/app/_ui/useAngosta";
 import { ENTIDADES, nombreLugar } from "@/lib/catalogo";
 import type { Trazo } from "@/lib/datos/tipos-geo";
 import { LECTURAS, type Lectura, type RelatoDatos } from "@/lib/datos/tipos";
@@ -27,7 +27,26 @@ function clase(valor: number, cortes: number[]) {
 
 type Orden = "nombre" | "valor" | "diferencia";
 
-export function Mapa({ datos, trazos, viewBox }: { datos: RelatoDatos; trazos: Trazo[]; viewBox: number[] }) {
+// La geometría (176 KB) se pide solo cuando se muestra el mapa: en móvil la vista inicial es el mosaico y no la necesita.
+type Geometria = { viewBox: number[]; trazos: Trazo[] };
+type CargaGeo = { estado: "cargando" } | { estado: "error" } | { estado: "listo"; datos: Geometria };
+const SIN_TRAZOS: Trazo[] = [];
+let pedidoGeo: Promise<Geometria> | null = null;
+
+function cargarGeometria() {
+  pedidoGeo ??= fetch("/geo/entidades.json")
+    .then((r) => {
+      if (!r.ok) throw new Error(String(r.status));
+      return r.json() as Promise<Geometria>;
+    })
+    .catch((error: unknown) => {
+      pedidoGeo = null;
+      throw error;
+    });
+  return pedidoGeo;
+}
+
+export function Mapa({ datos }: { datos: RelatoDatos }) {
   const [eleccion, setEleccion] = useState(datos.reciente);
   const [lectura, setLectura] = useState<Lectura>("todas");
   const [vista, setVista] = useState<"auto" | "mapa" | "mosaico">("auto");
@@ -35,6 +54,8 @@ export function Mapa({ datos, trazos, viewBox }: { datos: RelatoDatos; trazos: T
   const [encima, setEncima] = useState<{ clave: number; x: number; y: number } | null>(null);
   const [verTabla, setVerTabla] = useState(false);
   const [orden, setOrden] = useState<{ por: Orden; asc: boolean }>({ por: "valor", asc: false });
+  const [geo, setGeo] = useState<CargaGeo>({ estado: "cargando" });
+  const [intentoGeo, setIntentoGeo] = useState(0);
   const angosta = useAngosta();
   const lienzo = useRef<HTMLDivElement>(null);
   const ficha = useRef<HTMLDivElement>(null);
@@ -45,6 +66,20 @@ export function Mapa({ datos, trazos, viewBox }: { datos: RelatoDatos; trazos: T
   const cortes = ev.tipo === "judicial" ? CORTES_JUDICIAL : CORTES_FEDERAL;
   const vistaEfectiva = vista === "auto" ? (angosta ? "mosaico" : "mapa") : vista;
   const nombreLectura = LECTURAS.find((l) => l.id === lectura)!.nombre;
+  const trazos = geo.estado === "listo" ? geo.datos.trazos : SIN_TRAZOS;
+
+  useEffect(() => {
+    // Al hidratar, el primer render asume escritorio: se consulta el ancho real para no pedir la geometría en móvil.
+    if (vistaEfectiva !== "mapa" || (vista === "auto" && esAngosta())) return;
+    let vivo = true;
+    cargarGeometria().then(
+      (datos) => vivo && setGeo({ estado: "listo", datos }),
+      () => vivo && setGeo({ estado: "error" }),
+    );
+    return () => {
+      vivo = false;
+    };
+  }, [vista, vistaEfectiva, intentoGeo]);
 
   const motivo = (k: number) =>
     ev.faltantes.includes(k)
@@ -74,8 +109,8 @@ export function Mapa({ datos, trazos, viewBox }: { datos: RelatoDatos; trazos: T
     elegir(siguiente);
     const t = trazos.find((x) => x.clave === siguiente);
     const caja = lienzo.current?.getBoundingClientRect();
-    if (t && caja) {
-      const escala = caja.width / viewBox[2];
+    if (t && caja && geo.estado === "listo") {
+      const escala = caja.width / geo.datos.viewBox[2];
       setEncima({ clave: siguiente, x: t.centro[0] * escala, y: t.centro[1] * escala });
     }
   }
@@ -145,7 +180,30 @@ export function Mapa({ datos, trazos, viewBox }: { datos: RelatoDatos; trazos: T
 
         <div className={estilos.mapaCuerpo}>
           <div>
-            {vistaEfectiva === "mapa" ? (
+            {vistaEfectiva === "mapa" && geo.estado === "error" ? (
+              <div className={`estado ${estilos.mapaEspera}`}>
+                <p>No pudimos cargar el mapa. Puedes reintentar o ver las mismas cifras en el mosaico.</p>
+                <div className="acciones">
+                  <button
+                    type="button"
+                    className="btn btn-dorado"
+                    onClick={() => {
+                      setGeo({ estado: "cargando" });
+                      setIntentoGeo((n) => n + 1);
+                    }}
+                  >
+                    Reintentar
+                  </button>
+                  <button type="button" className="btn btn-contorno" onClick={() => setVista("mosaico")}>
+                    Ver el mosaico
+                  </button>
+                </div>
+              </div>
+            ) : vistaEfectiva === "mapa" && geo.estado === "cargando" ? (
+              <div className={estilos.mapaEspera} role="status">
+                <p>Cargando el mapa…</p>
+              </div>
+            ) : vistaEfectiva === "mapa" && geo.estado === "listo" ? (
               <div
                 ref={lienzo}
                 className={estilos.lienzoMapa}
@@ -166,7 +224,7 @@ export function Mapa({ datos, trazos, viewBox }: { datos: RelatoDatos; trazos: T
                 }}
                 onBlur={() => setEncima(null)}
               >
-                <svg viewBox={viewBox.join(" ")} aria-hidden="true">
+                <svg viewBox={geo.datos.viewBox.join(" ")} aria-hidden="true">
                   <defs>
                     <pattern id="trama" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
                       <rect width="6" height="6" fill="#f1efec" />

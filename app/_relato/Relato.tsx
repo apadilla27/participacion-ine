@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import type { Trazo } from "@/lib/datos/tipos-geo";
 import type { RelatoDatos } from "@/lib/datos/tipos";
 import { Curva } from "./Curva";
 import { Espejo } from "./Espejo";
@@ -13,7 +12,7 @@ import { Mapa } from "./Mapa";
 import estilos from "./relato.module.css";
 
 /** Portada: el estado compartido es la elección que leen la curva y el espejo. */
-export function Relato({ datos, trazos, viewBox }: { datos: RelatoDatos; trazos: Trazo[]; viewBox: number[] }) {
+export function Relato({ datos }: { datos: RelatoDatos }) {
   const [eleccion, setEleccion] = useState(datos.reciente);
 
   return (
@@ -21,7 +20,7 @@ export function Relato({ datos, trazos, viewBox }: { datos: RelatoDatos; trazos:
       <Hero datos={datos} />
       <Curva datos={datos} eleccion={eleccion} onEleccion={setEleccion} />
       <Huella datos={datos} />
-      <Mapa datos={datos} trazos={trazos} viewBox={viewBox} />
+      <Mapa datos={datos} />
       <Espejo datos={datos} eleccion={eleccion} onEleccion={setEleccion} />
       <Llega datos={datos} />
       <section className={`contenedor ${estilos.cierre}`} aria-labelledby="cierre-titulo">

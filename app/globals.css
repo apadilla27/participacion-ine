@@ -30,7 +30,7 @@
   --radio: 10px;
   --toque: 44px;
   --ancho: 72rem;
-  --lectura: 68ch;
+  --lectura: 62ch; /* unas 75 letras de Arial por línea */
   --gutter: clamp(16px, 4vw, 40px);
   --font-texto: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
@@ -69,6 +69,14 @@ body {
   font-size: var(--texto);
   line-height: 1.55;
   font-variant-numeric: tabular-nums;
+}
+
+/* Sin palabras sueltas al final de párrafo. */
+p,
+li,
+dd,
+figcaption {
+  text-wrap: pretty;
 }
 
 h1,
@@ -257,6 +265,12 @@ a:hover {
   position: sticky;
   top: 0;
   z-index: 1;
+}
+
+/* La esquina del encabezado queda encima de la columna fija y de las filas al desplazar. */
+.tabla thead th:first-child {
+  background: var(--fondo-2);
+  z-index: 2;
 }
 
 .tabla tbody tr {

@@ -367,6 +367,19 @@
   padding: 8px;
 }
 
+/* Mismo tamaño que el mapa mientras llega la geometría, para que la página no salte. */
+.mapaEspera {
+  display: grid;
+  place-content: center;
+  gap: 16px;
+  aspect-ratio: 1000 / 640;
+  padding: 24px;
+  background: #fff;
+  border-radius: 16px;
+  color: var(--tinta-2);
+  text-align: center;
+}
+
 .lienzoMapa svg {
   display: block;
   width: 100%;
@@ -481,6 +494,13 @@
   background: #fff;
   border-radius: 16px;
   scroll-margin-top: 120px;
+}
+
+/* Dentro de la ficha la tabla no es otra tarjeta: solo una línea arriba la separa. */
+.ficha :global(.tabla-caja) {
+  border: 0;
+  border-top: 1px solid var(--linea);
+  border-radius: 0;
 }
 
 .fichaDato {

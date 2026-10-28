@@ -10,7 +10,9 @@ function suscribir(aviso: () => void) {
   return () => mq.removeEventListener("change", aviso);
 }
 
-/** Pantalla angosta (menos de 768 px). En el servidor se asume escritorio. */
+export const esAngosta = () => window.matchMedia(consulta).matches;
+
+/** Pantalla angosta (menos de 768 px). En el servidor, y en el primer render al hidratar, se asume escritorio. */
 export function useAngosta() {
-  return useSyncExternalStore(suscribir, () => window.matchMedia(consulta).matches, () => false);
+  return useSyncExternalStore(suscribir, esAngosta, () => false);
 }
