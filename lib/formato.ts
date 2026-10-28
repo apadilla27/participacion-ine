@@ -16,11 +16,15 @@ export function firmado(valor: number) {
   return texto;
 }
 
-/** "3.20 puntos más que el país" / "1.05 puntos menos que el país" */
+/** "3.20 puntos más que Jalisco" / "1.05 puntos menos que el país" / "igual que el país" */
+export function frente(valor: number, referencia: number, nombre: string) {
+  const diferencia = Math.round((valor - referencia) * 100) / 100;
+  if (diferencia === 0) return `igual que ${nombre}`;
+  return `${CIEN.format(Math.abs(diferencia))} puntos ${diferencia > 0 ? "más" : "menos"} que ${nombre}`;
+}
+
 export function frenteAlPais(valor: number, pais: number) {
-  const diferencia = Math.round((valor - pais) * 100) / 100;
-  if (diferencia === 0) return "igual que el país";
-  return `${CIEN.format(Math.abs(diferencia))} puntos ${diferencia > 0 ? "más" : "menos"} que el país`;
+  return frente(valor, pais, "el país");
 }
 
 /** Glosario D45: los mismos términos en todas las pantallas. */

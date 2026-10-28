@@ -1,0 +1,150 @@
+.pagina {
+  display: grid;
+  gap: 32px;
+  padding-top: clamp(32px, 6vw, 64px);
+}
+
+.cabecera {
+  display: grid;
+  gap: 12px;
+  max-width: var(--lectura);
+}
+
+.explorador {
+  display: grid;
+  gap: 40px;
+}
+
+.filtros {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  padding: 20px;
+  border-radius: 16px;
+  background: var(--fondo-2);
+}
+
+.esqueleto {
+  min-height: 240px;
+}
+
+.resultado {
+  display: grid;
+  gap: 16px;
+}
+
+.dato {
+  display: grid;
+  gap: 24px;
+  align-items: center;
+}
+
+@media (min-width: 720px) {
+  .dato {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+}
+
+.datoTexto {
+  display: grid;
+  gap: 10px;
+  max-width: var(--lectura);
+}
+
+.frase {
+  font: 650 1.375rem / 1.25 var(--font-advent), var(--font-texto);
+}
+
+.titulo3 {
+  font-size: clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
+  margin-bottom: 16px;
+}
+
+.edades {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr));
+  gap: 10px;
+}
+
+.edades button {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  min-height: var(--toque);
+  padding: 12px 8px;
+  border: 1px solid var(--linea);
+  border-radius: 12px;
+  background: var(--fondo);
+  color: var(--tinta);
+  font: 400 var(--meta) / 1.2 var(--font-texto);
+  cursor: pointer;
+}
+
+.edades button[aria-pressed="true"] {
+  border-color: var(--tinta);
+  box-shadow: inset 0 0 0 1px var(--tinta);
+}
+
+.municipios {
+  display: grid;
+  gap: 16px;
+}
+
+.buscador {
+  display: grid;
+  gap: 12px;
+  max-width: 32rem;
+}
+
+.coincidencias {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+}
+
+.coincidencias button {
+  width: 100%;
+  min-height: var(--toque);
+  padding: 8px 14px;
+  border: 0;
+  border-top: 1px solid var(--linea);
+  background: var(--fondo);
+  color: var(--tinta);
+  font: 400 var(--texto) / 1.3 var(--font-texto);
+  text-align: left;
+  cursor: pointer;
+}
+
+.coincidencias li:first-child button {
+  border-top: 0;
+}
+
+.coincidencias button:hover {
+  background: var(--rosa-50);
+}
+
+.tablaMunicipios {
+  max-height: 34rem;
+  overflow: auto;
+}
+
+/* Nombres como "San Juan Bautista Tlacoatzintepec" parten en líneas: así las cifras quedan a la vista en móvil. */
+.tablaMunicipios th {
+  white-space: normal;
+}
+
+.tablaMunicipios th[scope="row"] {
+  min-width: 9rem;
+}
+
+.tablaMunicipios th .orden {
+  text-align: left;
+  padding-block: 6px;
+}
+
+.tablaMunicipios tr[aria-current="true"] {
+  background: var(--rosa-50);
+}

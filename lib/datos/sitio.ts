@@ -2,8 +2,7 @@
 import "server-only";
 import meta from "@/data/web/meta.json";
 import geo from "@/public/geo/entidades.json";
-
-export type Trazo = { clave: number; nombre: string; d: string; centro: [number, number] };
+import type { Trazo } from "./tipos-geo";
 
 export const META = meta as {
   v: string;
