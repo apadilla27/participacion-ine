@@ -173,7 +173,7 @@ a:hover {
   padding-inline: max(var(--gutter), env(safe-area-inset-left)) max(var(--gutter), env(safe-area-inset-right));
 }
 
-/* Acciones: una dorada por tarea (rosa INE), contorno para la ruta hermana */
+/* Acciones: una primaria por tarea (rosa INE), contorno para la ruta hermana */
 .btn {
   display: inline-flex;
   align-items: center;
