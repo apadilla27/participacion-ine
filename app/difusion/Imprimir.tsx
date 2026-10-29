@@ -2,7 +2,7 @@
 
 export function Imprimir() {
   return (
-    <button type="button" className="btn btn-dorado" onClick={() => window.print()}>
+    <button type="button" className="btn btn-primario" onClick={() => window.print()}>
       Guardar como PDF
     </button>
   );

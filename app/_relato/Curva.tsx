@@ -10,6 +10,8 @@ import estilos from "./relato.module.css";
 // En móvil el lienzo es más angosto para que la curva tenga altura y el texto del eje se lea.
 const LIENZO = { ancho: 760, angosto: 420 };
 const ALTO = 320;
+// Margen izquierdo para las etiquetas del eje: así las líneas no las tachan a los 18 años.
+const MARGEN = 40;
 
 type Momento = { edad: number; titulo: string; cuerpo: string };
 
@@ -74,7 +76,7 @@ export function Curva({
 
   const maximo = Math.max(...puntos.flatMap((p) => [p.todos ?? 0, p.hombres ?? 0, p.mujeres ?? 0]));
   const tope = Math.ceil(maximo / 10) * 10 + 10;
-  const x = (edad: number) => ((edad - 18) / 82) * ancho;
+  const x = (edad: number) => MARGEN + ((edad - 18) / 82) * (ancho - MARGEN - 8);
   const y = (valor: number) => ALTO - (Math.min(valor, tope) / tope) * (ALTO - 16) - 8;
   const trazo = (llave: "todos" | "hombres" | "mujeres") =>
     puntos
@@ -125,12 +127,15 @@ export function Curva({
           >
             {niveles.map((n) => (
               <g key={n} className={estilos.guia}>
-                <line x1="0" x2={ancho} y1={y(n)} y2={y(n)} />
-                <text x="0" y={y(n) - 6}>
+                <line x1={MARGEN} x2={ancho} y1={y(n)} y2={y(n)} />
+                <text x={MARGEN - 8} y={y(n) + 5} textAnchor="end">
                   {n}
                 </text>
               </g>
             ))}
+            <text className={estilos.eje} x="0" y="12">
+              Votaron de cada 100
+            </text>
             <path className={estilos.lineaMujeres} d={trazo("mujeres")} />
             <path className={estilos.lineaHombres} d={trazo("hombres")} />
             <path className={estilos.lineaTodos} d={trazo("todos")} />
@@ -141,8 +146,14 @@ export function Curva({
               </g>
             ) : null}
             {(ancho === LIENZO.angosto ? [18, 40, 60, 80, 100] : [18, 30, 40, 50, 60, 70, 80, 100]).map((edad) => (
-              <text key={edad} className={estilos.eje} x={x(edad)} y={ALTO + 24} textAnchor="middle">
-                {edad === 100 ? "100+" : edad}
+              <text
+                key={edad}
+                className={estilos.eje}
+                x={edad === 100 ? ancho : x(edad)}
+                y={ALTO + 24}
+                textAnchor={edad === 100 ? "end" : "middle"}
+              >
+                {edad === 100 ? "100+ años" : edad}
               </text>
             ))}
           </svg>
@@ -200,25 +211,26 @@ export function Curva({
       <div className="contenedor">
         <h3 className={estilos.subtitulo}>La distancia entre los 18-29 años y el país, elección por elección</h3>
         <div className="tabla-caja">
-          <table className="tabla">
+          <table className={`tabla ${estilos.tablaSerie}`}>
             <caption>Votaron de cada 100 en el país y entre las personas de 18 a 29 años.</caption>
             <thead>
               <tr>
                 <th scope="col">Elección</th>
-                <th scope="col">Tipo</th>
                 <th scope="col">País</th>
-                <th scope="col">18 a 29</th>
-                <th scope="col">Diferencia</th>
+                <th scope="col">18{" "}a{" "}29</th>
+                <th scope="col">Diferencia (puntos)</th>
               </tr>
             </thead>
             <tbody>
               {datos.serie.map((f) => (
                 <tr key={f.slug}>
-                  <th scope="row">{f.etiqueta}</th>
-                  <td>{f.tipo === "judicial" ? "Judicial, otra jornada" : f.presidencial ? "Presidencial" : "Intermedia"}</td>
+                  <th scope="row">
+                    {f.etiqueta}
+                    <span>{f.tipo === "judicial" ? "Otra jornada" : f.presidencial ? "Presidencial" : "Intermedia"}</span>
+                  </th>
                   <td>{CIEN.format(f.pct)}</td>
                   <td>{f.joven == null ? "sin dato" : CIEN.format(f.joven)}</td>
-                  <td>{f.joven == null ? "—" : `${firmado(Math.round((f.joven - f.pct) * 100) / 100)} puntos`}</td>
+                  <td>{f.joven == null ? "—" : firmado(Math.round((f.joven - f.pct) * 100) / 100)}</td>
                 </tr>
               ))}
             </tbody>

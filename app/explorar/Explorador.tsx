@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { Pastel } from "@/app/_ui/Pastel";
 import { ELECCIONES, ENTIDADES, GRUPOS, RECIENTE, SEXOS, eleccionPorSlug, etiquetaEleccion, nombreLugar } from "@/lib/catalogo";
 import {
@@ -21,6 +21,8 @@ type Filtros = { e: string; ent: number; s: number; g: number; m: number | null 
 type Carga<T> = { estado: "cargando" } | { estado: "error" } | { estado: "listo"; datos: T };
 
 const SEXOS_VALIDOS = new Set<number>(SEXOS.map((x) => x.id));
+const sinSuscripcion = () => () => {};
+const puedeCompartir = () => typeof navigator.share === "function";
 const ENTIDADES_ORDEN = ENTIDADES.filter((x) => x.clave > 0).sort((a, b) => a.corto.localeCompare(b.corto, "es-MX"));
 
 let cuboEntidadPromesa: Promise<CuboEntidad> | null = null;
@@ -80,6 +82,8 @@ export function Explorador() {
   const [cubo, setCubo] = useState<Carga<CuboEntidad>>({ estado: "cargando" });
   const [municipios, setMunicipios] = useState<Carga<CuboMunicipios> | null>(null);
   const [busqueda, setBusqueda] = useState("");
+  const [aviso, setAviso] = useState("");
+  const compartible = useSyncExternalStore(sinSuscripcion, puedeCompartir, () => false);
   const [intento, setIntento] = useState(0);
   const [orden, setOrden] = useState<{ por: "nombre" | "valor"; asc: boolean }>({ por: "valor", asc: false });
 
@@ -96,7 +100,28 @@ export function Explorador() {
       return siguiente;
     });
     setAvisoEnlace(false);
+    setAviso("");
   }, []);
+
+  // Comparte la dirección con los filtros; sin la API de compartir, la copia.
+  async function compartir(texto: string) {
+    const url = window.location.href;
+    if (compartible) {
+      try {
+        await navigator.share({ url, text: texto });
+        setAviso("");
+        return;
+      } catch (error) {
+        if ((error as { name?: string }).name === "AbortError") return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      setAviso("Enlace copiado.");
+    } catch {
+      setAviso("No se pudo copiar. Copia la dirección de la página.");
+    }
+  }
 
   // El municipio se elige desde la lista o la tabla, debajo del resultado: lo llevamos a la vista y le damos el foco.
   const titulo = useRef<HTMLHeadingElement>(null);
@@ -167,6 +192,7 @@ export function Explorador() {
   const lugar = nombreMunicipio ?? nombreEntidad;
   const sexoTexto = SEXOS.find((x) => x.id === filtros.s)!.etiqueta.toLowerCase();
   const grupoTexto = GRUPOS.find((x) => x.id === filtros.g)!.etiqueta;
+  const cortes = `${sexoTexto}, ${filtros.g === 0 ? "todas las edades" : `${grupoTexto} años`}`;
 
   const coincidencias = useMemo(() => {
     const texto = busqueda.trim().toLocaleLowerCase("es-MX").normalize("NFD").replace(/\p{Diacritic}/gu, "");
@@ -250,7 +276,7 @@ export function Explorador() {
         <div className="estado" data-tono="error" role="alert">
           <p>No pudimos cargar los datos. Revisa tu conexión.</p>
           <div className="acciones">
-            <button type="button" className="btn btn-dorado" onClick={() => setIntento((n) => n + 1)}>
+            <button type="button" className="btn btn-primario" onClick={() => setIntento((n) => n + 1)}>
               Reintentar
             </button>
           </div>
@@ -306,12 +332,28 @@ export function Explorador() {
                 <Pastel tamano={168} valor={valor} titulo={`${lugar}: votaron ${deCada(valor)}`} />
                 <div className={estilos.datoTexto}>
                   <p className={estilos.frase}>
-                    En {lugar}, votaron {deCada(valor)} ({sexoTexto}, {filtros.g === 0 ? "todas las edades" : `${grupoTexto} años`}) en la
-                    elección {etiquetaEleccion(eleccion)}.
+                    {filtros.ent === 0 ? "En todo el país votaron" : "Aquí votaron"} <strong className="cifra">{deCada(valor)}</strong> (
+                    {cortes}) en la elección {etiquetaEleccion(eleccion)}.
                   </p>
                   {celda ? <p>Lista nominal: {ENTEROS.format(celda[0])} personas.</p> : null}
                   {valorEntidad != null ? <p>Votaron {frente(valor, valorEntidad, nombreEntidad)}.</p> : null}
                   {valorPais != null ? <p>Votaron {frenteAlPais(valor, valorPais)}.</p> : null}
+                  <div className="acciones">
+                    <button
+                      type="button"
+                      className="btn btn-primario"
+                      onClick={() =>
+                        compartir(`En ${lugar} votaron ${deCada(valor)} (${cortes}) en la elección ${etiquetaEleccion(eleccion)}. #MakeTheChange`)
+                      }
+                    >
+                      {compartible ? "Compartir" : "Copiar enlace"}
+                    </button>
+                  </div>
+                  {aviso ? (
+                    <p className="nota" role="status">
+                      {aviso}
+                    </p>
+                  ) : null}
                 </div>
               </div>
             )}
@@ -319,7 +361,7 @@ export function Explorador() {
 
           <section aria-labelledby="edades-titulo">
             <h2 id="edades-titulo" className={estilos.titulo3}>
-              Por edad en {lugar}
+              Por edad
             </h2>
             <div className={estilos.edades}>
               {GRUPOS.filter((x) => x.id > 0).map((x) => {
@@ -353,7 +395,7 @@ export function Explorador() {
                 <div className="estado" data-tono="error" role="alert">
                   <p>No pudimos cargar los municipios de {nombreEntidad}.</p>
                   <div className="acciones">
-                    <button type="button" className="btn btn-dorado" onClick={() => setIntento((n) => n + 1)}>
+                    <button type="button" className="btn btn-primario" onClick={() => setIntento((n) => n + 1)}>
                       Reintentar
                     </button>
                     {filtros.m != null ? (
@@ -418,7 +460,7 @@ export function Explorador() {
                   <div className={`tabla-caja ${estilos.tablaMunicipios}`}>
                     <table className="tabla">
                       <caption>
-                        Votaron de cada 100: {sexoTexto}, {filtros.g === 0 ? "todas las edades" : `${grupoTexto} años`},{" "}
+                        Votaron de cada 100: {cortes},{" "}
                         {etiquetaEleccion(eleccion)}.
                       </caption>
                       <thead>
@@ -436,6 +478,11 @@ export function Explorador() {
                                 onClick={() => setOrden((o) => ({ por, asc: o.por === por ? !o.asc : por === "nombre" }))}
                               >
                                 {texto}
+                                {orden.por === por ? (
+                                  <svg className="flecha" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+                                    <path d={orden.asc ? "M1 7l4-4 4 4" : "M1 3l4 4 4-4"} />
+                                  </svg>
+                                ) : null}
                               </button>
                             </th>
                           ))}

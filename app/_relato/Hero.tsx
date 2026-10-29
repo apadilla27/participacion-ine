@@ -21,7 +21,7 @@ export function Hero({ datos }: { datos: RelatoDatos }) {
           nominal y votaron {deCada(hero.pct)}. Las mujeres votaron {CIEN.format(brecha)} puntos más que los hombres.
         </p>
         <div className="acciones">
-          <a className="btn btn-dorado" href="#huella">
+          <a className="btn btn-primario" href="#huella">
             Calcula tu caso
           </a>
           <a className="btn btn-contorno" href="#mapa">

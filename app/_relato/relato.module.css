@@ -137,6 +137,15 @@
   background: var(--hombres);
 }
 
+/* El volteo se marca con la etiqueta de edad en rosa; la leyenda muestra esa misma marca. */
+.leyendaBarras li[data-serie="volteo"]::before {
+  content: none;
+}
+
+.leyendaBarras li[data-serie="volteo"] strong {
+  color: var(--rosa-700);
+}
+
 .curvaLienzo {
   width: 100%;
   height: auto;
@@ -178,6 +187,23 @@
   stroke: var(--hombres);
   stroke-width: 2.5;
   stroke-dasharray: 7 6;
+}
+
+/* Serie 18-29 frente al país: cuatro columnas que caben en 358 px. El tipo de elección va bajo el año. */
+.tablaSerie th,
+.tablaSerie td {
+  padding-inline: 10px;
+}
+
+.tablaSerie thead th {
+  white-space: normal;
+  vertical-align: bottom;
+}
+
+.tablaSerie th[scope="row"] span {
+  display: block;
+  font-weight: 400;
+  color: var(--tinta-2);
 }
 
 .marca {

@@ -23,6 +23,7 @@ export function Espejo({
   const brecha = mujeres != null && hombres != null ? Math.round((mujeres - hombres) * 100) / 100 : null;
   const volteo = datos.curvas[eleccion].momentos.volteo;
   const bandas = datos.bandas[eleccion];
+  const hayVolteo = bandas.some((b) => b.hombres != null && b.mujeres != null && b.hombres > b.mujeres);
 
   return (
     <section className={`contenedor ${estilos.espejo}`} id="espejo" aria-labelledby="espejo-titulo">
@@ -48,10 +49,20 @@ export function Espejo({
         <ul className={estilos.leyendaBarras} aria-label="Leyenda">
           <li data-serie="mujeres">Mujeres</li>
           <li data-serie="hombres">Hombres</li>
+          {hayVolteo ? (
+            <li data-serie="volteo">
+              <span>
+                <strong>Edad en rosa</strong>: ahí los hombres votan más
+              </span>
+            </li>
+          ) : null}
         </ul>
       </div>
       <table className={estilos.espejoTabla}>
-        <caption className="sr-only">Votaron de cada 100 mujeres y hombres por edad, elección {ev.etiqueta}.</caption>
+        <caption className="sr-only">
+          Votaron de cada 100 mujeres y hombres por edad, elección {ev.etiqueta}.
+          {hayVolteo ? " Las edades en rosa marcan dónde los hombres votan más." : ""}
+        </caption>
         <colgroup>
           <col />
           <col className={estilos.colEdad} />

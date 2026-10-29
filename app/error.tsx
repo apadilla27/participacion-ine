@@ -8,7 +8,7 @@ export default function ErrorDePagina({ reset }: { error: Error & { digest?: str
       <h1>Algo falló al mostrar esta sección</h1>
       <p>Vuelve a intentarlo. Si el problema sigue, regresa al relato.</p>
       <div className="acciones">
-        <button type="button" className="btn btn-dorado" onClick={() => reset()}>
+        <button type="button" className="btn btn-primario" onClick={() => reset()}>
           Reintentar
         </button>
         <Link className="btn btn-contorno" href="/">

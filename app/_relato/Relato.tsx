@@ -27,7 +27,7 @@ export function Relato({ datos }: { datos: RelatoDatos }) {
         <h2 id="cierre-titulo">Tu municipio también tiene su historia</h2>
         <p>Elige elección, entidad, sexo y edad, y compara tu municipio con tu entidad y con el país.</p>
         <div className="acciones">
-          <Link className="btn btn-dorado" href="/explorar">
+          <Link className="btn btn-primario" href="/explorar">
             Explora tu municipio
           </Link>
           <Link className="btn btn-contorno" href="/difusion">

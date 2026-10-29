@@ -275,7 +275,7 @@ export function Huella({ datos }: { datos: RelatoDatos }) {
               {caso.contraste ? <p>{caso.contraste}</p> : null}
               {caso.escenario ? <p>{caso.escenario}</p> : null}
               <div className="acciones">
-                <button type="button" className="btn btn-dorado" onClick={compartir} disabled={trabajando}>
+                <button type="button" className="btn btn-primario" onClick={compartir} disabled={trabajando}>
                   {compartible ? "Compartir" : "Descargar imagen"}
                 </button>
                 <button type="button" className="btn btn-contorno" onClick={copiar}>

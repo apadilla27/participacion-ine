@@ -189,12 +189,12 @@ a:hover {
   transition: background-color 150ms ease-out, color 150ms ease-out, border-color 150ms ease-out;
 }
 
-.btn-dorado {
+.btn-primario {
   background: var(--rosa);
   color: #fff;
 }
 
-.btn-dorado:hover {
+.btn-primario:hover {
   background: var(--rosa-700);
   border-color: var(--rosa-700);
 }
@@ -292,6 +292,29 @@ a:hover {
   cursor: pointer;
   text-decoration: underline dotted;
   text-underline-offset: 0.25em;
+}
+
+/* Flecha dibujada junto al encabezado que ordena la tabla. */
+.tabla thead .orden {
+  white-space: nowrap;
+}
+
+.tabla .orden .flecha {
+  display: inline-block; /* el reset de Tailwind pone los svg en bloque */
+  margin-left: 6px;
+  vertical-align: middle;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Con ratón las filas pueden ser más bajas: caben más municipios en la caja. */
+@media (pointer: fine) {
+  .tabla tbody .orden {
+    min-height: 32px;
+  }
 }
 
 /* Selectores nativos */

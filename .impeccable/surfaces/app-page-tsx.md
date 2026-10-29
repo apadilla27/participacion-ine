@@ -25,7 +25,7 @@ OWN-WORLD: Identidad del INE. Fondo blanco y gris cálido muy claro; rosa mexica
 
 STORY: Ve que a los 18 votan más que a los 25 y que las mujeres votan más; calcula su caso por lugar, edad y sexo; encuentra su entidad en el mapa; explora su municipio y comparte su resultado.
 
-FIRST VIEWPORT: Encabezado con logotipo INE, "M" de campaña y aviso de prototipo. H1 calculado ("A los 18, X de cada 100 votaron. Entre los hombres de N, Y.") a la izquierda en Advent Pro; dos pasteles grandes (18 años y hombres de N) a la derecha en escritorio y debajo del texto en móvil; tres cifras de 2024; botón dorado "Calcula tu caso" y contorno "Ver el mapa".
+FIRST VIEWPORT: Encabezado con logotipo INE, "M" de campaña y aviso de prototipo. H1 calculado ("A los 18, X de cada 100 votaron. Entre los hombres de N, Y.") a la izquierda en Advent Pro; dos pasteles grandes (18 años y hombres de N) a la derecha en escritorio y debajo del texto en móvil; tres cifras de 2024; botón rosa (primario) "Calcula tu caso" y contorno "Ver el mapa".
 
 FORM: Relato vertical por capítulos (hero, curva, huella, mapa, espejo, otras formas, cierre), estructura heredada de la versión anterior y conservada por decisión de la usuaria. seed: none (dirección fijada por la usuaria; no se tiró el dado, D43).
 

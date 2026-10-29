@@ -9,7 +9,7 @@ export default function NoEncontrada() {
       <h1>Esta página no existe</h1>
       <p>Puede que el enlace esté incompleto. Desde aquí puedes volver al relato o buscar tu entidad y tu municipio.</p>
       <div className="acciones">
-        <Link className="btn btn-dorado" href="/">
+        <Link className="btn btn-primario" href="/">
           Ir al relato
         </Link>
         <Link className="btn btn-contorno" href="/explorar">

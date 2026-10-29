@@ -186,7 +186,7 @@ export function Mapa({ datos }: { datos: RelatoDatos }) {
                 <div className="acciones">
                   <button
                     type="button"
-                    className="btn btn-dorado"
+                    className="btn btn-primario"
                     onClick={() => {
                       setGeo({ estado: "cargando" });
                       setIntentoGeo((n) => n + 1);
@@ -351,7 +351,7 @@ export function Mapa({ datos }: { datos: RelatoDatos }) {
             </div>
             {elegido != null ? (
               <div className="acciones">
-                <Link className="btn btn-dorado" href={`/explorar?e=${eleccion}&ent=${elegido}`}>
+                <Link className="btn btn-primario" href={`/explorar?e=${eleccion}&ent=${elegido}`}>
                   Ver municipios de {nombreLugar(elegido)}
                 </Link>
                 <button type="button" className="btn btn-contorno" onClick={() => elegir(null)}>
@@ -394,6 +394,11 @@ export function Mapa({ datos }: { datos: RelatoDatos }) {
                           onClick={() => setOrden((o) => ({ por, asc: o.por === por ? !o.asc : por === "nombre" }))}
                         >
                           {texto}
+                          {orden.por === por ? (
+                            <svg className="flecha" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+                              <path d={orden.asc ? "M1 7l4-4 4 4" : "M1 3l4 4 4-4"} />
+                            </svg>
+                          ) : null}
                         </button>
                       </th>
                     ))}
