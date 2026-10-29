@@ -5,39 +5,58 @@
 
 | # | Decisión | Por qué | Alternativa descartada |
 |---|---|---|---|
-| D1 | Solo agregados en Supabase; ETL local en DuckDB | 64.7 M filas no caben en 500 MB; el sitio solo necesita agregados | cargar crudo en plan Pro |
-| D2 | Marginales precalculados (`sexo=9`, `grupo_edad_id=0`, `entidad_clave=0`) | PostgREST no agrega; consultas tipadas y cacheables | vistas con `GROUP BY` por petición |
+| D1 | Solo agregados en Supabase; ETL local en DuckDB | 64.7 M filas no caben en 500 MB; el sitio solo necesita agregados | cargar crudo en plan Pro · **Reemplazada en parte por D37** |
+| D2 | Marginales precalculados (`sexo=9`, `grupo_edad_id=0`, `entidad_clave=0`) | PostgREST no agrega; consultas tipadas y cacheables | vistas con `GROUP BY` por petición · **Reemplazada por D37** |
 | D3 | Pseudo-entidad 0 = Nacional solo en tablas de entidad | una consulta para "nacional contra estado"; `CHECK` evita doble conteo | tabla nacional aparte |
 | D4 | `municipio_id = entidad*1000 + clave` + slug | determinista, legible en URLs, sin join en ETL | serial opaco |
 | D5 | Prisión preventiva y voto anticipado son modalidades de FED2024 | no son elecciones; no deben entrar a series | `tipo='modalidad'` |
 | D6 | Sin `agg_distrito` en v1 | los distritos cambian de marco entre elecciones y no están en el mapa de historias | tabla de distritos |
-| D7 | `metadatos` en la BD; fuentes y glosario en `content/` | el contenido editorial es del repo; una sola fila de verdad para la versión de datos | tablas de contenido |
-| D8 | Cache Components + parámetros de ruta; sin `/api/datos/*` | modelo recomendado en Next 16.4; prerender garantizado con `ensureStatic` | `force-static` + Route Handlers con `s-maxage` |
+| D7 | `metadatos` en la BD; fuentes y glosario en `content/` | el contenido editorial es del repo; una sola fila de verdad para la versión de datos | tablas de contenido · **Reemplazada por D37 y D53** |
+| D8 | Cache Components + parámetros de ruta; sin `/api/datos/*` | modelo recomendado en Next 16.4; prerender garantizado con `ensureStatic` | `force-static` + Route Handlers con `s-maxage` · **Ajustada por D37** |
 | D9 | Imágenes OG con `opengraph-image.tsx` y un solo `TarjetaOG` | idiomático y con un dueño del diseño | `api/og` manual |
 | D10 | Sin `/comparar` ni `/capitulos/[slug]` | la comparación contra Nacional va integrada; los capítulos son anclas | páginas extra |
 | D11 | `pct = sv/ln` principal; ajustada y `pct_ns` visibles | conservadora y comparable con el INE; honesta sobre NS | solo ajustada |
 | D12 | Umbral de privacidad `ln ≥ 30`; no binario solo a nivel entidad | evita identificar personas (hay celdas con LN = 3) | mostrar todo |
-| D13 | Mapa coroplético diferido; si se hace, con cartografía del INE (SIGE) | claves INE ≠ INEGI (Ecatepec es 15034 en INE y 15033 en INEGI) | TopoJSON de INEGI |
+| D13 | Mapa coroplético diferido; si se hace, con cartografía del INE (SIGE) | claves INE ≠ INEGI (Ecatepec es 15034 en INE y 15033 en INEGI) | TopoJSON de INEGI · **Reemplazada por D40** |
 | D14 | Versiones vigentes pineadas exactas | builds reproducibles | "latest" sin pinear · **Reemplazada por D33** |
-| D15 | Keepalive diario por cron de Vercel | Supabase Free se pausa tras 7 días sin actividad; Hobby permite 1 al día | sin keepalive |
-| D16 | Sin autenticación ni panel admin | producto público y de solo lectura; operación = `metadatos` + reporte del ETL + Studio | admin propio |
-| D17 | Cifras de la narrativa desde `lib/data/cifras.ts`, nunca a mano | narrativa y explorador no pueden contradecirse | números en el texto |
+| D15 | Keepalive diario por cron de Vercel | Supabase Free se pausa tras 7 días sin actividad; Hobby permite 1 al día | sin keepalive · **Reemplazada por D37** |
+| D16 | Sin autenticación ni panel admin | producto público y de solo lectura; operación = `metadatos` + reporte del ETL + Studio | admin propio · **Ajustada por D53** |
+| D17 | Cifras de la narrativa desde `lib/data/cifras.ts`, nunca a mano | narrativa y explorador no pueden contradecirse | números en el texto · **Ajustada por D52** |
 | D18 | Sin identidad gráfica del INE | no suplantar una institución; se cita como fuente | logotipo del INE · **Reemplazada por D36** |
-| D19 | Solo Recharts en v1 | menos dependencias; la curva de edad sale con `Area` | D3 |
+| D19 | Solo Recharts en v1 | menos dependencias; la curva de edad sale con `Area` | D3 · **Reemplazada por D41** |
 | D20 | Pruebas: `tsc`, ESLint, verificación de datos y matriz manual | el riesgo está en los datos | Playwright |
-| D21 | Impeccable gobierna toda la UI: init → shape → new-work → build → finish-reviewer → documenter; critique/audit/harden/adapt/clarify/polish al cierre | instalado por la usuaria; piso de calidad y revisión con ojos frescos | diseñar a ojo |
+| D21 | Impeccable gobierna toda la UI: init → shape → new-work → build → finish-reviewer → documenter; critique/audit/harden/adapt/clarify/polish al cierre | instalado por la usuaria; piso de calidad y revisión con ojos frescos | diseñar a ojo · **Ajustada por D43** |
 | D22 | Modos: Home, Entidad, Metodología y Embeds = Read; Explorar = Operate; todo code-led | superficies de lectura y de tarea | Persuade en home |
-| D23 | El mundo visual lo decide la ronda de dirección de Impeccable; DESIGN.md después del primer build | evita el estilo por defecto y defender reglas contra la realidad | fijar tokens ahora |
+| D23 | El mundo visual lo decide la ronda de dirección de Impeccable; DESIGN.md después del primer build | evita el estilo por defecto y defender reglas contra la realidad | fijar tokens ahora · **Reemplazada por D42** |
 | D24 | Detector de Impeccable: hook automático en Cursor (`.cursor/hooks.json`); en Claude Code, `impeccable detect --json` manual al final de cada edición de UI | la skill está instalada solo para Cursor; `hooks on` instaló el manifiesto de Cursor | instalar la skill también para Claude Code |
-| D25 | Carga con `etl/load.py` (psycopg 3, `COPY FROM STDIN`, una transacción) | no requiere psql; verifica conteos, conciliación y permisos después | `load.ps1` con psql |
-| D26 | Prueba local de migraciones y carga con PGlite (`npm run db:test-local`) | ejecuta PostgreSQL 17 real sin Docker antes de tocar Supabase | probar directo en Supabase |
+| D25 | Carga con `etl/load.py` (psycopg 3, `COPY FROM STDIN`, una transacción) | no requiere psql; verifica conteos, conciliación y permisos después | `load.ps1` con psql · **Reemplazada por D37** |
+| D26 | Prueba local de migraciones y carga con PGlite (`npm run db:test-local`) | ejecuta PostgreSQL 17 real sin Docker antes de tocar Supabase | probar directo en Supabase · **Reemplazada por D37** |
 | D27 | DEF y DEL pueden ser nulos | 318 secciones de 2009 y 221 de 2012 no existen en el marco DERFE 2021; 1.9% de la LN de 2024 no tiene DEL | descartar esas filas |
 | D28 | Reasignar claves de municipio de Chiapas 2018 (`etl/remapeo_municipios.csv`) | en 2018 las claves 120-124 pertenecían a otros municipios (secciones provisionales 5001-5012) | dejar la clave de la fuente |
 | D29 | Nombre de municipio = grafía presente en más elecciones (empate: la más reciente) + `etl/overrides_municipios.csv` | 100 municipios cambian de grafía; la mayoría corrige erratas de un solo año | tomar siempre el año más reciente |
 | D30 | La supresión de no binario con `ln < 30` se hace en el ETL; esas celdas nunca llegan a la BD | la tabla es de lectura pública; filtrar solo en vistas no protege | filtrar en vistas |
 | D31 | Proyecto fuera de OneDrive (`C:\Users\anafe\Desktop\Proyecto GOB`); datos del ETL en `%USERPROFILE%\participacion-ine-etl`; entorno Python en `etl\.venv` | OneDrive bloqueó `node_modules` y los datos pesan 590 MB | trabajar dentro de OneDrive |
 | D32 | Chequeo de plausibilidad: mujeres > hombres en cada federal | "mujeres > 60%" no se cumple en 2009, 2015 ni 2021 | umbral fijo de 60% |
-| D33 | Versiones fijadas: Node 24.22.1, Next 16.4.3, React 19.3.0, Tailwind 4.3.3, Recharts 3.10.1, @supabase/supabase-js 2.118.0, zod 4.6.7, Supabase CLI 2.122.0, TypeScript 5.9.3, ESLint 9.39.5, PGlite 0.5.11, Python 3.13.14, DuckDB 2.0.0, psycopg 3.3.6 | versiones instaladas y probadas el 2026-10-24 | rangos `^` |
-| D34 | Migraciones con nombre de fecha y `GRANT` explícitos | `supabase db push` ordena por fecha; proyectos nuevos pueden no exponer tablas nuevas a la Data API | depender de permisos por defecto |
-| D36 | Identidad institucional del INE, condicionada a autorización escrita de los organizadores y archivos oficiales; sin ellos no se recrea el logotipo y se usa un marcador | decisión de la usuaria: el reto es del INE y el material es educativo institucional | identidad propia (D18) |
-| D35 | Supabase solo desde el servidor: `SUPABASE_URL` y `SUPABASE_PUBLISHABLE_KEY` sin prefijo `NEXT_PUBLIC_` | todo se lee en build o ISR; el navegador nunca consulta Supabase | cliente en el navegador |
+| D33 | Versiones fijadas: Node 24.22.1, Next 16.4.3, React 19.3.0, Tailwind 4.3.3, Recharts 3.10.1, @supabase/supabase-js 2.118.0, zod 4.6.7, Supabase CLI 2.122.0, TypeScript 5.9.3, ESLint 9.39.5, PGlite 0.5.11, Python 3.13.14, DuckDB 2.0.0, psycopg 3.3.6 | versiones instaladas y probadas el 2026-10-24 | rangos `^` · **Reemplazada por D51** |
+| D34 | Migraciones con nombre de fecha y `GRANT` explícitos | `supabase db push` ordena por fecha; proyectos nuevos pueden no exponer tablas nuevas a la Data API | depender de permisos por defecto · **Reemplazada por D37** |
+| D36 | Identidad institucional del INE, condicionada a autorización escrita de los organizadores y archivos oficiales; sin ellos no se recrea el logotipo y se usa un marcador | decisión de la usuaria: el reto es del INE y el material es educativo institucional | identidad propia (D18) · **Confirmada por D38** |
+| D35 | Supabase solo desde el servidor: `SUPABASE_URL` y `SUPABASE_PUBLISHABLE_KEY` sin prefijo `NEXT_PUBLIC_` | todo se lee en build o ISR; el navegador nunca consulta Supabase | cliente en el navegador · **Reemplazada por D37** |
+| D37 | Sin Supabase: el sitio lee JSON estáticos exportados del ETL validado (`npm run datos`); los de `data/web` se importan en módulos de servidor y quedan prerenderados sin `'use cache'` | datos históricos fijos, demo sin pausas ni red; decisión de la usuaria (2026-10-27) | base en Supabase (D1, D2, D7, D15, D25, D26, D34, D35) |
+| D38 | Identidad del INE con el logotipo oficial gris de ine.mx, sin alterar; aviso fijo "Prototipo para el Reto 3 del Hackatón INE 2026. No es un sitio oficial del INE." en encabezado y pie | las bases del reto lo permiten; el aviso evita confusión (el INE pidió no usar su logo sin autorización, ACQyD-INE-131/2024). El logotipo móvil de ine.mx no se usa: es la imagen de un botón con el texto "Inicio" | sin identidad (D18) |
+| D39 | El INE es el emisor y "Make the Change" la campaña; la "M" con flecha se redibuja en SVG con la paleta INE y es el favicon | decisión de la usuaria | marca propia sola |
+| D40 | Geometría estatal: INEGI (2024) AGEE 1:250000 publicada por CONABIO (CC BY-NC 2.5 MX), proyectada a EPSG:6372, islas menores a 400 km² fuera, simplificada al 1.2% con mapshaper y llevada a un viewBox de 1000×640; se cita con la nota de transformación | el Marco Geoestadístico completo pesa 2.7-3.1 GB y la "Carta" es PDF; la usuaria aprobó la descarga de CONABIO | cartografía del INE (D13) |
+| D41 | Gráficas en SVG propio; se retira Recharts | ya existían y funcionan; menos dependencias | Recharts (D19) |
+| D42 | Se abandona el contrato "fichero" de Impeccable; la portada conserva la estructura del relato | la usuaria pidió conservar esta interacción; el abanico no mostraba datos | dirección de Impeccable (D23) |
+| D43 | Impeccable sin ronda de dirección: marca y composición fijadas por la usuaria; flujo shape → construir → detector, auditoría y ajustes → revisión final → `DESIGN.md` | una ronda sobre una dirección fija no aporta y gasta tiempo | ronda de dados (D21) |
+| D44 | Mensaje central: titular calculado ("A los 18, X de cada 100 votaron. Entre los hombres de N, Y.") y entradilla fija ("Descubre quién participa, dónde y cuánto ha cambiado desde 2009.") | el dato concreto engancha y la entradilla da el marco | mensaje fijo anterior |
+| D45 | Glosario: "votaron" = SV / LN con dos decimales en todo el sitio; "no votaron" = NV / LN; "sin dato" = NS / LN, nombrado aparte | la versión anterior redondeaba a enteros y mezclaba NV con NS | porcentajes enteros |
+| D46 | Privacidad única: toda celda desagregada por sexo o edad con `ln < 30` se exporta sin SV, NV ni NS; la verificación previa al build lo exige | se exponían 15,776 celdas municipales por sexo, 2,767 por edad y 176 de entidad por edad | amplía D12 y D30 |
+| D47 | Datos del explorador en archivos estáticos por elección y entidad (`public/datos/m/{eleccion}/{entidad}.json`, 223 archivos) | Oaxaca tiene 119,556 filas; partido por elección se sirve por CDN sin función | Route Handler `api/conteos` |
+| D48 | Tipografía: Advent Pro (local, OFL) para títulos y cifras; pila Arial para el texto | el manual del INE usa Arial; nada que descargar para leer | Farro |
+| D49 | Colores: rosa INE `#D5007F` para el dato principal y escala de seis clases de rosa a vino `#5C0C30`; mujeres en vino con línea continua y hombres en gris `#4D4F53` con línea discontinua | sin estereotipo rosa/azul y legible con daltonismo | violeta y azul |
+| D50 | La imagen para compartir lleva la marca de campaña, la fuente y el aviso, no el logotipo del INE | una tarjeta suelta con el logo del INE parecería oficial | logotipo en la imagen |
+| D51 | Versiones: Next 16.4.3, React y React DOM 19.3.1, TypeScript 5.9.3, Tailwind 4.3.3, zod 4.6.7, mapshaper 0.7.100, Node 24, Python 3.13, DuckDB 2.0.0 | versiones vigentes sin cambio de versión mayor | D33 |
+| D52 | Un dueño por tema: `lib/datos/` lee los datos; `lib/catalogo.ts` sale de `data/web/catalogo.json`; `lib/formato.ts` formatea y guarda el glosario; `app/_ui/` guarda los primitivos | el catálogo estaba duplicado y el pastel redondeaba distinto en cada página | `lib/data/cifras.ts` (D17) |
+| D53 | Sin consola de administración: la versión y fecha de `data/web/meta.json` se muestran en el pie y en `/metodologia`; el reporte del ETL y la verificación previa al build son el control | el sitio es de solo lectura | `metadatos` en la base (D7, D16) |
+| D54 | Tailwind procesa solo `app/globals.css`; los componentes usan CSS Modules y alcanzan las clases globales con `:global(...)`. Las tablas van en `.tabla-caja` con `contain: inline-size` | con la regla `*.css` los CSS Modules perdían sus clases locales; sin `contain` una tabla ensanchaba la página en móvil | Tailwind en todos los CSS |
+| D55 | La geometría del mapa se descarga solo cuando se muestra el mapa; en móvil la vista inicial es el mosaico y no la pide | la portada bajó de 588 KB a 226 KB (80 KB comprimida) | geometría en la carga inicial |

@@ -8,7 +8,7 @@ web
 
 ## Stack
 
-Next.js 16.4 (App Router, Cache Components) + TypeScript + Tailwind CSS 4 + Recharts 3. Datos agregados en Supabase (PostgreSQL, plan Free) que se leen solo en el servidor; despliegue en Vercel. Decidido por la usuaria al planear el proyecto; versiones exactas en `docs/decision-log.md` (D33).
+Next.js 16.4 (App Router, Cache Components) + TypeScript + CSS Modules con tokens en Tailwind CSS 4. Gráficas en SVG propio. Datos estáticos: JSON compactos que exporta el ETL validado (`npm run datos`), empaquetados en el build o servidos desde `public/datos`; sin base de datos (D37). Despliegue en Vercel. Versiones exactas en `docs/decision-log.md` (D51).
 
 ## Users
 
@@ -39,19 +39,25 @@ Usa conteos censales, no muestras: cada cifra sale de los cuadernillos de la lis
 - **Privacidad:** el registro no binario (desde 2024) solo se muestra por entidad con 30 personas o más; porcentajes por sexo solo con 30 personas o más en lista nominal.
 - **Neutralidad electoral:** sin partidos, candidaturas, resultados por fuerza política ni mensajes de promoción del voto por opción alguna.
 - **Idioma:** español de México.
-- **Abiertas:** nombre del micrositio (sin decidir).
+- **Fecha de entrega:** Hackatón INE 2026, Reto 3, Colima, 31 de octubre de 2026.
 
 ## Brand Commitments
 
-- **Identidad institucional del INE** (decisión de la usuaria, 2026-10-24). Condiciones antes de publicar: autorización por escrito de los organizadores del reto y archivos oficiales del logotipo y del manual de identidad. Mientras no existan, no se dibuja, recrea ni aproxima el logotipo: se reserva su espacio con un marcador visible.
-- Voz cercana, en segunda persona, sin culpar a quien no vota.
+- **El INE es el emisor y "Make the Change" es el nombre de la campaña** (decisión de la usuaria, 2026-10-27). Las bases del reto permiten usar la identidad del INE.
+- **Logotipo INE oficial** de ine.mx (`public/marca/logo-ine.png`, versión gris vigente), sin alterar color ni proporción, solo sobre fondos claros. Siempre acompañado del aviso: "Prototipo para el Reto 3 del Hackatón INE 2026. No es un sitio oficial del INE."
+- **Paleta INE:** Pantone 233 rosa mexicano (`#D5007F` en pantalla), Process Black y Cool Gray 7. El rosa es el dato principal; escala secuencial de rosa a vino para mapas y gráficas. Mujeres en vino y hombres en gris oscuro, nunca rosa contra azul (D49).
+- **Make the Change:** una "M" geométrica con la diagonal convertida en flecha que sube, en la paleta INE. Es la marca de la campaña, el favicon y la firma de las imágenes para compartir. Las imágenes para compartir no llevan el logotipo del INE (D50).
+- **Tipografía:** Advent Pro para títulos y cifras; Arial para el texto (D48).
+- Voz cercana, en segunda persona, sin culpar a quien no vota ("no es un regaño").
 - La fuente se cita siempre: "Conteos Censales de Participación Ciudadana, INE (DECEyEC)".
 
 ## Evidence on Hand
 
 - Datos: 9 conjuntos de datos abiertos del INE en `C:\Users\anafe\Downloads\DatosAbiertos_DECEyEC_ConteosCensales`, procesados por `etl/` (64.7 M filas fuente, 19/19 validaciones). Agregados en `%USERPROFILE%\participacion-ine-etl\out`.
 - Hallazgos verificados: `docs/mapa-historias.md`.
-- Ausencias que no deben inventarse: testimonios, fotografías, citas de funcionarios, logotipos oficiales, cifras que no salgan del ETL.
+- Mapa: INEGI (2024), AGEE 1:250000, publicada por CONABIO (CC BY-NC 2.5 MX), en `public/geo/entidades.json`.
+- Equipo: Marianna Itandehui Ramírez Figueroa, Ana Fernanda Padilla Ruiz, Kevin Osvaldo Barajas Anaya y Eduardo Michel Magaña.
+- Ausencias que no deben inventarse: testimonios, fotografías, citas de funcionarios, cifras que no salgan del ETL.
 
 ## Product Principles
 

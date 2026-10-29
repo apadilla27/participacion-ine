@@ -2,7 +2,7 @@
 --   "-- check: id | descripción"           → debe devolver 0 filas; cada fila es una falla (se muestran hasta 20).
 --   "-- check-completo: id | descripción"  → igual, pero solo en una corrida completa (las 32 entidades).
 --   "-- info: id | descripción"            → informativo; se copia al reporte.
--- Si cualquier check falla, no se exportan CSV y la carga a Supabase no debe hacerse.
+-- Si cualquier check falla, no se exportan CSV ni deben exportarse los JSON del sitio.
 
 -- check: base_identidad | En cada fila de la fuente ln = sv + nv + ns
 SELECT archivo, seccion, sexo, edad, ln, sv, nv, ns
@@ -333,7 +333,7 @@ GROUP BY ALL ORDER BY ALL;
 SELECT count(*) AS municipios_con_variantes, count(*) FILTER (WHERE corregido) AS corregidos_a_mano
 FROM out_municipios WHERE grafias > 1;
 
--- info: filas_por_tabla | Filas que se cargarán a Supabase
+-- info: filas_por_tabla | Filas de cada tabla exportada
 SELECT 'municipios' AS tabla, count(*) AS filas FROM out_municipios
 UNION ALL SELECT 'agg_entidad', count(*) FROM out_agg_entidad
 UNION ALL SELECT 'agg_entidad_edad', count(*) FROM out_agg_entidad_edad

@@ -1,5 +1,7 @@
 # Plan: Micrositio de Storytelling con Datos de Participación Ciudadana (INE / Reto 3)
 
+> **Reemplazado por [plan-sitio.md](plan-sitio.md)** (2026-10-27): el sitio ya no usa Supabase (D37). Se conserva como historial.
+
 Revisión 2 (2026-10-23). Reescrito tras investigación de versiones y límites vigentes y re-verificación del estado real: la carpeta del proyecto está vacía, no hay código ni despliegue previo. Nada en este plan es "ya hecho".
 
 ## Context

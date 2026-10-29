@@ -1,0 +1,715 @@
+.relato {
+  display: grid;
+  gap: clamp(72px, 10vw, 128px);
+  padding-top: clamp(32px, 6vw, 72px);
+}
+
+.relato section {
+  scroll-margin-top: 120px;
+}
+
+/* Hero */
+.hero {
+  display: grid;
+  gap: 40px;
+  align-items: center;
+}
+
+.heroTexto {
+  display: grid;
+  gap: 20px;
+  max-width: var(--lectura);
+}
+
+.heroTexto h1 em {
+  font-style: normal;
+  color: var(--rosa);
+}
+
+.entradilla {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.heroPasteles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 200px));
+  gap: 24px 20px;
+}
+
+.heroPasteles figure {
+  margin: 0;
+  display: grid;
+  justify-items: start;
+  align-content: start;
+  gap: 12px;
+  max-width: 200px;
+}
+
+.heroPasteles figcaption {
+  font-size: var(--meta);
+  color: var(--tinta-2);
+}
+
+.heroPasteles figcaption span {
+  display: block;
+  font-size: 2rem;
+  color: var(--tinta);
+}
+
+@media (min-width: 960px) {
+  .hero {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  }
+  .heroPasteles {
+    justify-content: center;
+    column-gap: 32px;
+  }
+}
+
+/* Curva */
+.curva {
+  display: grid;
+  gap: 48px;
+}
+
+.curvaRejilla {
+  display: grid;
+  gap: 32px;
+}
+
+.curvaFijo {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+
+.curvaFijo > p {
+  max-width: var(--lectura);
+}
+
+.curvaFijo > button {
+  justify-self: start;
+}
+
+.leyendaLineas,
+.leyendaBarras {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  font-size: var(--meta);
+}
+
+.leyendaLineas li,
+.leyendaBarras li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.leyendaLineas li::before {
+  content: "";
+  width: 28px;
+  height: 0;
+  border-top: 3px solid var(--rosa);
+}
+
+.leyendaLineas li[data-serie="mujeres"]::before {
+  border-top-color: var(--mujeres);
+}
+
+.leyendaLineas li[data-serie="hombres"]::before {
+  border-top: 3px dashed var(--hombres);
+}
+
+.leyendaBarras li::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  background: var(--mujeres);
+}
+
+.leyendaBarras li[data-serie="hombres"]::before {
+  background: var(--hombres);
+}
+
+/* El volteo se marca con la etiqueta de edad en rosa; la leyenda muestra esa misma marca. */
+.leyendaBarras li[data-serie="volteo"]::before {
+  content: none;
+}
+
+.leyendaBarras li[data-serie="volteo"] strong {
+  color: var(--rosa-700);
+}
+
+.curvaLienzo {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.guia line {
+  stroke: var(--linea);
+  stroke-width: 1;
+}
+
+.guia text,
+.eje {
+  fill: var(--tinta-2);
+  font-size: 16px;
+}
+
+/* Grosor y guiones en píxeles de pantalla, iguales en móvil y escritorio. */
+.lineaTodos,
+.lineaMujeres,
+.lineaHombres {
+  vector-effect: non-scaling-stroke;
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.lineaTodos {
+  stroke: var(--rosa);
+  stroke-width: 4;
+}
+
+.lineaMujeres {
+  stroke: var(--mujeres);
+  stroke-width: 2.5;
+}
+
+.lineaHombres {
+  stroke: var(--hombres);
+  stroke-width: 2.5;
+  stroke-dasharray: 7 6;
+}
+
+/* Serie 18-29 frente al país: cuatro columnas que caben en 358 px. El tipo de elección va bajo el año. */
+.tablaSerie th,
+.tablaSerie td {
+  padding-inline: 10px;
+}
+
+.tablaSerie thead th {
+  white-space: normal;
+  vertical-align: bottom;
+}
+
+.tablaSerie th[scope="row"] span {
+  display: block;
+  font-weight: 400;
+  color: var(--tinta-2);
+}
+
+.marca {
+  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.marca circle:first-child {
+  fill: rgba(213, 0, 127, 0.18);
+}
+
+.marca circle:last-child {
+  fill: var(--rosa);
+  stroke: #fff;
+  stroke-width: 2;
+}
+
+.momentos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+}
+
+.momentos li {
+  display: grid;
+  gap: 8px;
+  padding: 20px;
+  border-radius: var(--radio);
+  background: var(--fondo-2);
+  transition: background-color 200ms ease-out, color 200ms ease-out;
+}
+
+.momentos li[data-activo="true"] {
+  background: var(--tinta);
+  color: #fff;
+}
+
+.subtitulo {
+  margin-bottom: 16px;
+}
+
+@media (min-width: 960px) {
+  .curvaRejilla {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    align-items: start;
+  }
+  .curvaFijo {
+    position: sticky;
+    top: 120px;
+  }
+  .momentos {
+    gap: 40vh;
+    padding: 20vh 0 30vh;
+  }
+}
+
+/* Huella */
+.huella {
+  display: grid;
+  gap: 24px;
+}
+
+.huellaIntro {
+  display: grid;
+  gap: 12px;
+  max-width: var(--lectura);
+}
+
+.huellaForma {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 720px) {
+  .huellaForma {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.huellaResultado {
+  display: grid;
+  gap: 12px;
+}
+
+.caso {
+  display: grid;
+  gap: 24px;
+  align-items: center;
+  padding: 24px;
+  border: 1px solid var(--linea);
+  border-radius: 16px;
+}
+
+@media (min-width: 720px) {
+  .caso {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+}
+
+.casoTexto {
+  display: grid;
+  gap: 12px;
+  max-width: var(--lectura);
+}
+
+.casoFrase {
+  font: 650 1.375rem / 1.25 var(--font-advent), var(--font-texto);
+}
+
+.escenario {
+  display: grid;
+  gap: 14px;
+  padding: 24px;
+  border-radius: 16px;
+  background: var(--fondo-2);
+  max-width: 48rem;
+}
+
+.deslizador {
+  display: grid;
+  gap: 10px;
+}
+
+.deslizador input[type="range"] {
+  width: 100%;
+  height: var(--toque);
+  accent-color: var(--rosa);
+}
+
+.escenarioCifra {
+  color: var(--rosa-700);
+}
+
+.escenarioCifra span {
+  font-size: 2.25rem;
+  margin-right: 6px;
+}
+
+/* Mapa */
+.mapa {
+  background: var(--fondo-2);
+  padding: clamp(40px, 6vw, 72px) 0;
+}
+
+.mapaIntro {
+  display: grid;
+  gap: 12px;
+  max-width: var(--lectura);
+  margin-bottom: 24px;
+}
+
+.mapaControles {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.mapaFila {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 720px) {
+  .mapaFila {
+    grid-template-columns: auto minmax(0, 20rem);
+    align-items: end;
+  }
+}
+
+.mapaCuerpo {
+  display: grid;
+  gap: 24px;
+}
+
+@media (min-width: 1024px) {
+  .mapaCuerpo {
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.lienzoMapa {
+  position: relative;
+  background: #fff;
+  border-radius: 16px;
+  padding: 8px;
+}
+
+/* Mismo tamaño que el mapa mientras llega la geometría, para que la página no salte. */
+.mapaEspera {
+  display: grid;
+  place-content: center;
+  gap: 16px;
+  aspect-ratio: 1000 / 640;
+  padding: 24px;
+  background: #fff;
+  border-radius: 16px;
+  color: var(--tinta-2);
+  text-align: center;
+}
+
+.lienzoMapa svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.entidad,
+.entidadActiva {
+  stroke: #fff;
+  stroke-width: 1;
+  cursor: pointer;
+  transition: fill 200ms ease-out;
+}
+
+.entidad:hover {
+  stroke: var(--tinta);
+  stroke-width: 1.5;
+}
+
+.entidadActiva {
+  stroke: var(--tinta);
+  stroke-width: 3;
+}
+
+.etiquetaMapa {
+  position: absolute;
+  z-index: 2;
+  transform: translate(-50%, calc(-100% - 14px));
+  display: grid;
+  gap: 2px;
+  padding: 8px 12px;
+  background: var(--tinta);
+  color: #fff;
+  border-radius: 8px;
+  font-size: var(--meta);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.mosaico {
+  display: grid;
+  grid-template-columns: repeat(var(--columnas), 46px);
+  grid-template-rows: repeat(var(--filas), 46px);
+  gap: 2px;
+  justify-content: center;
+  padding: 12px 0;
+}
+
+.casilla {
+  display: grid;
+  place-content: center;
+  gap: 2px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  font: 700 0.875rem / 1 var(--font-texto);
+  cursor: pointer;
+}
+
+.casilla span:last-child {
+  font-weight: 400;
+  font-size: 0.8125rem;
+}
+
+.casilla[data-vacio="true"] {
+  background: repeating-linear-gradient(45deg, #f1efec 0 4px, var(--sin-dato) 4px 6px);
+}
+
+.casilla[aria-pressed="true"] {
+  outline: 3px solid var(--tinta);
+  outline-offset: 1px;
+}
+
+@media (min-width: 420px) {
+  .mosaico {
+    grid-template-columns: repeat(var(--columnas), 52px);
+    grid-template-rows: repeat(var(--filas), 52px);
+  }
+}
+
+.leyenda {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-size: var(--meta);
+}
+
+.leyenda li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.leyenda i {
+  width: 22px;
+  height: 14px;
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+.leyendaTrama {
+  background: repeating-linear-gradient(45deg, #f1efec 0 3px, var(--sin-dato) 3px 5px);
+}
+
+.ficha {
+  display: grid;
+  gap: 16px;
+  padding: 24px;
+  background: #fff;
+  border-radius: 16px;
+  scroll-margin-top: 120px;
+}
+
+/* Dentro de la ficha la tabla no es otra tarjeta: solo una línea arriba la separa. */
+.ficha :global(.tabla-caja) {
+  border: 0;
+  border-top: 1px solid var(--linea);
+  border-radius: 0;
+}
+
+.fichaDato {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.desglose {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+  gap: 8px 16px;
+  font-size: var(--meta);
+}
+
+.desglose div {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 1px solid var(--linea);
+  padding-bottom: 6px;
+}
+
+.desglose dt {
+  color: var(--tinta-2);
+}
+
+.desglose dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+.tablaEntidades {
+  display: grid;
+  gap: 16px;
+  justify-items: start;
+  margin-top: 32px;
+}
+
+.tablaEntidades > div {
+  width: 100%;
+  max-height: 32rem;
+  overflow: auto;
+}
+
+/* Espejo */
+.espejo {
+  display: grid;
+  gap: 32px;
+}
+
+.espejoIntro {
+  display: grid;
+  gap: 16px;
+  max-width: var(--lectura);
+}
+
+/* Columnas fijas: la edad al centro y dos pistas iguales. Cada barra mide su porcentaje de la pista,
+   así la proporción se conserva en cualquier ancho. */
+.espejoTabla {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0 6px;
+  font-size: var(--meta);
+}
+
+.colEdad {
+  width: 4.75rem;
+}
+
+.espejoTabla th {
+  text-align: center;
+  font-weight: 700;
+}
+
+.espejoTabla td {
+  padding: 0;
+}
+
+.ladoMujeres,
+.ladoHombres {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ladoMujeres {
+  justify-content: flex-end;
+}
+
+.ladoMujeres i,
+.ladoHombres i {
+  flex: none;
+  display: block;
+  height: 22px;
+}
+
+.ladoMujeres i {
+  background: var(--mujeres);
+  border-radius: 4px 0 0 4px;
+}
+
+.ladoHombres i {
+  background: var(--hombres);
+  border-radius: 0 4px 4px 0;
+}
+
+.ladoMujeres span,
+.ladoHombres span {
+  flex: none;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.espejoTabla tr[data-volteo="true"] th {
+  color: var(--rosa-700);
+}
+
+@media (min-width: 720px) {
+  .colEdad {
+    width: 6rem;
+  }
+}
+
+/* Otras formas de votar */
+.llega {
+  display: grid;
+  gap: 24px;
+}
+
+.llegaEntrada {
+  max-width: var(--lectura);
+}
+
+.llegaRejilla {
+  display: grid;
+  gap: 32px 48px;
+}
+
+.llegaRejilla article {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  padding-top: 20px;
+  border-top: 2px solid var(--tinta);
+}
+
+.llegaRejilla h3 span {
+  color: var(--rosa);
+}
+
+@media (min-width: 860px) {
+  .llegaRejilla {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 6px;
+  max-width: 24rem;
+}
+
+.lista li {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--linea);
+  padding-bottom: 6px;
+}
+
+/* Cierre */
+.cierre {
+  display: grid;
+  gap: 16px;
+  justify-items: start;
+  max-width: var(--ancho);
+}
+
+.cierre p {
+  max-width: var(--lectura);
+}

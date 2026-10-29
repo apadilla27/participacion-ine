@@ -1,8 +1,8 @@
-"""ETL de los Conteos Censales de Participación Ciudadana (INE, DECEyEC) → agregados para Supabase.
+"""ETL de los Conteos Censales de Participación Ciudadana (INE, DECEyEC) → agregados del micrositio.
 
 Lee los CSV originales del INE con DuckDB, construye los agregados que usa el micrositio,
-los valida y exporta un CSV por tabla de Supabase más metadatos.csv y validation_report.md.
-No escribe nada en Supabase: la carga la hace etl/load.py.
+los valida y exporta un CSV por tabla más metadatos.csv y validation_report.md.
+Los JSON del sitio los escribe después etl/export_web.py (npm run datos).
 
 Uso (desde la raíz del proyecto, con el entorno del ETL):
     etl\\.venv\\Scripts\\python.exe -I etl\\run_etl.py                    # corrida completa (32 entidades)
@@ -24,7 +24,7 @@ import duckdb
 
 ETL_DIR = Path(__file__).resolve().parent
 PROYECTO = ETL_DIR.parent
-SEED_DIR = PROYECTO / "supabase" / "seed"
+SEED_DIR = ETL_DIR / "seed"
 SQL_DIR = ETL_DIR / "sql"
 OVERRIDES = ETL_DIR / "overrides_municipios.csv"
 REMAPEO = ETL_DIR / "remapeo_municipios.csv"
@@ -47,7 +47,7 @@ SUFIJOS = {
 }
 ARCHIVOS_ESPERADOS = {**{c: 32 for c in CARPETAS_FEDERALES}, CARPETA_PJ: 31}
 
-# Tablas exportadas: nombre en Supabase → (tabla DuckDB, columnas en orden, orden de filas)
+# Tablas exportadas: nombre del CSV → (tabla DuckDB, columnas en orden, orden de filas)
 EXPORTES = {
     "municipios": ("out_municipios", "id, entidad_clave, clave, nombre, slug", "id"),
     "agg_entidad": ("out_agg_entidad", "eleccion_id, entidad_clave, sexo, grupo_edad_id, ln, sv, nv, ns",
