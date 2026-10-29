@@ -42,10 +42,6 @@ etl/out/
 *.duckdb
 *.duckdb.wal
 
-# Supabase CLI local
-supabase/.branches
-supabase/.temp
-
 # Impeccable (overrides locales por desarrollador y caché del detector)
 # El binario del motor (19 MB) no se versiona: el lanzador lo descarga del release
 # oficial y verifica su SHA-256 si falta (ver .cursor/skills/impeccable/scripts/impeccable.cmd).

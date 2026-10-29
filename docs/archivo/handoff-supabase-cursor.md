@@ -1,5 +1,7 @@
 # Traspaso: construir y verificar la base de datos en Supabase (Cursor · Grok)
 
+> **Obsoleto por D37** (2026-10-27): el sitio no usa base de datos; lee JSON estáticos exportados del ETL. Se conserva como historial.
+
 > Documento para el agente de Cursor. Contiene todo lo necesario para dejar la base lista en Supabase:
 > contexto, estado actual, pasos exactos, esquema, reglas, errores conocidos y criterios de aceptación.
 > Generado el 2026-10-24. Versión de datos: `20261024-21f4e10f04fc`.

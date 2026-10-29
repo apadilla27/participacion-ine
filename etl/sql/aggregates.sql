@@ -1,4 +1,4 @@
--- Etapa 3 · Agregados que se cargan a Supabase (tablas out_*).
+-- Etapa 3 · Agregados del micrositio (tablas out_*), que exporta etl/export_web.py.
 -- Marginales con GROUP BY CUBE + GROUPING():
 --   sexo = 9 (total), grupo_edad_id = 0 (todas las edades), entidad_clave = 0 (nacional).
 -- Privacidad: sexo = 2 solo en tablas de entidad y solo si ln >= 30; en el resto cuenta solo dentro de sexo = 9.

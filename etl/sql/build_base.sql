@@ -1,6 +1,6 @@
 -- Etapa 1 · Tabla base con el grano original del INE: elección × sección × sexo × edad simple.
 -- run_etl.py sustituye estos marcadores antes de ejecutar:
---   @@SEED@@         carpeta supabase/seed (barras normales)
+--   @@SEED@@         carpeta etl/seed (barras normales)
 --   @@LECTURA_FED@@  read_csv([...]) de los CSV federales 2009-2024
 --   @@LECTURA_PJ@@   read_csv([...]) de los CSV de PoderJudicial_2025 (o un SELECT vacío tipado)
 --   @@REMAPEO@@      ruta a etl/remapeo_municipios.csv (claves de municipio que un año usó para otro municipio)

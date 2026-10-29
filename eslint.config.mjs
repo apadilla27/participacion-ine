@@ -16,7 +16,6 @@ const eslintConfig = defineConfig([
     ".cursor/**",
     ".impeccable/**",
     "etl/.venv/**",
-    "supabase/.temp/**",
   ]),
 ]);
 

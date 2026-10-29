@@ -18,24 +18,16 @@
     "datos": "etl\\.venv\\Scripts\\python.exe -I etl/export_web.py",
     "datos:todo": "npm run etl && npm run datos && npm run verificar-datos",
     "geo": "node etl/geo/entidades.mjs",
-    "verificar-datos": "node scripts/verificar-datos.mjs",
-    "db:test-local": "node scripts/test-db-local.mjs",
-    "db:push": "supabase db push",
-    "db:load": "etl\\.venv\\Scripts\\python.exe -I etl/load.py",
-    "db:verify": "etl\\.venv\\Scripts\\python.exe -I etl/load.py --solo-verificar",
-    "db:types": "supabase gen types --lang=typescript --linked --schema public > lib/supabase/types.ts"
+    "verificar-datos": "node scripts/verificar-datos.mjs"
   },
   "dependencies": {
-    "@supabase/supabase-js": "2.118.0",
     "next": "16.4.3",
     "react": "19.3.1",
     "react-dom": "19.3.1",
-    "recharts": "3.10.1",
     "server-only": "0.0.1",
     "zod": "4.6.7"
   },
   "devDependencies": {
-    "@electric-sql/pglite": "0.5.11",
     "@tailwindcss/turbopack": "4.3.3",
     "@types/node": "24.19.2",
     "@types/react": "19.3.0",
@@ -43,7 +35,6 @@
     "eslint": "9.39.5",
     "eslint-config-next": "16.4.3",
     "mapshaper": "0.7.100",
-    "supabase": "2.122.0",
     "tailwindcss": "4.3.3",
     "typescript": "5.9.3"
   }
