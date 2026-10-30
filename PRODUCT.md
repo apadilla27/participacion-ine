@@ -46,6 +46,7 @@ Usa conteos censales, no muestras: cada cifra sale de los cuadernillos de la lis
 
 - **El INE es el emisor y "Make the Change" es el nombre de la campaña** (decisión de la usuaria, 2026-10-27). Las bases del reto permiten usar la identidad del INE.
 - **Logotipo INE oficial** de ine.mx (`public/marca/logo-ine.png`, versión gris vigente), sin alterar color ni proporción, solo sobre fondos claros. Sin aviso de prototipo desde el 2026-10-29, por decisión de la usuaria (D57).
+- **Logotipo de la campaña en PNG** (`public/marca/make-the-change.png` con el nombre y `public/marca/make-the-change-m.png` solo la M): exportados de `MarcaMTC` con Advent Pro 700 y fondo transparente, para usarlos fuera del sitio. El sitio sigue dibujando la M como SVG.
 - **Paleta INE:** Pantone 233 rosa mexicano (`#D5007F` en pantalla), Process Black y Cool Gray 7. El rosa es el dato principal; escala secuencial de rosa a vino para mapas y gráficas. Mujeres en vino y hombres en gris oscuro, nunca rosa contra azul (D49). Los capítulos alternan franjas de la misma familia: rosa claro, vino noche y rosa mexicano, con blanco y gris cálido (D59).
 - **Make the Change:** una "M" geométrica con la diagonal convertida en flecha que sube, en la paleta INE. Es la marca de la campaña, el favicon y la firma de las imágenes para compartir. Las imágenes para compartir no llevan el logotipo del INE (D50).
 - **Tipografía:** Advent Pro para títulos y cifras; Arial para el texto (D48).

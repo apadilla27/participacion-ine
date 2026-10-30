@@ -277,7 +277,7 @@ El sistema es un relato en franjas de una sola familia de color. Cada capítulo 
 
 La lectura está pensada para cualquier edad, de niñas y niños a personas mayores con poca experiencia en dispositivos. El texto corrido mide 18 px, nada que se lea baja de 16 px, todo control mide al menos 48 px y la navegación son dos pestañas que siempre se ven. Las palabras difíciles se explican en un glosario visible con íconos propios, y las comparaciones se dicen con palabras junto a la cifra de referencia. Las superficies son planas: la profundidad sale de poner una tarjeta clara sobre una franja de color, o una tarjeta rubor sobre blanco. Advent Pro, geométrica y algo técnica, lleva títulos, términos y cifras; Arial, como pide el manual del INE, lleva todo lo que se lee de corrido.
 
-El movimiento es escaso y funcional. El pastel llena su rebanada en 600 ms con una curva que frena al final, el marcador de la curva viaja 500 ms entre momentos, el momento activo y el relleno del mapa cambian en 200 ms, y botones, pestañas y opciones cambian de estado en 150 ms. Con `prefers-reduced-motion` todas las duraciones se anulan y el desplazamiento suave se apaga.
+El movimiento es escaso y funcional. El pastel llena su rebanada en 600 ms con una curva que frena al final, el punto de la curva no tiene duración propia porque lo mueve el desplazamiento de la página, el momento activo y el relleno del mapa cambian en 200 ms, y botones, pestañas y opciones cambian de estado en 150 ms. Con `prefers-reduced-motion` todas las duraciones se anulan y el desplazamiento suave se apaga.
 
 **Key Characteristics:**
 - Franjas a todo lo ancho que alternan blanco, rubor, vino noche, gris cálido y rosa; ningún tono fuera de la familia rosa-vino y sus neutros.
@@ -312,7 +312,7 @@ Una paleta institucional en franjas: la familia rosa-vino del INE da el color de
 - **Tinta Suave** (`tinta-2`, #4a4a48): texto secundario, notas, pies de figura, títulos de tabla, ejes de la curva y pie de página. Da 8.09:1 sobre Papel Cálido.
 - **Gris Frío 7** (`gris`, #97999b, Cool Gray 7): solo trazos. Borde de campos y de opciones de segmento; barra de desplazamiento. Nunca texto.
 - **Hilo Cálido** (`linea`, #dddad5): filetes de 1 px. Borde del encabezado y del pie, separador vertical entre el logotipo INE y la M, separadores de tabla y de listas, guías de la curva, borde del buscador y de las tarjetas de edad.
-- **Blanco Papel** (`fondo`, #ffffff): franjas del glosario, la curva y el espejo; encabezado; tarjetas sobre franjas de color (resultado del caso, lienzo y ficha del mapa); resto del pastel dentro de franjas rubor; texto sobre rosa y vino.
+- **Blanco Papel** (`fondo`, #ffffff): franjas de la curva y el espejo; tarjeta de la figura de cien sobre el glosario; encabezado; tarjetas sobre franjas de color (resultado del caso, lienzo y ficha del mapa); resto del pastel dentro de franjas rubor; texto sobre rosa y vino.
 - **Papel Cálido** (`fondo-2`, #f6f4f1): franja del mapa, panel de filtros de `/explorar`, mensajes de estado, encabezado de tabla y pie. Las filas pares de tabla usan un blanco aún más tenue (#fbfaf8).
 
 ### Named Rules
@@ -332,12 +332,12 @@ Una paleta institucional en franjas: la familia rosa-vino del INE da el color de
 **Character:** Advent Pro aporta la voz de campaña, geométrica y ligeramente técnica, en peso 650; Arial la pone el manual del INE y garantiza que leer no requiera descargar nada. Las dos nunca se mezclan dentro de un párrafo: dentro de una frase en Arial, solo la cifra cambia a Advent Pro.
 
 ### Hierarchy
-- **Display** (Advent Pro 650, clamp(2rem, 1.3rem + 3.2vw, 3.75rem), 1.1, -0.01em): el H1 calculado de la portada y el H1 de `/explorar`. Las cifras del H1 de la portada van en rosa, sin cursiva.
+- **Display** (Advent Pro 650, clamp(2rem, 1.3rem + 3.2vw, 3.75rem), 1.1, -0.01em): el H1 calculado de la portada y el H1 de `/explorar`. Las cifras del H1 de la portada van en rosa, sin cursiva. Cada oración del H1 de la portada empieza en su propia línea (`.oracion`, bloque): ninguna línea termina con una "A" suelta.
 - **Headline** (Advent Pro 650, clamp(1.75rem, 1.3rem + 2vw, 2.75rem), 1.1): título de capítulo; en blanco sobre vino noche y rosa.
 - **Title** (Advent Pro 650, clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem), 1.1): títulos de los momentos, de "Otras formas de votar", del escenario, de la ficha del mapa y de los bloques de `/explorar`.
 - **Término** (Advent Pro 650, 1.375rem, 1.15): cada palabra del glosario. El título «De cada 100» de la figura de cien sube a 1.625rem en Rosa Profundo.
 - **Destacado** (Advent Pro 650, 1.375rem, 1.25): la frase del resultado del caso en la calculadora.
-- **Cifra** (Advent Pro 650, numerales tabulares, tamaño según contexto: 2rem bajo los pasteles del héroe, 2.25rem en el escenario, 1.375rem en la frase del explorador): toda cifra que protagoniza un bloque se envuelve en `.cifra`.
+- **Cifra** (Advent Pro 650, numerales tabulares, tamaño según contexto: 2rem bajo los pasteles del héroe, de 2.25 a 3rem en el escenario, 1.375rem en la frase del explorador): toda cifra que protagoniza un bloque se envuelve en `.cifra`. En frases y gráficas la cifra va redonda ("58 de cada 100", `deCada` y `REDONDO`); las tablas conservan dos decimales (`CIEN`). Nunca hay decimales en una frase: si dos cifras comparadas se ven iguales al redondear, la frase lo dice con palabras (`parDeCada` y su `empate`: "votan casi igual: unos 72 de cada 100"). Las diferencias en frases salen de las cifras redondas que se ven, para que la cuenta cuadre.
 - **Entradilla** (Arial 700, 1.375rem, Rosa Profundo): la línea que sigue al H1 de la portada.
 - **Body** (Arial 400, 1.125rem, 1.6, numerales tabulares): texto corrido, con `text-wrap: pretty` y ancho máximo de 62ch. El párrafo del cierre sube a 1.25rem; la frase del explorador usa 1.125rem con interlineado 1.45.
 - **Botón** (Arial 700, 1.125rem, 1.2): texto de los botones primario y de contorno. Las pestañas de navegación usan Arial 700 al mismo tamaño de texto.
@@ -363,10 +363,14 @@ Comportamiento responsivo, móvil primero:
 - **480 px**: aparece el nombre "Make the Change" junto a la M.
 - **640 px**: la figura de cien pasa a dos columnas (200 px de puntos y el texto).
 - **720 px**: las tres preguntas de la calculadora en fila; resultado del caso y dato del explorador con el pastel a la izquierda; controles del mapa en fila; columna de edad del espejo de 4.75rem a 6rem.
-- **768 px** (`useAngosta`, max-width 767px): por debajo, la curva usa un lienzo de 420 de ancho (760 arriba), el mapa abre como cuadros sin descargar la geometría y los segmentos con columnas fijas van en rejilla, partiendo en dos líneas las etiquetas largas.
+- **768 px** (`useAngosta`, max-width 767px): por debajo, el mapa abre como cuadros sin descargar la geometría y los segmentos con columnas fijas van en rejilla, partiendo en dos líneas las etiquetas largas.
 - **860 px**: "Otras formas de votar" a dos columnas.
 - **900 px**: encabezado en una sola fila de 76 px con las pestañas en línea; logotipo INE de 36 px; pie a tres columnas (0.8fr 1.6fr 1fr); aparece la M grande del cierre.
-- **960 px**: héroe a dos columnas (1.35fr texto, 1fr pasteles) y curva a dos columnas (1.5fr / 1fr) con la columna de la gráfica pegada a 120 px mientras pasan los momentos, separados 40vh.
+- **900 px**: el escenario de la calculadora se abre en dos columnas (1.4fr barra, 1fr resultado) separadas por un filete rubor.
+- **Curva, menos de 768 px**: gráfica arriba, pegada al encabezado (`--alto-encabezado`), sin pasar de 40% de la pantalla (`max-height: 40svh`; menos aún encogería las etiquetas). Debajo, una tarjeta a la vez, que crece hasta 240 px para ocupar lo que queda.
+- **Curva, 768 px**: gráfica a la izquierda (1.4fr) y todas las tarjetas a la derecha (1fr), centradas en la escena. Hasta 959 px con el lienzo de 420 de ancho.
+- **960 px**: héroe a dos columnas (1.35fr texto, 1fr pasteles). Curva con 1.7fr / 1fr y lienzo de 760 × 520 (`useAncha`), con letra de 22 unidades para seguir en 16 px o más.
+- **Altura de la pantalla**: con menos de 520 px (teléfono acostado, mucho zoom), y al imprimir, no hay recorrido: la gráfica se ve completa y las tarjetas en lista.
 - **1024 px**: mapa y ficha lado a lado (1.7fr / 1fr).
 
 Los cuadros del mapa forman una rejilla de 7 por 6 con casillas cuadradas que crecen con la pantalla hasta 56 px, separadas 2 px y centradas.
@@ -417,11 +421,11 @@ El segmento (`Segmento`) es un grupo de opciones excluyentes con una sola parada
 
 ### Cards / Containers
 - **Corner Style:** 16px en tarjetas y paneles, 10px en estados y momentos, 12px en tarjetas de edad.
-- **Background:** siempre de otro tono que su franja. Sobre blanco, tarjetas rubor (figura de cien, momentos). Sobre vino noche, el resultado del caso en blanco, el escenario en rubor y los mensajes de estado en rubor. Sobre gris cálido, el lienzo y la ficha del mapa en blanco. En `/explorar`, el panel de filtros en gris cálido sobre blanco.
+- **Background:** siempre de otro tono que su franja. Sobre blanco, tarjetas rubor (momentos). Sobre el gris cálido del glosario, la figura de cien en blanco. Sobre vino noche, el resultado del caso en blanco, el escenario en rubor y los mensajes de estado en rubor. Sobre gris cálido, el lienzo y la ficha del mapa en blanco. En `/explorar`, el panel de filtros en gris cálido sobre blanco.
 - **Shadow Strategy:** ninguna (ver Elevation & Depth).
 - **Internal Padding:** 24px en tarjetas, 20px en filtros y momentos, 16px 18px en mensajes de estado.
 - **Mensajes de estado (`.estado`):** vacío, protegido, espera y error comparten caja en Papel Cálido; espera pasa el texto a Tinta Suave y error toma fondo Rubor. Siempre ofrecen una salida con botón de contorno.
-- **Momentos de la curva:** tarjetas rubor que se vuelven vino noche con texto blanco cuando su momento está activo, con transición de 200ms.
+- **Momentos de la curva:** tarjetas con solo su título, en Advent Pro 650, de la menor a la mayor edad, y la última con el dato de 100 años o más. No se tocan: se encienden solas en vino noche con texto blanco (`aria-current="step"`, 200ms) cuando el punto llega a su edad (D63). De 768 px en adelante van todas en columna a la derecha de la gráfica, en rubor las apagadas, con 12px 16px de relleno; en teléfono se ve una a la vez dentro de un recuadro vino de tamaño fijo. Debajo, en Arial 700, "Sigue bajando" con una flecha, que desaparece al terminar.
 - **Otras formas de votar:** artículos sin caja con filete superior rosa de 4px, 20px de aire arriba, título con la cifra en rosa y listas con filetes de Hilo Cálido hasta 24rem de ancho.
 
 ### Inputs / Fields
@@ -440,17 +444,17 @@ El segmento (`Segmento`) es un grupo de opciones excluyentes con una sola parada
 La firma del sistema: un disco cuya rebanada rosa son quienes votaron, sobre el resto en Rubor, con canto interno rosa al 18%. Dentro de una franja rubor, el resto pasa a blanco con `--pastel-resto` para no desaparecer. Crece en 600ms con `cubic-bezier(0.16, 1, 0.3, 1)` animando la propiedad registrada `--voto`. Sin dato, el disco se rellena con trama diagonal en Papel Cálido y Hilo Cálido. Tamaños en uso: min(180px, 36vw) en el héroe, 168px en el resultado del caso y del explorador, 120px en la ficha del mapa, 56px en las tarjetas de edad y 160px por omisión. Siempre va con su cifra y un texto que la lee.
 
 ### Glosario
-"Palabras para entender los números", visible en la portada después del héroe.
-- **Figura de cien:** cien círculos en una rejilla de 10 por 10 (radio 7.5 cada 20 unidades): 60 rosa son quienes votaron y 40 blancos con trazo de 1.5 en `c2` son quienes no. Va en una tarjeta rubor de 16px con 24px de relleno, hasta 48rem de ancho, con el dibujo de hasta 200px y el título «De cada 100» en Advent Pro 650 a 1.625rem en Rosa Profundo. El 60 es un ejemplo fijo, no un dato.
+"Palabras para entender los números", visible en la portada después del héroe, en una franja de gris cálido.
+- **Figura de cien:** cien círculos en una rejilla de 10 por 10 (radio 7.5 cada 20 unidades): 60 rosa son quienes votaron y 40 blancos con trazo de 1.5 en `c2` son quienes no. Va en una tarjeta blanca de 16px con 24px de relleno, hasta 48rem de ancho, con el dibujo de hasta 200px y el título "¿Qué quiere decir «60 de cada 100»?" en Advent Pro 650 a 1.625rem en Rosa Profundo. Debajo, una leyenda de dos puntos (Votaron: 60 / No votaron: 40) y una nota en Meta que explica el redondeo. El 60 es un ejemplo fijo, no un dato.
 - **Términos:** nueve palabras en una rejilla que se acomoda sola (columnas de al menos 19rem, 32px por 40px de separación). Cada término lleva a la izquierda un ícono propio en un disco de 56px con 12px de relleno; los discos alternan rosa, vino y Rosa Profundo, uno tras otro. El término va en Término y la definición en Body.
 
 ### Gráficas y mapa
-- **Curva:** líneas con grosor en píxeles de pantalla (`vector-effect: non-scaling-stroke`) y uniones redondas; guías horizontales en Hilo Cálido y etiquetas de eje en Tinta Suave a 20 unidades del lienzo, unos 16 px en pantalla. El marcador es un punto rosa de radio 5 con borde blanco de 2 dentro de un halo rosa al 18% de radio 11, y se desplaza 500ms con la misma curva del pastel. La leyenda muestra cada serie con un trazo de 28px y 3px.
+- **Curva:** líneas con grosor en píxeles de pantalla (`vector-effect: non-scaling-stroke`) y uniones redondas; guías horizontales en Hilo Cálido, desde la línea de base en 0, y etiquetas de eje en Tinta Suave, a unos 16 px en pantalla salvo en teléfonos bajos, donde el tope de 40% de la pantalla las deja en unos 13 a 15 px. La escena queda fija dentro de una pista alta (media pantalla de desplazamiento por parada): al bajar, el punto recorre la línea, se detiene un momento en cada parada y lo recorrido se pinta con todo su color; lo que falta queda al 28%. Una barra de 4 px bajo la gráfica se llena con el desplazamiento, para que nunca parezca congelada. El marcador es un punto rosa de radio 5 con borde blanco de 2 dentro de un halo rosa al 18% de radio 11, sin transición propia: solo se mueve cuando la persona baja, también con `prefers-reduced-motion`. Una etiqueta en Arial 700 y tinta da el dato real de esa edad ("28 años: 44 de cada 100"), arriba de las líneas o, donde la línea ya cae, debajo de ellas. La leyenda muestra cada serie con un trazo de 28px y 3px (18px en teléfono, donde "Todas las personas" se acorta a "Todas" para caber en una fila).
 - **Mapa:** lienzo blanco de 16px con 8px de relleno dentro de la franja gris cálido. Entidades con trazo blanco de 1px; hover en tinta a 1.5px; activa en tinta a 3px. Relleno con la escala `c1`–`c6`, transición de 200ms. Etiqueta flotante en tinta con texto blanco, 14px por encima del puntero.
 - **Cuadros:** cada entidad es una casilla cuadrada de hasta 56px con solo su abreviatura (hasta cuatro letras) en Arial 700 a 1rem, con interletrado de -0.03em; el nombre completo y la cifra salen en la ficha al tocar. Sin dato, la casilla lleva la trama; pulsada, un contorno de tinta de 3px separado 1px.
 - **Leyenda:** "Votaron de cada 100:" en Label y muestras de 22 por 14px con esquina de 3px; la trama cierra la lista como "sin dato".
 - **Ficha:** tarjeta blanca con el nombre, un pastel de 120px, el desglose con filetes de Hilo Cálido y una tabla que dentro de la ficha pierde su caja y solo conserva un filete superior.
-- **Espejo:** barras de 22px de alto, mujeres a la izquierda y hombres a la derecha de una columna de edad centrada, con 6px entre filas; la edad donde los hombres votan más se marca en Rosa Profundo y la leyenda lo explica ("Edad en rosa").
+- **Espejo:** barras de 22px de alto, mujeres a la izquierda y hombres a la derecha de una columna de edad centrada, con 6px entre filas; encabezados visibles "Mujeres | Edad | Hombres" con su muestra de color arriba de las barras; la edad donde los hombres votan más se marca en Rosa Profundo y una nota lo explica ("Edad en rosa"). Las cifras de las barras van redondas.
 - Toda gráfica tiene su tabla alternativa detrás de un botón de contorno ("Ver los números en tabla", "Ver las 32 entidades en tabla").
 
 ### Tablas de datos

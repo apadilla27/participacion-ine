@@ -457,11 +457,6 @@
         "purpose": "Transición de la propiedad registrada --voto del pastel."
       },
       {
-        "name": "marcador-curva",
-        "value": "500ms cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "Desplazamiento del marcador entre momentos de la curva."
-      },
-      {
         "name": "estado-control",
         "value": "150ms ease-out",
         "purpose": "Fondo, color y borde de botones, pestañas y opciones de segmento."
@@ -599,9 +594,9 @@
       "name": "Momento de la curva",
       "kind": "card",
       "refersTo": "momento",
-      "description": "Tarjetas del relato con desplazamiento: rubor en reposo, vino noche con texto blanco cuando su momento está activo. Textos tomados de la portada publicada (2024).",
-      "html": "<ol class=\"ds-momentos\"><li><h3>A los 28 votan menos hombres que a cualquier otra edad antes de los 40</h3><p>Votaron 37.47 de cada 100 hombres de 28 años. Las mujeres de esa edad, 50.40 de cada 100.</p></li><li data-activo=\"true\"><h3>Desde los 68, los hombres votan más</h3><p>Hombres 71.87 de cada 100; mujeres 71.61 de cada 100. Antes de esa edad, ellas votan más. Los datos muestran el cambio, no su causa.</p></li></ol>",
-      "css": ".ds-momentos { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; font: 400 1.125rem/1.6 Arial, 'Helvetica Neue', Helvetica, sans-serif; max-width: 26rem; } .ds-momentos li { display: grid; gap: 8px; padding: 20px; border-radius: 10px; background: var(--rosa-50, #fdf0f6); color: var(--tinta, #1d1d1b); transition: background-color 200ms ease-out, color 200ms ease-out; } .ds-momentos li[data-activo=\"true\"] { background: var(--vino-900, #5c0c30); color: #fff; } .ds-momentos h3 { margin: 0; font: 650 1.25rem/1.1 var(--font-advent, 'Advent Pro'), Arial, 'Helvetica Neue', Helvetica, sans-serif; letter-spacing: -0.01em; } .ds-momentos p { margin: 0; }"
+      "description": "Tarjetas de la curva con solo su título: se encienden solas en vino noche con texto blanco cuando el punto llega a su edad, al bajar por la página (D63). No se tocan.",
+      "html": "<ol class=\"ds-momentos\"><li>A los 28 votan menos hombres que a cualquier otra edad antes de los 40</li><li data-activo=\"true\">Desde los 68, los hombres votan más</li></ol>",
+      "css": ".ds-momentos { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; font: 650 1.25rem/1.15 var(--font-advent, 'Advent Pro'), Arial, 'Helvetica Neue', Helvetica, sans-serif; max-width: 26rem; } .ds-momentos li { padding: 14px 16px; border-radius: 10px; background: var(--rosa-50, #fdf0f6); color: var(--tinta, #1d1d1b); transition: background-color 200ms ease-out, color 200ms ease-out; } .ds-momentos li[data-activo=\"true\"] { background: var(--vino-900, #5c0c30); color: #fff; }"
     },
     {
       "name": "Tabla de datos",

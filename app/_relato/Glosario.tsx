@@ -67,25 +67,22 @@ const PALABRAS: { icono: keyof typeof ICONOS; termino: string; definicion: strin
   {
     icono: "lista",
     termino: "Lista nominal",
-    definicion:
-      "La lista de todas las personas que pueden votar porque tienen su credencial para votar y no ha vencido. Cada casilla tiene su parte de la lista.",
+    definicion: "La lista de las personas que pueden votar: tienen su credencial para votar y no ha vencido.",
   },
   {
     icono: "casilla",
     termino: "Casilla",
-    definicion: "El lugar donde votas el día de la elección, con su mesa y sus urnas. Te toca la de la zona donde vives, según tu credencial.",
+    definicion: "El lugar donde votas el día de la elección. Te toca según la dirección de tu credencial.",
   },
   {
     icono: "conteo",
     termino: "Conteos censales",
-    definicion:
-      "El INE revisó la lista de cada casilla del país y contó quién votó y quién no. No es una encuesta: cuenta a todas las personas, no a unas cuantas.",
+    definicion: "El INE contó, casilla por casilla, quién votó y quién no. No es una encuesta: cuenta a todas las personas.",
   },
   {
     icono: "diferencia",
     termino: "Diferencia",
-    definicion:
-      "Cuántas personas de cada 100 separan a dos grupos. Si en un grupo votan 60 de cada 100 y en otro 50 de cada 100, la diferencia es de 10.",
+    definicion: "Cuánto más vota un grupo que otro. Si en un grupo votan 60 de cada 100 y en otro 50, la diferencia es 10.",
   },
   {
     icono: "entidad",
@@ -95,14 +92,13 @@ const PALABRAS: { icono: keyof typeof ICONOS; termino: string; definicion: strin
   {
     icono: "municipio",
     termino: "Municipio",
-    definicion:
-      "Una parte de la entidad con su propio gobierno, como tu ciudad o tu pueblo. En la Ciudad de México se llaman alcaldías.",
+    definicion: "La parte de una entidad con su propio gobierno, como tu ciudad o tu pueblo. En la Ciudad de México son alcaldías.",
   },
   {
     icono: "eleccion",
-    termino: "Presidencial, intermedia y judicial",
+    termino: "Tipos de elección",
     definicion:
-      "En la presidencial se elige a quien gobierna el país (2012, 2018 y 2024). En la intermedia, solo a diputadas y diputados (2009, 2015 y 2021). En la judicial de 2025 se votó por primera vez por juezas, jueces, ministras y ministros.",
+      "Presidencial: se elige a quien gobierna el país. Intermedia: se eligen diputadas y diputados, no presidente. Judicial: en 2025 se votó por primera vez por juezas y jueces.",
   },
   {
     icono: "zona",
@@ -112,19 +108,18 @@ const PALABRAS: { icono: keyof typeof ICONOS; termino: string; definicion: strin
   {
     icono: "sinDato",
     termino: "Sin dato",
-    definicion:
-      "Las rayas grises marcan que no hay número: en ese grupo hay menos de 30 personas y cuidamos su privacidad, o esa información no existe.",
+    definicion: "Las rayas grises indican que no hay número: el grupo tiene menos de 30 personas o el dato no existe.",
   },
 ];
 
 /** Glosario visible para todo público: cada palabra difícil del sitio, explicada en una o dos frases. */
 export function Glosario() {
   return (
-    <section className={estilos.seccion} id="palabras" aria-labelledby="palabras-titulo">
+    <section className={`${estilos.seccion} ${estilos.bandaPapel}`} id="palabras" aria-labelledby="palabras-titulo">
       <div className={`contenedor ${estilos.glosario}`}>
         <div className={estilos.intro}>
           <h2 id="palabras-titulo">Palabras para entender los números</h2>
-          <p>Si una palabra no te queda clara, aquí está explicada.</p>
+          <p>Aquí explicamos, en pocas palabras, lo que vas a leer en esta página.</p>
         </div>
         <figure className={estilos.cien}>
           <svg
@@ -143,10 +138,17 @@ export function Glosario() {
             ))}
           </svg>
           <figcaption>
-            <strong>«De cada 100»</strong>
+            <strong>¿Qué quiere decir «{VOTARON} de cada 100»?</strong>
             <span>
-              Imagina a 100 personas que pueden votar. Si decimos «{VOTARON} de cada 100», votaron {VOTARON} (en rosa) y no
-              votaron {100 - VOTARON} (en claro). Así se leen todos los números de esta página.
+              Piensa en 100 personas que pueden votar: {VOTARON} fueron a votar y {100 - VOTARON} no. Así se leen los números
+              de esta página.
+            </span>
+            <ul className={estilos.cienLeyenda}>
+              <li data-tipo="voto">Votaron: {VOTARON}</li>
+              <li data-tipo="noVoto">No votaron: {100 - VOTARON}</li>
+            </ul>
+            <span className={estilos.cienNota}>
+              En las frases redondeamos: 57.51 se lee «58 de cada 100». En las tablas está el número exacto.
             </span>
           </figcaption>
         </figure>

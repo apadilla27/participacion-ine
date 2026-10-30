@@ -13,7 +13,7 @@ import {
   type CuboEntidad,
   type CuboMunicipios,
 } from "@/lib/datos/cubo";
-import { CIEN, ENTEROS, TERMINOS, deCada, diferencia, frente, frenteAlPais } from "@/lib/formato";
+import { CIEN, ENTEROS, REDONDO, TERMINOS, deCada, diferencia, frente, frenteAlPais } from "@/lib/formato";
 import { tasa } from "@/lib/tasas";
 import estilos from "./explorar.module.css";
 
@@ -22,6 +22,8 @@ type Carga<T> = { estado: "cargando" } | { estado: "error" } | { estado: "listo"
 
 const SEXOS_VALIDOS = new Set<number>(SEXOS.map((x) => x.id));
 const VISIBLES = 10;
+/** Edades como en la portada: "18-19" se lee "18 a 19" y "80+" se lee "80 o más". */
+const edadLegible = (etiqueta: string) => etiqueta.replace("-", " a ").replace("+", " o más");
 const sinSuscripcion = () => () => {};
 const puedeCompartir = () => typeof navigator.share === "function";
 const ENTIDADES_ORDEN = ENTIDADES.filter((x) => x.clave > 0).sort((a, b) => a.corto.localeCompare(b.corto, "es-MX"));
@@ -195,7 +197,7 @@ export function Explorador() {
   const valorPais = filtros.ent !== 0 ? tasa(celdaDe(0, null, filtros.g)) : null;
   const lugar = nombreMunicipio ?? nombreEntidad;
   const sexoTexto = SEXOS.find((x) => x.id === filtros.s)!.etiqueta.toLowerCase();
-  const grupoTexto = GRUPOS.find((x) => x.id === filtros.g)!.etiqueta;
+  const grupoTexto = edadLegible(GRUPOS.find((x) => x.id === filtros.g)!.etiqueta);
   const cortes = `${sexoTexto}, ${filtros.g === 0 ? "todas las edades" : `${grupoTexto} años`}`;
 
   const coincidencias = useMemo(() => {
@@ -263,7 +265,7 @@ export function Explorador() {
           <select value={filtros.g} onChange={(e) => setFiltros({ g: Number(e.target.value) })}>
             {GRUPOS.map((x) => (
               <option key={x.id} value={x.id}>
-                {x.id === 0 ? "Todas las edades" : `${x.etiqueta} años`}
+                {x.id === 0 ? "Todas las edades" : `${edadLegible(x.etiqueta)} años`}
               </option>
             ))}
           </select>
@@ -377,9 +379,9 @@ export function Explorador() {
                     aria-pressed={filtros.g === x.id}
                     onClick={() => setFiltros({ g: filtros.g === x.id ? 0 : x.id })}
                   >
-                    <Pastel tamano={56} valor={v} titulo={`${x.etiqueta} años: ${v == null ? "sin dato" : deCada(v)}`} />
-                    <span>{x.etiqueta}</span>
-                    <strong>{v == null ? "sin dato" : CIEN.format(v)}</strong>
+                    <Pastel tamano={56} valor={v} titulo={`${edadLegible(x.etiqueta)} años: ${v == null ? "sin dato" : deCada(v)}`} />
+                    <span>{edadLegible(x.etiqueta)}</span>
+                    <strong>{v == null ? "sin dato" : REDONDO.format(v)}</strong>
                   </button>
                 );
               })}
@@ -413,13 +415,13 @@ export function Explorador() {
                 <>
                   <div className={estilos.buscador}>
                     <label className="campo">
-                      Busca un municipio
+                      Busca tu municipio (hay {ENTEROS.format(municipios.datos.municipios.length)} en {nombreEntidad})
                       <input
                         ref={buscador}
                         type="search"
                         value={busqueda}
                         onChange={(e) => setBusqueda(e.target.value)}
-                        placeholder={`Hay ${municipios.datos.municipios.length} en ${nombreEntidad}`}
+                        placeholder="Escribe el nombre de tu municipio"
                         autoComplete="off"
                       />
                     </label>

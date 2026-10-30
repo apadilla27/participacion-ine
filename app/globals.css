@@ -34,6 +34,14 @@
   --lectura: 62ch; /* unas 75 letras de Arial por línea */
   --gutter: clamp(16px, 4vw, 40px);
   --font-texto: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  /* Alto del encabezado fijo: lo que queda tapado arriba (dos filas en móvil, una desde 900 px). */
+  --alto-encabezado: 125px;
+}
+
+@media (min-width: 900px) {
+  :root {
+    --alto-encabezado: 77px;
+  }
 }
 
 @theme inline {
@@ -298,6 +306,17 @@ a:hover {
   cursor: pointer;
   text-decoration: underline dotted;
   text-underline-offset: 0.25em;
+}
+
+/* En teléfonos las tablas de cuatro columnas caben en 358 px: menos relleno y encabezados que parten. */
+@media (max-width: 479px) {
+  .tabla th,
+  .tabla td {
+    padding-inline: 6px;
+  }
+  .tabla thead th {
+    white-space: normal;
+  }
 }
 
 /* Flecha dibujada junto al encabezado que ordena la tabla. */

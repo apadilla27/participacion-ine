@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(dominio ? `https://${dominio}` : "http://localhost:3000"),
   title: { default: "Make the Change · Participación ciudadana", template: "%s · Make the Change" },
   description:
-    "Cuántas personas votan en México, quiénes y dónde, de 2009 a 2025, con los datos del INE. Calcula tu caso y busca tu municipio.",
+    "Cuántas personas votan en México, quiénes y dónde, de 2009 a 2025, con los datos del INE. Mira cuántas personas como tú votaron y busca tu municipio.",
 };
 
 export const viewport: Viewport = {

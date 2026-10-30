@@ -16,6 +16,10 @@
   --pastel-resto: #fff;
 }
 
+.bandaPapel {
+  background: var(--fondo-2);
+}
+
 .bandaVino {
   background: var(--vino-900);
   color: #fff;
@@ -82,7 +86,7 @@
   max-width: 48rem;
   padding: 24px;
   border-radius: 16px;
-  background: var(--rosa-50);
+  background: #fff;
 }
 
 .cien svg {
@@ -108,6 +112,40 @@
 .cien strong {
   font: 650 1.625rem / 1.15 var(--font-advent), var(--font-texto);
   color: var(--rosa-700);
+}
+
+.cienLeyenda {
+  list-style: none;
+  margin: 4px 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  font-weight: 700;
+}
+
+.cienLeyenda li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cienLeyenda li::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--rosa);
+}
+
+.cienLeyenda li[data-tipo="noVoto"]::before {
+  background: #fff;
+  box-shadow: inset 0 0 0 1.5px var(--c2);
+}
+
+.cienNota {
+  font-size: var(--meta);
+  color: var(--tinta-2);
 }
 
 @media (min-width: 640px) {
@@ -176,6 +214,10 @@
   max-width: var(--lectura);
 }
 
+.oracion {
+  display: block;
+}
+
 .heroTexto h1 em {
   font-style: normal;
   color: var(--rosa);
@@ -229,27 +271,67 @@
   gap: 48px;
 }
 
-.curvaRejilla {
-  display: grid;
-  gap: 32px;
-}
-
-.curvaFijo {
+.curvaTexto {
   display: grid;
   gap: 16px;
   align-content: start;
 }
 
-.curvaFijo > p {
+.curvaTexto > p {
   max-width: var(--lectura);
 }
 
-.curvaFijo > button {
+/*
+ * La pista da el recorrido y la escena queda fija dentro, del alto de la pantalla: nunca aparece un hueco en blanco.
+ * Cada parada ocupa media pantalla de desplazamiento (D63).
+ */
+.curvaPista {
+  --paso: 50svh;
+  min-height: calc(100svh - var(--alto-encabezado) + var(--pasos) * var(--paso));
+}
+
+.curvaEscena {
+  position: sticky;
+  top: var(--alto-encabezado);
+  display: grid;
+  gap: 16px;
+  align-content: center;
+  min-height: calc(100svh - var(--alto-encabezado));
+}
+
+.curvaGrafica {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+/* Se llena con el desplazamiento de la página. */
+.barraAvance {
+  height: 4px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--rosa-50);
+}
+
+.barraAvance::before {
+  content: "";
+  display: block;
+  height: 100%;
+  background: var(--rosa);
+  transform: scaleX(var(--avance));
+  transform-origin: left;
+}
+
+.curvaDatos {
+  display: grid;
+  gap: 16px;
+}
+
+.curvaDatos > button {
   justify-self: start;
 }
 
-.leyendaLineas,
-.leyendaBarras {
+.leyendaLineas {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -259,8 +341,7 @@
   font-size: var(--meta);
 }
 
-.leyendaLineas li,
-.leyendaBarras li {
+.leyendaLineas li {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -281,25 +362,20 @@
   border-top: 3px dashed var(--hombres);
 }
 
-.leyendaBarras li::before {
-  content: "";
-  width: 16px;
-  height: 16px;
-  border-radius: 3px;
-  background: var(--mujeres);
-}
-
-.leyendaBarras li[data-serie="hombres"]::before {
-  background: var(--hombres);
-}
-
-/* El volteo se marca con la etiqueta de edad en rosa; la leyenda muestra esa misma marca. */
-.leyendaBarras li[data-serie="volteo"]::before {
-  content: none;
-}
-
-.leyendaBarras li[data-serie="volteo"] strong {
-  color: var(--rosa-700);
+/* En teléfono la leyenda cabe en una sola fila: deja más lugar a la gráfica. */
+@media (max-width: 479px) {
+  .leyendaLineas {
+    column-gap: 10px;
+  }
+  .leyendaLineas li {
+    gap: 5px;
+  }
+  .leyendaLineas li::before {
+    width: 18px;
+  }
+  .leyendaResto {
+    display: none;
+  }
 }
 
 .curvaLienzo {
@@ -352,6 +428,13 @@
   padding-inline: 10px;
 }
 
+@media (max-width: 479px) {
+  .tablaSerie th,
+  .tablaSerie td {
+    padding-inline: 6px;
+  }
+}
+
 .tablaSerie thead th {
   white-space: normal;
   vertical-align: bottom;
@@ -363,8 +446,9 @@
   color: var(--tinta-2);
 }
 
-.marca {
-  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+/* Lo que falta por recorrer, tenue. El punto no lleva transición: lo mueve el desplazamiento de la página. */
+.lineasPorRecorrer {
+  opacity: 0.28;
 }
 
 .marca circle:first-child {
@@ -377,26 +461,119 @@
   stroke-width: 2;
 }
 
+.marca text {
+  fill: var(--tinta);
+  font-size: 20px;
+  font-weight: 700;
+  paint-order: stroke;
+  stroke: var(--fondo);
+  stroke-width: 6px;
+  stroke-linejoin: round;
+}
+
+.momentosCaja {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.ayudaMomentos {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--meta);
+  font-weight: 700;
+}
+
+.ayudaMomentos[data-fin="true"] {
+  visibility: hidden;
+}
+
+/* En teléfono, una tarjeta a la vez: todas ocupan la misma celda, así el recuadro no cambia de tamaño. */
 .momentos {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 16px 20px;
   display: grid;
-  gap: 16px;
+  border-radius: var(--radio);
+  background: var(--vino-900);
+  color: #fff;
+  font: 650 1.375rem / 1.15 var(--font-advent), var(--font-texto);
 }
 
 .momentos li {
-  display: grid;
-  gap: 8px;
-  padding: 20px;
-  border-radius: var(--radio);
-  background: var(--rosa-50);
-  transition: background-color 200ms ease-out, color 200ms ease-out;
+  grid-area: 1 / 1;
+  align-self: center;
+  opacity: 0;
+  transition: opacity 200ms ease-out;
 }
 
-.momentos li[data-activo="true"] {
-  background: var(--vino-900);
-  color: #fff;
+.momentos li[aria-current="step"] {
+  opacity: 1;
+}
+
+/*
+ * En teléfono no caben lado a lado: gráfica arriba, pegada al encabezado, y la tarjeta crece para ocupar lo que queda.
+ * La gráfica no pasa de 40% de la pantalla: menos aún encogería sus etiquetas.
+ */
+@media (max-width: 767px) {
+  .curvaEscena {
+    align-content: stretch;
+    grid-template-rows: auto minmax(0, 1fr);
+    padding-block: 12px;
+  }
+  .curvaGrafica svg {
+    max-height: 40svh;
+  }
+  .momentos {
+    flex: 1 1 auto;
+    max-height: 240px;
+  }
+}
+
+/* En teléfonos muy bajos la tarjeta no cabría con el aviso: la barra de avance ya indica que hay que seguir bajando. */
+@media (max-width: 767px) and (max-height: 600px) {
+  .ayudaMomentos {
+    display: none;
+  }
+}
+
+/* De tableta en adelante: gráfica a la izquierda y tarjetas a la derecha, todas visibles y en orden de edad (D63). */
+@media (min-width: 768px) {
+  /* La escena centra su contenido y ya deja aire arriba y abajo: se quita la separación entre bloques de la sección. */
+  .curvaPista,
+  .curvaDatos {
+    margin-top: -48px;
+  }
+  .curvaEscena {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    column-gap: 24px;
+    align-items: center;
+  }
+  .curvaGrafica svg {
+    max-height: calc(100svh - var(--alto-encabezado) - 96px);
+  }
+  .momentos {
+    gap: 8px;
+    padding: 0;
+    background: none;
+    color: var(--tinta);
+    font-size: 1.25rem;
+  }
+  .momentos li {
+    grid-area: auto;
+    padding: 12px 16px;
+    border-radius: var(--radio);
+    background: var(--rosa-50);
+    opacity: 1;
+    transition: background-color 200ms ease-out, color 200ms ease-out;
+  }
+  .momentos li[aria-current="step"] {
+    background: var(--vino-900);
+    color: #fff;
+  }
 }
 
 .subtitulo {
@@ -409,17 +586,62 @@
 }
 
 @media (min-width: 960px) {
-  .curvaRejilla {
-    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
-    align-items: start;
+  .curvaEscena {
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+    column-gap: 32px;
   }
-  .curvaFijo {
-    position: sticky;
-    top: 120px;
+  /* El lienzo de computadora se dibuja más chico: con 22 unidades la letra sigue en 16 px o más. */
+  .guia text,
+  .eje,
+  .marca text {
+    font-size: 22px;
+  }
+}
+
+/* Sin recorrido: al imprimir, o sin altura para fijar la escena (teléfono acostado, mucho zoom). Todo se ve completo. */
+@media print, (max-height: 519px) {
+  .curvaPista {
+    min-height: 0;
+  }
+  .curvaPista,
+  .curvaDatos {
+    margin-top: 0;
+  }
+  .curvaEscena {
+    position: static;
+    min-height: 0;
+  }
+  .curvaGrafica svg {
+    max-height: none;
+  }
+  .barraAvance,
+  .ayudaMomentos {
+    display: none;
   }
   .momentos {
-    gap: 40vh;
-    padding: 20vh 0 30vh;
+    gap: 8px;
+    padding: 0;
+    background: none;
+    color: var(--tinta);
+    max-height: none;
+  }
+  .momentos li,
+  .momentos li[aria-current="step"] {
+    grid-area: auto;
+    padding: 12px 16px;
+    border-radius: var(--radio);
+    background: var(--rosa-50);
+    color: var(--tinta);
+    opacity: 1;
+  }
+}
+
+@media print {
+  .lineasRecorridas {
+    clip-path: none;
+  }
+  .marca {
+    display: none;
   }
 }
 
@@ -478,7 +700,29 @@
   border-radius: 16px;
   background: var(--rosa-50);
   color: var(--tinta);
-  max-width: 48rem;
+}
+
+/* En escritorio: la barra a la izquierda y el resultado grande a la derecha. */
+.escenarioCuerpo {
+  display: grid;
+  gap: 16px 40px;
+  align-items: center;
+}
+
+.escenarioControl,
+.escenarioResultado {
+  display: grid;
+  gap: 12px;
+}
+
+@media (min-width: 900px) {
+  .escenarioCuerpo {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  }
+  .escenarioResultado {
+    padding-left: 32px;
+    border-left: 1px solid var(--c1);
+  }
 }
 
 .deslizador {
@@ -536,12 +780,24 @@
   box-shadow: 0 0 0 1px var(--rosa-700);
 }
 
+.deslizadorExtremos {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: var(--meta);
+  color: var(--tinta-2);
+}
+
+.deslizadorExtremos span:last-child {
+  text-align: right;
+}
+
 .escenarioCifra {
   color: var(--rosa-700);
 }
 
 .escenarioCifra span {
-  font-size: 2.25rem;
+  font-size: clamp(2.25rem, 1.6rem + 2vw, 3rem);
   margin-right: 6px;
 }
 
@@ -766,7 +1022,7 @@
   display: grid;
   gap: 16px;
   justify-items: start;
-  margin-top: 32px;
+  margin-top: 24px;
 }
 
 .tablaEntidades > div {
@@ -840,6 +1096,46 @@
   flex: none;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+}
+
+.espejoCabeza th {
+  padding-bottom: 4px;
+  font-size: var(--texto);
+  color: var(--tinta-2);
+}
+
+.espejoCabeza th[data-lado] {
+  color: var(--tinta);
+}
+
+.espejoCabeza th[data-lado="mujeres"] {
+  text-align: right;
+}
+
+.espejoCabeza th[data-lado="hombres"] {
+  text-align: left;
+}
+
+.espejoCabeza th[data-lado] span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.espejoCabeza th[data-lado] span::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  background: var(--mujeres);
+}
+
+.espejoCabeza th[data-lado="hombres"] span::before {
+  background: var(--hombres);
+}
+
+.notaVolteo strong {
+  color: var(--rosa-700);
 }
 
 .espejoTabla tr[data-volteo="true"] th {

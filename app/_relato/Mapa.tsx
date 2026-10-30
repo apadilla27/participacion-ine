@@ -8,7 +8,7 @@ import { esAngosta, useAngosta } from "@/app/_ui/useAngosta";
 import { ENTIDADES, nombreLugar } from "@/lib/catalogo";
 import type { Trazo } from "@/lib/datos/tipos-geo";
 import { LECTURAS, type Lectura, type RelatoDatos } from "@/lib/datos/tipos";
-import { CIEN, cuanto, deCada, diferencia, frenteAlPais } from "@/lib/formato";
+import { CIEN, REDONDO, cuanto, deCada, diferencia, frenteAlPais } from "@/lib/formato";
 import { COLUMNAS, FILAS, MOSAICO } from "@/lib/mosaico";
 import estilos from "./relato.module.css";
 
@@ -303,9 +303,67 @@ export function Mapa({ datos }: { datos: RelatoDatos }) {
             </ul>
             <p className={estilos.ayudaMapa}>
               {vistaEfectiva === "mosaico"
-                ? "Cada cuadro es una entidad: tócalo para ver su nombre y sus números."
-                : "Toca una entidad en el mapa para ver su nombre y sus números."}
+                ? "Cada cuadro es una entidad: tócalo o haz clic para ver su nombre y sus números."
+                : "Toca o haz clic en una entidad del mapa para ver su nombre y sus números."}
             </p>
+            <div className={estilos.tablaEntidades}>
+              <button
+                type="button"
+                className="btn btn-contorno"
+                aria-expanded={verTabla}
+                onClick={() => setVerTabla((v) => !v)}
+              >
+                {verTabla ? "Ocultar la tabla" : "Ver las 32 entidades en tabla"}
+              </button>
+              {verTabla ? (
+                <div className="tabla-caja">
+                  <table className="tabla">
+                    <caption>
+                      Votaron de cada 100 por entidad: {nombreLectura.toLowerCase()}, {ev.etiqueta}. País: {pais == null ? "sin dato" : CIEN.format(pais)}.
+                    </caption>
+                    <thead>
+                      <tr>
+                        {(
+                          [
+                            ["nombre", "Entidad"],
+                            ["valor", "Votaron"],
+                            ["diferencia", "Diferencia con el país"],
+                          ] as [Orden, string][]
+                        ).map(([por, texto]) => (
+                          <th
+                            key={por}
+                            scope="col"
+                            aria-sort={orden.por === por ? (orden.asc ? "ascending" : "descending") : "none"}
+                          >
+                            <button
+                              type="button"
+                              className="orden"
+                              onClick={() => setOrden((o) => ({ por, asc: o.por === por ? !o.asc : por === "nombre" }))}
+                            >
+                              {texto}
+                              {orden.por === por ? (
+                                <svg className="flecha" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+                                  <path d={orden.asc ? "M1 7l4-4 4 4" : "M1 3l4 4 4-4"} />
+                                </svg>
+                              ) : null}
+                            </button>
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filasTabla.map((f) => (
+                        <tr key={f.k}>
+                          <th scope="row">{f.nombre}</th>
+                          <td>{f.v == null ? "sin dato" : CIEN.format(f.v)}</td>
+                          <td>{f.v == null || pais == null ? "—" : diferencia(f.v, pais)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : null}
+            </div>
           </div>
 
           <div ref={ficha} className={estilos.ficha} aria-live="polite">
@@ -329,7 +387,7 @@ export function Mapa({ datos }: { datos: RelatoDatos }) {
                 return (
                   <div key={l.id}>
                     <dt>{l.nombre}</dt>
-                    <dd>{v == null ? "sin dato" : CIEN.format(v)}</dd>
+                    <dd>{v == null ? "sin dato" : REDONDO.format(v)}</dd>
                   </div>
                 );
               })}
@@ -369,60 +427,6 @@ export function Mapa({ datos }: { datos: RelatoDatos }) {
               </div>
             ) : null}
           </div>
-        </div>
-
-        <div className={estilos.tablaEntidades}>
-          <button type="button" className="btn btn-contorno" aria-expanded={verTabla} onClick={() => setVerTabla((v) => !v)}>
-            {verTabla ? "Ocultar la tabla" : "Ver las 32 entidades en tabla"}
-          </button>
-          {verTabla ? (
-            <div className="tabla-caja">
-              <table className="tabla">
-                <caption>
-                  Votaron de cada 100 por entidad: {nombreLectura.toLowerCase()}, {ev.etiqueta}. País: {pais == null ? "sin dato" : CIEN.format(pais)}.
-                </caption>
-                <thead>
-                  <tr>
-                    {(
-                      [
-                        ["nombre", "Entidad"],
-                        ["valor", "Votaron"],
-                        ["diferencia", "Diferencia con el país"],
-                      ] as [Orden, string][]
-                    ).map(([por, texto]) => (
-                      <th
-                        key={por}
-                        scope="col"
-                        aria-sort={orden.por === por ? (orden.asc ? "ascending" : "descending") : "none"}
-                      >
-                        <button
-                          type="button"
-                          className="orden"
-                          onClick={() => setOrden((o) => ({ por, asc: o.por === por ? !o.asc : por === "nombre" }))}
-                        >
-                          {texto}
-                          {orden.por === por ? (
-                            <svg className="flecha" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
-                              <path d={orden.asc ? "M1 7l4-4 4 4" : "M1 3l4 4 4-4"} />
-                            </svg>
-                          ) : null}
-                        </button>
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {filasTabla.map((f) => (
-                    <tr key={f.k}>
-                      <th scope="row">{f.nombre}</th>
-                      <td>{f.v == null ? "sin dato" : CIEN.format(f.v)}</td>
-                      <td>{f.v == null || pais == null ? "—" : diferencia(f.v, pais)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ) : null}
         </div>
       </div>
     </section>
