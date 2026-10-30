@@ -15,7 +15,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Sin base de datos (D37): el sitio lee JSON estáticos que exporta el ETL validado (`npm run datos`). No hay variables de entorno ni credenciales.
 - Datos: `lib/datos/` es el único dueño de la lectura (D52). Los JSON de `data/web/` se importan en módulos de servidor; el explorador descarga `public/datos/`. Nunca leer con `fs` ni `process.cwd()`.
 - Privacidad (D46): toda celda desagregada por sexo o edad con `ln < 30` se exporta sin votos; `scripts/verificar-datos.mjs` hace fallar el build si no.
-- Cifras de la narrativa: siempre calculadas desde `lib/datos/`, nunca escritas a mano. Formato con `lib/formato.ts` ("X de cada 100", dos decimales, glosario D45).
+- Cifras de la narrativa: siempre calculadas desde `lib/datos/`, nunca escritas a mano. Formato con `lib/formato.ts` ("X de cada 100": redondas en frases y gráficas, dos decimales en tablas; D45 y D61).
 - Estilos: tokens en `app/globals.css` (el único archivo que procesa Tailwind) y CSS Modules por componente. Las clases globales (`btn`, `tabla`, `orden`, `estado`…) se alcanzan desde un módulo con `:global(...)`.
 - Interfaz: usar Impeccable (`.cursor/skills/impeccable`). `PRODUCT.md` y `.impeccable/surfaces/app-page-tsx.md` fijan marca y dirección.
 - Identidad: logotipo INE oficial sin alterar y siempre con el aviso de prototipo; la imagen para compartir no lleva el logotipo del INE (D50).
