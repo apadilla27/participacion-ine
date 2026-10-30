@@ -271,15 +271,7 @@
   gap: 48px;
 }
 
-/* Orden en teléfono: texto, gráfica (fija arriba), tarjetas y tabla. En escritorio, tarjetas a la derecha. */
-.curvaRejilla {
-  display: grid;
-  gap: 24px;
-  grid-template-areas: "texto" "grafica" "momentos" "datos";
-}
-
 .curvaTexto {
-  grid-area: texto;
   display: grid;
   gap: 16px;
   align-content: start;
@@ -289,37 +281,54 @@
   max-width: var(--lectura);
 }
 
+/*
+ * La pista da el recorrido y la escena queda fija dentro, del alto de la pantalla: nunca aparece un hueco en blanco.
+ * Cada parada ocupa media pantalla de desplazamiento (D63).
+ */
+.curvaPista {
+  --paso: 50svh;
+  min-height: calc(100svh - var(--alto-encabezado) + var(--pasos) * var(--paso));
+}
+
+.curvaEscena {
+  position: sticky;
+  top: var(--alto-encabezado);
+  display: grid;
+  gap: 16px;
+  align-content: center;
+  min-height: calc(100svh - var(--alto-encabezado));
+}
+
 .curvaGrafica {
-  grid-area: grafica;
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+/* Se llena con el desplazamiento de la página. */
+.barraAvance {
+  height: 4px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--rosa-50);
+}
+
+.barraAvance::before {
+  content: "";
+  display: block;
+  height: 100%;
+  background: var(--rosa);
+  transform: scaleX(var(--avance));
+  transform-origin: left;
 }
 
 .curvaDatos {
-  grid-area: datos;
   display: grid;
   gap: 16px;
 }
 
 .curvaDatos > button {
   justify-self: start;
-}
-
-@media (max-width: 959px) {
-  .curvaGrafica {
-    position: sticky;
-    top: var(--alto-encabezado);
-    z-index: 2;
-    padding-block: 8px;
-    background: var(--fondo);
-    border-bottom: 1px solid var(--linea);
-  }
-  /* En teléfonos bajos la gráfica fija no pasa de 40% de la pantalla: deja lugar a las tarjetas. */
-  .curvaGrafica svg {
-    max-height: 40svh;
-  }
-  .curvaRejilla[data-datos="true"] .curvaGrafica {
-    position: static;
-    border-bottom: 0;
-  }
 }
 
 .leyendaLineas {
@@ -351,6 +360,22 @@
 
 .leyendaLineas li[data-serie="hombres"]::before {
   border-top: 3px dashed var(--hombres);
+}
+
+/* En teléfono la leyenda cabe en una sola fila: deja más lugar a la gráfica. */
+@media (max-width: 479px) {
+  .leyendaLineas {
+    column-gap: 10px;
+  }
+  .leyendaLineas li {
+    gap: 5px;
+  }
+  .leyendaLineas li::before {
+    width: 18px;
+  }
+  .leyendaResto {
+    display: none;
+  }
 }
 
 .curvaLienzo {
@@ -421,8 +446,9 @@
   color: var(--tinta-2);
 }
 
-.marca {
-  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+/* Lo que falta por recorrer, tenue. El punto no lleva transición: lo mueve el desplazamiento de la página. */
+.lineasPorRecorrer {
+  opacity: 0.28;
 }
 
 .marca circle:first-child {
@@ -435,53 +461,119 @@
   stroke-width: 2;
 }
 
+.marca text {
+  fill: var(--tinta);
+  font-size: 20px;
+  font-weight: 700;
+  paint-order: stroke;
+  stroke: var(--fondo);
+  stroke-width: 6px;
+  stroke-linejoin: round;
+}
+
 .momentosCaja {
-  grid-area: momentos;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 12px;
-  align-content: start;
+  min-width: 0;
 }
 
 .ayudaMomentos {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--meta);
   font-weight: 700;
 }
 
+.ayudaMomentos[data-fin="true"] {
+  visibility: hidden;
+}
+
+/* En teléfono, una tarjeta a la vez: todas ocupan la misma celda, así el recuadro no cambia de tamaño. */
 .momentos {
   list-style: none;
   margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 12px;
-}
-
-/* Cada momento es un botón: toda la tarjeta se puede tocar. */
-.momentos button {
-  display: grid;
-  gap: 6px;
-  width: 100%;
-  min-height: var(--toque);
   padding: 16px 20px;
-  border: 0;
+  display: grid;
   border-radius: var(--radio);
-  background: var(--rosa-50);
-  color: var(--tinta);
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-  transition: background-color 200ms ease-out, color 200ms ease-out;
-}
-
-.momentos button:hover {
-  background: var(--c1);
-}
-
-.momentos button[aria-pressed="true"] {
   background: var(--vino-900);
   color: #fff;
+  font: 650 1.375rem / 1.15 var(--font-advent), var(--font-texto);
 }
 
-.momentoTitulo {
-  font: 650 1.375rem / 1.15 var(--font-advent), var(--font-texto);
+.momentos li {
+  grid-area: 1 / 1;
+  align-self: center;
+  opacity: 0;
+  transition: opacity 200ms ease-out;
+}
+
+.momentos li[aria-current="step"] {
+  opacity: 1;
+}
+
+/*
+ * En teléfono no caben lado a lado: gráfica arriba, pegada al encabezado, y la tarjeta crece para ocupar lo que queda.
+ * La gráfica no pasa de 40% de la pantalla: menos aún encogería sus etiquetas.
+ */
+@media (max-width: 767px) {
+  .curvaEscena {
+    align-content: stretch;
+    grid-template-rows: auto minmax(0, 1fr);
+    padding-block: 12px;
+  }
+  .curvaGrafica svg {
+    max-height: 40svh;
+  }
+  .momentos {
+    flex: 1 1 auto;
+    max-height: 240px;
+  }
+}
+
+/* En teléfonos muy bajos la tarjeta no cabría con el aviso: la barra de avance ya indica que hay que seguir bajando. */
+@media (max-width: 767px) and (max-height: 600px) {
+  .ayudaMomentos {
+    display: none;
+  }
+}
+
+/* De tableta en adelante: gráfica a la izquierda y tarjetas a la derecha, todas visibles y en orden de edad (D63). */
+@media (min-width: 768px) {
+  /* La escena centra su contenido y ya deja aire arriba y abajo: se quita la separación entre bloques de la sección. */
+  .curvaPista,
+  .curvaDatos {
+    margin-top: -48px;
+  }
+  .curvaEscena {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    column-gap: 24px;
+    align-items: center;
+  }
+  .curvaGrafica svg {
+    max-height: calc(100svh - var(--alto-encabezado) - 96px);
+  }
+  .momentos {
+    gap: 8px;
+    padding: 0;
+    background: none;
+    color: var(--tinta);
+    font-size: 1.25rem;
+  }
+  .momentos li {
+    grid-area: auto;
+    padding: 12px 16px;
+    border-radius: var(--radio);
+    background: var(--rosa-50);
+    opacity: 1;
+    transition: background-color 200ms ease-out, color 200ms ease-out;
+  }
+  .momentos li[aria-current="step"] {
+    background: var(--vino-900);
+    color: #fff;
+  }
 }
 
 .subtitulo {
@@ -494,14 +586,62 @@
 }
 
 @media (min-width: 960px) {
-  .curvaRejilla {
-    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
-    grid-template-areas:
-      "texto momentos"
-      "grafica momentos"
-      "datos momentos";
-    grid-template-rows: auto auto 1fr;
-    align-items: start;
+  .curvaEscena {
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+    column-gap: 32px;
+  }
+  /* El lienzo de computadora se dibuja más chico: con 22 unidades la letra sigue en 16 px o más. */
+  .guia text,
+  .eje,
+  .marca text {
+    font-size: 22px;
+  }
+}
+
+/* Sin recorrido: al imprimir, o sin altura para fijar la escena (teléfono acostado, mucho zoom). Todo se ve completo. */
+@media print, (max-height: 519px) {
+  .curvaPista {
+    min-height: 0;
+  }
+  .curvaPista,
+  .curvaDatos {
+    margin-top: 0;
+  }
+  .curvaEscena {
+    position: static;
+    min-height: 0;
+  }
+  .curvaGrafica svg {
+    max-height: none;
+  }
+  .barraAvance,
+  .ayudaMomentos {
+    display: none;
+  }
+  .momentos {
+    gap: 8px;
+    padding: 0;
+    background: none;
+    color: var(--tinta);
+    max-height: none;
+  }
+  .momentos li,
+  .momentos li[aria-current="step"] {
+    grid-area: auto;
+    padding: 12px 16px;
+    border-radius: var(--radio);
+    background: var(--rosa-50);
+    color: var(--tinta);
+    opacity: 1;
+  }
+}
+
+@media print {
+  .lineasRecorridas {
+    clip-path: none;
+  }
+  .marca {
+    display: none;
   }
 }
 

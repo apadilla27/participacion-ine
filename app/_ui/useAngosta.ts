@@ -16,3 +16,16 @@ export const esAngosta = () => window.matchMedia(consulta).matches;
 export function useAngosta() {
   return useSyncExternalStore(suscribir, esAngosta, () => false);
 }
+
+const consultaAncha = "(min-width: 960px)";
+
+function suscribirAncha(aviso: () => void) {
+  const mq = window.matchMedia(consultaAncha);
+  mq.addEventListener("change", aviso);
+  return () => mq.removeEventListener("change", aviso);
+}
+
+/** Pantalla de computadora (960 px o más). En el servidor se asume que sí, igual que `useAngosta`. */
+export function useAncha() {
+  return useSyncExternalStore(suscribirAncha, () => window.matchMedia(consultaAncha).matches, () => true);
+}
