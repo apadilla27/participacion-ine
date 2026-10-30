@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { useId, useMemo, useState } from "react";
 import { Segmento } from "@/app/_ui/Segmento";
 import { useAngosta } from "@/app/_ui/useAngosta";
 import type { Momentos, PuntoCurva, RelatoDatos } from "@/lib/datos/tipos";
-import { CIEN, deCada, diferencia } from "@/lib/formato";
+import { CIEN, deCada, diferencia, parDeCada } from "@/lib/formato";
 import estilos from "./relato.module.css";
 
 // En móvil el lienzo es más angosto para que la curva tenga altura y el texto del eje se lea.
@@ -18,9 +18,11 @@ type Momento = { edad: number; titulo: string; cuerpo: string };
 function momentosTexto(m: Momentos, puntos: PuntoCurva[]): Momento[] {
   const juventud = puntos.filter((p) => p.edad <= 29 && p.todos != null).map((p) => p.todos as number);
   const esMaxima = m.estreno.todos >= Math.max(...juventud);
-  const cambio = Math.round((m.alAnio.todos - m.estreno.todos) * 100) / 100;
+  // Las diferencias salen de las cifras redondas que se ven en pantalla: la cuenta siempre cuadra (58 − 50 = 8).
+  const cambio = Math.round(m.alAnio.todos) - Math.round(m.estreno.todos);
   const esCumbre = m.cumbre.todos >= Math.max(...puntos.map((p) => p.todos ?? 0));
   const todosEnPiso = puntos.find((p) => p.edad === m.piso.edad)?.todos ?? null;
+  const piso = parDeCada(m.piso.hombres, m.piso.mujeres);
   const lista: Momento[] = [
     {
       edad: 18,
@@ -35,12 +37,14 @@ function momentosTexto(m: Momentos, puntos: PuntoCurva[]): Momento[] {
       cuerpo:
         cambio === 0
           ? "Un cumpleaños después, votan igual."
-          : `Basta un cumpleaños de diferencia: a los 19 votan ${CIEN.format(Math.abs(cambio))} de cada 100 ${cambio < 0 ? "menos" : "más"} que a los 18.`,
+          : `Basta un cumpleaños de diferencia: a los 19 votan ${Math.abs(cambio)} de cada 100 ${cambio < 0 ? "menos" : "más"} que a los 18.`,
     },
     {
       edad: m.piso.edad,
       titulo: `A los ${m.piso.edad} votan menos hombres que a cualquier otra edad antes de los 40`,
-      cuerpo: `Votaron ${deCada(m.piso.hombres)} hombres de ${m.piso.edad} años. Las mujeres de esa edad, ${deCada(m.piso.mujeres)}.`,
+      cuerpo: piso.empate
+        ? `Hombres y mujeres de ${m.piso.edad} años votaron casi igual: unos ${piso.a}.`
+        : `Votaron ${piso.a} hombres de ${m.piso.edad} años. Las mujeres de esa edad, ${piso.b}.`,
     },
     {
       edad: m.cumbre.edad,
@@ -50,14 +54,19 @@ function momentosTexto(m: Momentos, puntos: PuntoCurva[]): Momento[] {
       cuerpo:
         todosEnPiso == null
           ? "El voto crece con los años, poco a poco."
-          : `Son ${CIEN.format(m.cumbre.todos - todosEnPiso)} de cada 100 más que a los ${m.piso.edad}. El voto crece con los años, poco a poco.`,
+          : `A los ${m.piso.edad} años votaron ${deCada(todosEnPiso)} personas; a los ${m.cumbre.edad}, ${deCada(m.cumbre.todos)}. El voto crece con los años, poco a poco.`,
     },
   ];
   if (m.volteo) {
+    const volteo = parDeCada(m.volteo.hombres, m.volteo.mujeres);
     lista.push({
       edad: m.volteo.edad,
       titulo: `Desde los ${m.volteo.edad}, los hombres votan más`,
-      cuerpo: `Hombres ${deCada(m.volteo.hombres)}; mujeres ${deCada(m.volteo.mujeres)}. Antes de esa edad, ellas votan más. Los datos muestran el cambio, no su causa.`,
+      cuerpo: `${
+        volteo.empate
+          ? `Votan casi igual: unos ${volteo.a}, y los hombres apenas un poco más.`
+          : `Hombres ${volteo.a}; mujeres ${volteo.b}.`
+      } Antes de esa edad, ellas votan más. Los números no dicen por qué pasa.`,
     });
   }
   return lista;
@@ -76,7 +85,6 @@ export function Curva({
   const vista = datos.elecciones.find((e) => e.slug === eleccion)!;
   const [activo, setActivo] = useState(0);
   const [verDatos, setVerDatos] = useState(false);
-  const refs = useRef<(HTMLElement | null)[]>([]);
   const titulo = useId();
   const lista = useMemo(() => momentosTexto(momentos, puntos), [momentos, puntos]);
   const ancho = useAngosta() ? LIENZO.angosto : LIENZO.ancho;
@@ -90,26 +98,16 @@ export function Curva({
       .filter((p) => p[llave] != null)
       .map((p, i) => `${i === 0 ? "M" : "L"}${x(p.edad).toFixed(1)},${y(p[llave] as number).toFixed(1)}`)
       .join("");
-  const marca = lista[Math.min(activo, lista.length - 1)];
+  const marcaIndice = Math.min(activo, lista.length - 1);
+  const marca = lista[marcaIndice];
   const puntoMarca = puntos.find((p) => p.edad === marca.edad);
   const niveles = Array.from({ length: tope / 10 - 1 }, (_, i) => (i + 1) * 10).filter((n) => n % 20 === 0 || tope <= 40);
 
-  useEffect(() => {
-    const observador = new IntersectionObserver(
-      (entradas) => {
-        const visible = entradas.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) setActivo(Number((visible.target as HTMLElement).dataset.indice));
-      },
-      { rootMargin: "-30% 0px -40% 0px", threshold: [0.35, 0.7] },
-    );
-    refs.current.forEach((nodo) => nodo && observador.observe(nodo));
-    return () => observador.disconnect();
-  }, [lista.length]);
-
   return (
     <section className={`${estilos.seccion} ${estilos.curva}`} id="curva" aria-labelledby={titulo}>
-      <div className={`contenedor ${estilos.curvaRejilla}`}>
-        <div className={estilos.curvaFijo}>
+      {/* Con la tabla abierta la gráfica deja de estar fija en teléfono, para no tapar las filas. */}
+      <div className={`contenedor ${estilos.curvaRejilla}`} data-datos={verDatos}>
+        <div className={estilos.curvaTexto}>
           <h2 id={titulo}>La montaña rusa del voto, de los 18 a los 100 años</h2>
           <p>
             La línea va de los 18 a los 100 años: entre más alta, más personas de esa edad votaron. Elige otro año de
@@ -127,6 +125,9 @@ export function Curva({
             <li data-serie="mujeres">Mujeres</li>
             <li data-serie="hombres">Hombres</li>
           </ul>
+        </div>
+        {/* En teléfono la gráfica queda fija arriba mientras pasan las tarjetas: al tocar una, el punto se ve moverse. */}
+        <div className={estilos.curvaGrafica}>
           <svg
             className={estilos.curvaLienzo}
             viewBox={`0 0 ${ancho} ${ALTO + 30}`}
@@ -165,6 +166,8 @@ export function Curva({
               </text>
             ))}
           </svg>
+        </div>
+        <div className={estilos.curvaDatos}>
           <button
             type="button"
             className="btn btn-contorno"
@@ -199,21 +202,20 @@ export function Curva({
             </div>
           ) : null}
         </div>
-        <ol className={estilos.momentos}>
-          {lista.map((m, i) => (
-            <li
-              key={`${eleccion}-${m.edad}-${i}`}
-              data-indice={i}
-              data-activo={i === activo}
-              ref={(nodo) => {
-                refs.current[i] = nodo;
-              }}
-            >
-              <h3>{m.titulo}</h3>
-              <p>{m.cuerpo}</p>
-            </li>
-          ))}
-        </ol>
+        {/* Los momentos van juntos, sin desplazamiento largo: tocar una tarjeta mueve el punto en la línea. */}
+        <div className={estilos.momentosCaja}>
+          <p className={estilos.ayudaMomentos}>Toca o haz clic en una tarjeta para ver esa edad en la línea.</p>
+          <ol className={estilos.momentos}>
+            {lista.map((m, i) => (
+              <li key={`${eleccion}-${m.edad}-${i}`}>
+                <button type="button" aria-pressed={i === marcaIndice} onClick={() => setActivo(i)}>
+                  <span className={estilos.momentoTitulo}>{m.titulo}</span>
+                  <span>{m.cuerpo}</span>
+                </button>
+              </li>
+            ))}
+          </ol>
+        </div>
       </div>
 
       <div className="contenedor">

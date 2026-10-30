@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 import { datosRelato } from "@/lib/datos/relato";
-import { CIEN } from "@/lib/formato";
+import { REDONDO } from "@/lib/formato";
 
 export const alt = "Make the Change: a los 18 años, cuántas personas de cada 100 votaron en 2024";
 export const size = { width: 1200, height: 630 };
@@ -35,7 +35,7 @@ export default function Imagen() {
           Make the Change
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          <div style={{ fontSize: 150, fontWeight: 700, color: "#d5007f", lineHeight: 1 }}>{CIEN.format(d.hero.estreno)}</div>
+          <div style={{ fontSize: 150, fontWeight: 700, color: "#d5007f", lineHeight: 1 }}>{REDONDO.format(d.hero.estreno)}</div>
           <div style={{ fontSize: 48, fontWeight: 700 }}>de cada 100 votaron a los 18 años en 2024</div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", fontSize: 26, color: "#4a4a48" }}>

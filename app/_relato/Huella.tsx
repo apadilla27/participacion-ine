@@ -4,7 +4,7 @@ import { useMemo, useState, useSyncExternalStore } from "react";
 import { Pastel } from "@/app/_ui/Pastel";
 import { ENTIDADES, fechaLarga, nombreLugar } from "@/lib/catalogo";
 import type { RelatoDatos } from "@/lib/datos/tipos";
-import { CIEN, ENTEROS, TERMINOS, deCada } from "@/lib/formato";
+import { ENTEROS, REDONDO, TERMINOS, deCada } from "@/lib/formato";
 import { sumar, tasa } from "@/lib/tasas";
 import estilos from "./relato.module.css";
 
@@ -74,7 +74,7 @@ async function imagenCompartible(pct: number, frase: string): Promise<File | nul
   c.fillText("Make the Change", 190, 160);
   c.fillStyle = "#d5007f";
   c.font = `700 210px ${display}`;
-  c.fillText(CIEN.format(pct), 72, 470);
+  c.fillText(REDONDO.format(pct), 72, 470);
   c.fillStyle = "#1d1d1b";
   c.font = `700 46px ${display}`;
   c.fillText("de cada 100 votaron", 72, 545);
@@ -308,36 +308,44 @@ export function Huella({ datos }: { datos: RelatoDatos }) {
                 contra {deCada(generacion.ritmo)}.
               </p>
             ) : (
-              <>
-                <p>
-                  Hoy votan {deCada(generacion.actual)} jóvenes de 18 a 29 años. Las personas de 60 a 69 votan{" "}
-                  {deCada(generacion.ritmo)}. Mueve la barra y mira cuántos votos más habría.
-                </p>
-                <label className={estilos.deslizador}>
-                  <span>
-                    Si votaran <strong>{CIEN.format(objetivo)}</strong> de cada 100 jóvenes
-                  </span>
-                  <input
-                    type="range"
-                    min={0}
-                    max={100}
-                    step={1}
-                    value={avance}
-                    style={{ ["--avance" as string]: `${avance}%` }}
-                    aria-valuetext={`${CIEN.format(objetivo)} de cada 100 jóvenes`}
-                    onChange={(e) => setAvance(Number(e.target.value))}
-                  />
-                </label>
-                <p className={estilos.escenarioCifra}>
-                  <span className="cifra">{ENTEROS.format(extra)}</span> votos más
-                </p>
-                {comparable ? (
+              <div className={estilos.escenarioCuerpo}>
+                <div className={estilos.escenarioControl}>
                   <p>
-                    Son más personas que todas las que pueden votar en {nombreLugar(comparable.clave)} (
-                    {ENTEROS.format(comparable.ln)}).
+                    Hoy votan {deCada(generacion.actual)} jóvenes de 18 a 29 años. Las personas de 60 a 69 votan{" "}
+                    {deCada(generacion.ritmo)}. Mueve la barra y mira cuántos votos más habría.
                   </p>
-                ) : null}
-              </>
+                  <label className={estilos.deslizador}>
+                    <span>
+                      Si votaran <strong>{REDONDO.format(objetivo)}</strong> de cada 100 jóvenes
+                    </span>
+                    <input
+                      type="range"
+                      min={0}
+                      max={100}
+                      step={1}
+                      value={avance}
+                      style={{ ["--avance" as string]: `${avance}%` }}
+                      aria-valuetext={`${REDONDO.format(objetivo)} de cada 100 jóvenes`}
+                      onChange={(e) => setAvance(Number(e.target.value))}
+                    />
+                    <span className={estilos.deslizadorExtremos} aria-hidden="true">
+                      <span>Hoy: {REDONDO.format(generacion.actual)}</span>
+                      <span>Como de 60 a 69 años: {REDONDO.format(generacion.ritmo)}</span>
+                    </span>
+                  </label>
+                </div>
+                <div className={estilos.escenarioResultado} aria-live="polite">
+                  <p className={estilos.escenarioCifra}>
+                    <span className="cifra">{ENTEROS.format(extra)}</span> votos más
+                  </p>
+                  {comparable ? (
+                    <p>
+                      Son más personas que todas las que pueden votar en {nombreLugar(comparable.clave)} (
+                      {ENTEROS.format(comparable.ln)}).
+                    </p>
+                  ) : null}
+                </div>
+              </div>
             )}
           </div>
         ) : null}

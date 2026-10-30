@@ -61,7 +61,9 @@
   border-radius: 999px;
   background: var(--rosa-50);
   color: var(--rosa-700);
+  font-size: var(--meta); /* 16 px: "Busca tu municipio" cabe en una línea en 375 px */
   font-weight: 700;
+  white-space: nowrap;
   text-align: center;
   text-decoration: none;
   transition: background-color 150ms ease-out, color 150ms ease-out;

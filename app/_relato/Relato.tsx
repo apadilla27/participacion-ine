@@ -41,7 +41,7 @@ export function Relato({ datos }: { datos: RelatoDatos }) {
               Busca tu municipio
             </Link>
             <a className="btn btn-contorno" href="#huella">
-              Calcula tu caso
+              Ver cuántos como tú votaron
             </a>
           </div>
         </div>
