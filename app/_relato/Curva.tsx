@@ -2,14 +2,16 @@
 
 import { useEffect, useId, useMemo, useRef, useState, type CSSProperties, type RefObject } from "react";
 import { Segmento } from "@/app/_ui/Segmento";
-import { useAncha } from "@/app/_ui/useAngosta";
+import { useAncha, useTelefonoBajo } from "@/app/_ui/useAngosta";
 import type { Momentos, PuntoCurva, RelatoDatos } from "@/lib/datos/tipos";
 import { CIEN, deCada, diferencia } from "@/lib/formato";
 import estilos from "./relato.module.css";
 
-// Dos lienzos, para que la letra de la gráfica se lea igual: uno para teléfono y tableta, y uno más alto para computadora (D60, D63).
+// Tres lienzos, para que la letra de la gráfica se lea igual: teléfono y tableta, teléfono bajo (más plano, para no
+// encoger la letra) y computadora (más alto) (D60, D63).
 const LIENZOS = {
   angosto: { ancho: 420, alto: 320, letra: 10.6, edades: [18, 40, 60, 100] },
+  bajo: { ancho: 420, alto: 225, letra: 10.6, edades: [18, 40, 60, 100] },
   amplio: { ancho: 760, alto: 520, letra: 11.7, edades: [18, 30, 40, 50, 60, 70, 80, 100] },
 };
 // Margen izquierdo para las etiquetas del eje: así las líneas no las tachan a los 18 años.
@@ -29,7 +31,7 @@ function momentosTexto(m: Momentos, puntos: PuntoCurva[], ultimo: ConDato): Mome
     { edad: 19, titulo: `A los 19 votaron ${deCada(m.alAnio.todos)}` },
     {
       edad: m.piso.edad,
-      titulo: `A los ${m.piso.edad} votan menos hombres que a cualquier otra edad antes de los 40: ${deCada(m.piso.hombres)}`,
+      titulo: `A los ${m.piso.edad} votan menos hombres que a cualquier otra edad antes de los 40: ${deCada(m.piso.hombres)} hombres`,
     },
     {
       edad: m.cumbre.edad,
@@ -118,7 +120,9 @@ export function Curva({
   const paradas = useMemo(() => lista.map((m) => m.edad), [lista]);
   const avance = useAvance(pista, escena, paradas.length);
 
-  const lienzo = useAncha() ? LIENZOS.amplio : LIENZOS.angosto;
+  const amplia = useAncha();
+  const baja = useTelefonoBajo();
+  const lienzo = amplia ? LIENZOS.amplio : baja ? LIENZOS.bajo : LIENZOS.angosto;
   const { ancho, alto } = lienzo;
   const maximo = Math.max(...puntos.flatMap((p) => [p.todos ?? 0, p.hombres ?? 0, p.mujeres ?? 0]));
   const tope = Math.ceil(maximo / 10) * 10 + 10;
@@ -149,7 +153,7 @@ export function Curva({
   // La etiqueta dice el dato real de esa edad; el punto solo se desliza entre un año y el siguiente.
   const edadEntera = Math.round(edad);
   const real = conDato.find((p) => p.edad === edadEntera);
-  const etiqueta = real ? `${edadEntera === 100 ? "100+ años" : `${edadEntera} años`}: ${deCada(real.todos)}` : "";
+  const etiqueta = real ? `${edadEntera === 100 ? "100+ años" : `${edadEntera} años`}: ${deCada(real.todos)} personas` : "";
   // Centrada sobre el punto, sin pisar los números del eje ni salirse por la derecha.
   const medioEtiqueta = (etiqueta.length * lienzo.letra) / 2;
   const xEtiqueta = Math.min(Math.max(xMarca, MARGEN + 4 + medioEtiqueta), ancho - medioEtiqueta);
@@ -170,7 +174,7 @@ export function Curva({
         <h2 id={titulo}>La montaña rusa del voto, de los 18 a los 100 años</h2>
         <p>
           La línea va de los 18 a los 100 años: entre más alta, más personas de esa edad votaron. Elige otro año de
-          elección para comparar.
+          elección para comparar. Luego sigue bajando: el punto recorre la línea.
         </p>
         <Segmento
           etiqueta="Año de la elección"
