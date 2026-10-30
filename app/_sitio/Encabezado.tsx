@@ -3,34 +3,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useId, useRef, useState } from "react";
 import { MarcaMTC } from "./MarcaMTC";
 import estilos from "./sitio.module.css";
 
+// Dos secciones, siempre visibles: sin menú escondido que haya que descubrir.
 const ENLACES = [
-  { href: "/", nombre: "Relato" },
-  { href: "/explorar", nombre: "Explorar" },
-  { href: "/difusion", nombre: "Difusión" },
-  { href: "/metodologia", nombre: "Metodología" },
+  { href: "/", nombre: "Inicio" },
+  { href: "/explorar", nombre: "Busca tu municipio" },
 ] as const;
 
 export function Encabezado() {
   const ruta = usePathname();
-  const [abierto, setAbierto] = useState(false);
-  const idMenu = useId();
-  const boton = useRef<HTMLButtonElement>(null);
 
   return (
-    <header
-      className={estilos.encabezado}
-      onKeyDown={(e) => {
-        // Escape cierra el menú móvil y regresa el foco al botón que lo abrió.
-        if (abierto && e.key === "Escape") {
-          setAbierto(false);
-          boton.current?.focus();
-        }
-      }}
-    >
+    <header className={estilos.encabezado}>
       <a className="saltar" href="#contenido">
         Saltar al contenido
       </a>
@@ -44,30 +30,16 @@ export function Encabezado() {
             height={111}
             priority
           />
-          <Link href="/" className={estilos.campana} aria-label="Make the Change, ir al relato">
+          <Link href="/" className={estilos.campana} aria-label="Make the Change, ir al inicio">
             <MarcaMTC tamano={34} />
             <span>Make the Change</span>
           </Link>
         </div>
-        <button
-          ref={boton}
-          type="button"
-          className={estilos.botonMenu}
-          aria-expanded={abierto}
-          aria-controls={idMenu}
-          onClick={() => setAbierto((v) => !v)}
-        >
-          {abierto ? "Cerrar" : "Menú"}
-        </button>
-        <nav id={idMenu} className={estilos.nav} data-abierto={abierto} aria-label="Principal">
+        <nav className={estilos.nav} aria-label="Principal">
           <ul>
             {ENLACES.map((e) => (
               <li key={e.href}>
-                <Link
-                  href={e.href}
-                  aria-current={ruta === e.href ? "page" : undefined}
-                  onClick={() => setAbierto(false)}
-                >
+                <Link href={e.href} aria-current={ruta === e.href ? "page" : undefined}>
                   {e.nombre}
                 </Link>
               </li>
@@ -75,7 +47,6 @@ export function Encabezado() {
           </ul>
         </nav>
       </div>
-      <p className={`contenedor ${estilos.aviso}`}>Prototipo para el Reto 3 · No es un sitio oficial del INE</p>
     </header>
   );
 }

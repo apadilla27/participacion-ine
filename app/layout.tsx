@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(dominio ? `https://${dominio}` : "http://localhost:3000"),
   title: { default: "Make the Change · Participación ciudadana", template: "%s · Make the Change" },
   description:
-    "Cuánto, quién y dónde se vota en México, de 2009 a 2025, con los Conteos Censales de Participación Ciudadana del INE. Prototipo para el Reto 3 del Hackatón INE 2026.",
+    "Cuántas personas votan en México, quiénes y dónde, de 2009 a 2025, con los datos del INE. Calcula tu caso y busca tu municipio.",
 };
 
 export const viewport: Viewport = {

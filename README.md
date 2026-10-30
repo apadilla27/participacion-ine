@@ -1,8 +1,6 @@
 # Make the Change · participación ciudadana en México
 
-Prototipo para el Reto 3 (Storytelling y Comunicación Pública) del Hackatón INE 2026. Traduce los Conteos Censales de Participación Ciudadana 2009-2025 en un relato público y un explorador por entidad y municipio.
-
-> Prototipo para el Reto 3 del Hackatón INE 2026. No es un sitio oficial del INE.
+Micrositio que traduce los Conteos Censales de Participación Ciudadana del INE (2009-2025) en un relato para todo público y un buscador por entidad y municipio, con el objetivo de animar a votar.
 
 ## Documentos
 
@@ -19,10 +17,8 @@ Prototipo para el Reto 3 (Storytelling y Comunicación Pública) del Hackatón I
 
 | Ruta | Qué es |
 |---|---|
-| `/` | Relato: curva por edad, calculadora "Tu huella cívica", mapa y mosaico, espejo por sexo y otras formas de votar |
-| `/explorar` | Explorador por elección, entidad, municipio, sexo y edad; los filtros quedan en la dirección |
-| `/difusion` | Propuesta de difusión imprimible y guion del video |
-| `/metodologia` | Fuentes, definiciones, privacidad, correcciones y versión de datos |
+| `/` | Inicio: glosario, curva por edad, calculadora "¿Cuántas personas como tú votaron?", mapa y cuadros, mujeres y hombres, otras formas de votar |
+| `/explorar` | Busca tu municipio: elección, entidad, municipio, sexo y edad; los filtros quedan en la dirección |
 
 ## Tubería de datos (sin base de datos, D37)
 

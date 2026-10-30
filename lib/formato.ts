@@ -1,4 +1,4 @@
-// Formato de números y glosario único del sitio (D45). Toda cifra y todo término pasan por aquí.
+// Formato de números y palabras del sitio (D45, D58). Toda cifra y todo término pasan por aquí.
 
 export const ENTEROS = new Intl.NumberFormat("es-MX");
 export const CIEN = new Intl.NumberFormat("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -8,34 +8,36 @@ export function deCada(valor: number) {
   return `${CIEN.format(valor)} de cada 100`;
 }
 
-/** "+3.20" o "−3.20" (signo menos tipográfico). */
-export function firmado(valor: number) {
-  const texto = CIEN.format(Math.abs(valor));
-  if (valor > 0) return `+${texto}`;
-  if (valor < 0) return `−${texto}`;
-  return texto;
+/** Celda de "Diferencia" en tablas, con palabras en lugar de signos: "7.92 menos", "23.10 más", "igual". */
+export function diferencia(valor: number, referencia: number) {
+  const d = Math.round((valor - referencia) * 100) / 100;
+  if (d === 0) return "igual";
+  return `${CIEN.format(Math.abs(d))} ${d > 0 ? "más" : "menos"}`;
 }
 
-/** "3.20 puntos más que Jalisco" / "1.05 puntos menos que el país" / "igual que el país" */
-export function frente(valor: number, referencia: number, nombre: string) {
-  const diferencia = Math.round((valor - referencia) * 100) / 100;
-  if (diferencia === 0) return `igual que ${nombre}`;
-  return `${CIEN.format(Math.abs(diferencia))} puntos ${diferencia > 0 ? "más" : "menos"} que ${nombre}`;
+/**
+ * La comparación se dice con palabras, sin "puntos" (D58): "igual que", "casi igual que",
+ * "un poco más que", "más que"… La diferencia exacta queda en la otra cifra, que siempre se muestra.
+ */
+export function cuanto(valor: number, referencia: number) {
+  const d = Math.round((valor - referencia) * 100) / 100;
+  const distancia = Math.abs(d);
+  if (distancia === 0) return "igual que";
+  if (distancia < 1) return "casi igual que";
+  const lado = d > 0 ? "más" : "menos";
+  return distancia < 5 ? `un poco ${lado} que` : `${lado} que`;
+}
+
+/** "un poco menos que en Oaxaca (54.66 de cada 100)". `lugar` lleva su preposición: "en Oaxaca". */
+export function frente(valor: number, referencia: number, lugar: string) {
+  return `${cuanto(valor, referencia)} ${lugar} (${deCada(referencia)})`;
 }
 
 export function frenteAlPais(valor: number, pais: number) {
-  return frente(valor, pais, "el país");
+  return frente(valor, pais, "en todo el país");
 }
 
-/** Glosario D45: los mismos términos en todas las pantallas. */
+/** Mensajes que se repiten en varias pantallas. */
 export const TERMINOS = {
-  votaron: "votaron",
-  noVotaron: "no votaron",
-  sinDato: "sin dato",
-  lista: "lista nominal",
-  definicionParticipacion:
-    "Participación = personas con marca de voto en el cuadernillo de la casilla (SV) entre la lista nominal (LN).",
-  definicionSinDato:
-    "Sin dato (NS) son registros que no se pudieron leer: cuadernillos sin marcas, no disponibles o con páginas faltantes.",
-  umbral: "Hay menos de 30 personas en este corte. Para proteger su privacidad no mostramos cuántas votaron.",
+  umbral: "En este grupo hay menos de 30 personas. Para cuidar su privacidad, no mostramos cuántas votaron.",
 } as const;

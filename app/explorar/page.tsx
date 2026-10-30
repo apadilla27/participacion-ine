@@ -4,29 +4,33 @@ import { Explorador } from "./Explorador";
 import estilos from "./explorar.module.css";
 
 export const metadata: Metadata = {
-  title: "Explorar",
-  description: "Participación por elección, entidad, municipio, sexo y edad, de 2009 a 2025.",
+  title: "Busca tu municipio",
+  description: "Cuántas personas votaron en tu entidad y en tu municipio, de 2009 a 2025: mujeres, hombres y por edad.",
 };
 
 export default function PaginaExplorar() {
   return (
-    <div className={`contenedor ${estilos.pagina}`}>
-      <header className={estilos.cabecera}>
-        <h1>Explora tu entidad y tu municipio</h1>
-        <p>
-          Elige elección, entidad, sexo y edad. Los filtros quedan en la dirección de la página, así que puedes compartir lo
-          que estás viendo.
-        </p>
-      </header>
-      <Suspense
-        fallback={
-          <p className="estado" data-tono="espera">
-            Cargando el explorador…
+    <>
+      <div className={estilos.cabeceraBanda}>
+        <header className={`contenedor ${estilos.cabecera}`}>
+          <h1>Busca tu entidad y tu municipio</h1>
+          <p>
+            Elige un año de elección y tu entidad. Si quieres, mira solo a las mujeres, solo a los hombres o una edad.
+            Luego comparte lo que encontraste.
           </p>
-        }
-      >
-        <Explorador />
-      </Suspense>
-    </div>
+        </header>
+      </div>
+      <div className={`contenedor ${estilos.pagina}`}>
+        <Suspense
+          fallback={
+            <p className="estado" data-tono="espera">
+              Cargando…
+            </p>
+          }
+        >
+          <Explorador />
+        </Suspense>
+      </div>
+    </>
   );
 }

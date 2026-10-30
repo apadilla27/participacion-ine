@@ -7,18 +7,17 @@
   padding-top: env(safe-area-inset-top);
 }
 
+/* En móvil: marcas arriba y las dos secciones abajo, a todo lo ancho. */
 .barra {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  min-height: 64px;
+  display: grid;
+  gap: 8px;
+  padding-block: 10px;
 }
 
 .marcas {
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-right: auto;
   min-width: 0;
 }
 
@@ -44,59 +43,38 @@
   display: none;
 }
 
-.botonMenu {
-  min-height: var(--toque);
-  min-width: var(--toque);
-  padding: 0 16px;
-  border: 1px solid var(--gris);
-  border-radius: 999px;
-  background: var(--fondo);
-  font: 700 var(--meta) / 1 var(--font-texto);
-  color: var(--tinta);
-  cursor: pointer;
-}
-
-.nav {
-  display: none;
-}
-
-.nav[data-abierto="true"] {
-  display: block;
-  position: absolute;
-  inset: 100% 0 auto;
-  background: var(--fondo);
-  border-bottom: 1px solid var(--linea);
-  box-shadow: 0 12px 24px -12px rgba(29, 29, 27, 0.25);
-}
-
 .nav ul {
   list-style: none;
   margin: 0;
-  padding: 8px var(--gutter) 16px;
+  padding: 0;
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
 }
 
 .nav a {
   display: flex;
   align-items: center;
+  justify-content: center;
   min-height: var(--toque);
-  padding: 0 4px;
-  color: var(--tinta);
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.nav a[aria-current="page"] {
+  padding: 0 12px;
+  border-radius: 999px;
+  background: var(--rosa-50);
   color: var(--rosa-700);
-  text-decoration: underline;
-  text-decoration-thickness: 3px;
-  text-underline-offset: 0.4em;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 150ms ease-out, color 150ms ease-out;
 }
 
-.aviso {
-  font-size: var(--meta);
-  color: var(--tinta-2);
-  padding-bottom: 8px;
+.nav a:hover {
+  background: var(--c1);
+}
+
+/* La sección actual se pinta llena: se ve desde lejos dónde estás. */
+.nav a[aria-current="page"] {
+  background: var(--rosa);
+  color: #fff;
 }
 
 @media (min-width: 480px) {
@@ -106,27 +84,19 @@
 }
 
 @media (min-width: 900px) {
-  .botonMenu {
-    display: none;
-  }
-  .nav,
-  .nav[data-abierto="true"] {
-    display: block;
-    position: static;
-    box-shadow: none;
-    border: 0;
-    background: none;
+  .barra {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    min-height: 76px;
+    padding-block: 0;
   }
   .nav ul {
     display: flex;
-    gap: 8px;
-    padding: 0;
   }
   .nav a {
-    padding: 0 12px;
-  }
-  .barra {
-    min-height: 72px;
+    padding: 0 22px;
   }
   .logoIne {
     height: 36px;
@@ -135,7 +105,7 @@
 
 /* Pie */
 .pie {
-  margin-top: 96px;
+  margin-top: 0;
   padding: 48px 0 calc(48px + env(safe-area-inset-bottom));
   background: var(--fondo-2);
   border-top: 1px solid var(--linea);
@@ -155,37 +125,17 @@
 .pieMarca img {
   width: auto;
   height: 40px;
-  margin-bottom: 14px;
-}
-
-.pieMarca strong {
-  color: var(--tinta);
 }
 
 .pieTitulo {
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   color: var(--tinta);
   margin-bottom: 10px;
 }
 
-.pieEnlaces {
-  list-style: none;
-  margin: 12px 0 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 20px;
-}
-
-.pieEnlaces a {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--toque);
-}
-
 @media (min-width: 900px) {
   .pieRejilla {
-    grid-template-columns: 1.1fr 1.4fr 1fr;
+    grid-template-columns: 0.8fr 1.6fr 1fr;
   }
 }
 
@@ -195,7 +145,6 @@
     border: 0;
   }
   .nav,
-  .botonMenu,
   .pie {
     display: none !important;
   }

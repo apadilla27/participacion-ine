@@ -8,7 +8,7 @@ import { esAngosta, useAngosta } from "@/app/_ui/useAngosta";
 import { ENTIDADES, nombreLugar } from "@/lib/catalogo";
 import type { Trazo } from "@/lib/datos/tipos-geo";
 import { LECTURAS, type Lectura, type RelatoDatos } from "@/lib/datos/tipos";
-import { CIEN, deCada, firmado, frenteAlPais } from "@/lib/formato";
+import { CIEN, cuanto, deCada, diferencia, frenteAlPais } from "@/lib/formato";
 import { COLUMNAS, FILAS, MOSAICO } from "@/lib/mosaico";
 import estilos from "./relato.module.css";
 
@@ -27,7 +27,7 @@ function clase(valor: number, cortes: number[]) {
 
 type Orden = "nombre" | "valor" | "diferencia";
 
-// La geometría (176 KB) se pide solo cuando se muestra el mapa: en móvil la vista inicial es el mosaico y no la necesita.
+// La geometría (176 KB) se pide solo cuando se muestra el mapa: en móvil la vista inicial son los cuadros y no la necesita.
 type Geometria = { viewBox: number[]; trazos: Trazo[] };
 type CargaGeo = { estado: "cargando" } | { estado: "error" } | { estado: "listo"; datos: Geometria };
 const SIN_TRAZOS: Trazo[] = [];
@@ -84,7 +84,7 @@ export function Mapa({ datos }: { datos: RelatoDatos }) {
   const motivo = (k: number) =>
     ev.faltantes.includes(k)
       ? `${nombreLugar(k)} no está en los datos abiertos de esta elección`
-      : "menos de 30 personas en ese corte";
+      : "en este grupo hay menos de 30 personas y cuidamos su privacidad";
   const color = (k: number) => (valores[k] == null ? "url(#trama)" : COLORES[clase(valores[k] as number, cortes)]);
   const tintaSobre = (k: number) =>
     valores[k] != null && clase(valores[k] as number, cortes) >= 3 ? "#ffffff" : "var(--tinta)";
@@ -135,31 +135,31 @@ export function Mapa({ datos }: { datos: RelatoDatos }) {
   );
 
   return (
-    <section className={estilos.mapa} id="mapa" aria-labelledby="mapa-titulo">
+    <section className={`${estilos.seccion} ${estilos.mapa}`} id="mapa" aria-labelledby="mapa-titulo">
       <div className="contenedor">
         <div className={estilos.mapaIntro}>
-          <h2 id="mapa-titulo">Los dos Méxicos</h2>
+          <h2 id="mapa-titulo">¿Dónde se vota más?</h2>
           <p>
             {extremos
-              ? `En ${ev.tipo === "judicial" ? "la elección judicial de" : "la elección de"} ${ev.anio}, ${lectura === "todas" ? "" : `${nombreLectura.toLowerCase()}, `}donde más votaron fue ${nombreLugar(extremos.alto.k)} (${deCada(extremos.alto.v)}) y donde menos, ${nombreLugar(extremos.bajo.k)} (${deCada(extremos.bajo.v)}).`
+              ? `En ${ev.tipo === "judicial" ? "la elección judicial de " : ""}${ev.anio}${lectura === "todas" ? "" : ` (${nombreLectura.toLowerCase()})`}, donde más se votó fue ${nombreLugar(extremos.alto.k)}, con ${deCada(extremos.alto.v)}, y donde menos, ${nombreLugar(extremos.bajo.k)}, con ${deCada(extremos.bajo.v)}. Entre más oscuro el color, más personas votaron.`
               : "No hay datos para esta combinación."}
           </p>
         </div>
         <div className={estilos.mapaControles}>
           <Segmento
-            etiqueta="Elección"
+            etiqueta="Año de la elección"
             opciones={datos.elecciones.map((e) => ({ id: e.slug, nombre: e.etiqueta }))}
             valor={eleccion}
             onCambio={setEleccion}
             columnasMovil={4}
           />
-          <Segmento etiqueta="Quién" opciones={LECTURAS} valor={lectura} onCambio={setLectura} columnasMovil={3} />
+          <Segmento etiqueta="¿Quiénes?" opciones={LECTURAS} valor={lectura} onCambio={setLectura} columnasMovil={3} />
           <div className={estilos.mapaFila}>
             <Segmento
-              etiqueta="Vista"
+              etiqueta="Ver como"
               opciones={[
                 { id: "mapa", nombre: "Mapa" },
-                { id: "mosaico", nombre: "Mosaico" },
+                { id: "mosaico", nombre: "Cuadros" },
               ]}
               valor={vistaEfectiva}
               onCambio={(v) => setVista(v as "mapa" | "mosaico")}
@@ -182,7 +182,7 @@ export function Mapa({ datos }: { datos: RelatoDatos }) {
           <div>
             {vistaEfectiva === "mapa" && geo.estado === "error" ? (
               <div className={`estado ${estilos.mapaEspera}`}>
-                <p>No pudimos cargar el mapa. Puedes reintentar o ver las mismas cifras en el mosaico.</p>
+                <p>No pudimos cargar el mapa. Puedes reintentar o ver las mismas cifras en los cuadros.</p>
                 <div className="acciones">
                   <button
                     type="button"
@@ -195,7 +195,7 @@ export function Mapa({ datos }: { datos: RelatoDatos }) {
                     Reintentar
                   </button>
                   <button type="button" className="btn btn-contorno" onClick={() => setVista("mosaico")}>
-                    Ver el mosaico
+                    Ver los cuadros
                   </button>
                 </div>
               </div>
@@ -252,9 +252,9 @@ export function Mapa({ datos }: { datos: RelatoDatos }) {
                     <span>
                       {valores[encima.clave] == null
                         ? `Sin dato: ${motivo(encima.clave)}`
-                        : `${deCada(valores[encima.clave] as number)} · ${firmado(
-                            Math.round(((valores[encima.clave] as number) - (pais ?? 0)) * 100) / 100,
-                          )} frente al país`}
+                        : `${deCada(valores[encima.clave] as number)}${
+                            pais == null ? "" : ` · ${cuanto(valores[encima.clave] as number, pais)} el país`
+                          }`}
                     </span>
                   </div>
                 ) : null}
@@ -263,7 +263,7 @@ export function Mapa({ datos }: { datos: RelatoDatos }) {
               <div
                 className={estilos.mosaico}
                 role="group"
-                aria-label="Mosaico de entidades"
+                aria-label="Cuadros de las entidades"
                 style={{ ["--columnas" as string]: COLUMNAS, ["--filas" as string]: FILAS }}
               >
                 {MOSAICO.map(([k, col, fila]) => (
@@ -282,12 +282,13 @@ export function Mapa({ datos }: { datos: RelatoDatos }) {
                     data-vacio={valores[k] == null}
                     onClick={() => elegir(clave === k ? null : k, true)}
                   >
-                    <span>{ENTIDADES.find((e) => e.clave === k)!.abrev}</span>
-                    <span>{valores[k] == null ? "—" : CIEN.format(valores[k] as number)}</span>
+                    {/* Solo la abreviatura, a 16 px: el nombre completo y la cifra salen en la ficha al tocar. */}
+                    <span aria-hidden="true">{ENTIDADES.find((e) => e.clave === k)!.abrev.slice(0, 4)}</span>
                   </button>
                 ))}
               </div>
             )}
+            <p className={estilos.leyendaTitulo}>Votaron de cada 100:</p>
             <ul className={estilos.leyenda} aria-label={`Leyenda: votaron de cada 100 (${ev.etiqueta})`}>
               {COLORES.map((c, i) => (
                 <li key={c}>
@@ -300,18 +301,24 @@ export function Mapa({ datos }: { datos: RelatoDatos }) {
                 sin dato
               </li>
             </ul>
+            <p className={estilos.ayudaMapa}>
+              {vistaEfectiva === "mosaico"
+                ? "Cada cuadro es una entidad: tócalo para ver su nombre y sus números."
+                : "Toca una entidad en el mapa para ver su nombre y sus números."}
+            </p>
           </div>
 
           <div ref={ficha} className={estilos.ficha} aria-live="polite">
             <h3>{lugarFicha}</h3>
             {valorFicha == null ? (
-              <p className="estado">Sin dato: {elegido == null ? "esta lectura no está en el conteo" : motivo(elegido)}.</p>
+              <p className="estado">Sin dato: {elegido == null ? "este grupo no aparece en los conteos" : motivo(elegido)}.</p>
             ) : (
               <div className={estilos.fichaDato}>
                 <Pastel tamano={120} valor={valorFicha} titulo={`${lugarFicha}: votaron ${deCada(valorFicha)}`} />
                 <p>
                   Votaron <strong>{deCada(valorFicha)}</strong>
-                  {lectura === "todas" ? "" : ` (${nombreLectura.toLowerCase()})`} en {ev.etiqueta}.
+                  {lectura === "todas" ? "" : ` (${nombreLectura.toLowerCase()})`} en{" "}
+                  {ev.tipo === "judicial" ? `la elección judicial de ${ev.anio}` : ev.anio}.
                   {elegido != null && pais != null ? ` ${frenteAlPais(valorFicha, pais)[0].toUpperCase()}${frenteAlPais(valorFicha, pais).slice(1)}.` : ""}
                 </p>
               </div>
@@ -329,7 +336,9 @@ export function Mapa({ datos }: { datos: RelatoDatos }) {
             </dl>
             <div className="tabla-caja">
               <table className="tabla">
-                <caption>Votaron de cada 100 en {lugarFicha}, todas las personas.</caption>
+                <caption>
+                  Votaron de cada 100 en {elegido == null ? "todo el país" : lugarFicha}, todas las personas.
+                </caption>
                 <thead>
                   <tr>
                     <th scope="col">Elección</th>
@@ -355,18 +364,16 @@ export function Mapa({ datos }: { datos: RelatoDatos }) {
                   Ver municipios de {nombreLugar(elegido)}
                 </Link>
                 <button type="button" className="btn btn-contorno" onClick={() => elegir(null)}>
-                  Quitar selección
+                  Ver todo el país
                 </button>
               </div>
-            ) : (
-              <p className="nota">Toca una entidad o elígela en la lista para ver su serie y sus municipios.</p>
-            )}
+            ) : null}
           </div>
         </div>
 
         <div className={estilos.tablaEntidades}>
           <button type="button" className="btn btn-contorno" aria-expanded={verTabla} onClick={() => setVerTabla((v) => !v)}>
-            {verTabla ? "Ocultar la tabla" : "Ver tabla de las 32 entidades"}
+            {verTabla ? "Ocultar la tabla" : "Ver las 32 entidades en tabla"}
           </button>
           {verTabla ? (
             <div className="tabla-caja">
@@ -380,7 +387,7 @@ export function Mapa({ datos }: { datos: RelatoDatos }) {
                       [
                         ["nombre", "Entidad"],
                         ["valor", "Votaron"],
-                        ["diferencia", "Frente al país"],
+                        ["diferencia", "Diferencia con el país"],
                       ] as [Orden, string][]
                     ).map(([por, texto]) => (
                       <th
@@ -409,7 +416,7 @@ export function Mapa({ datos }: { datos: RelatoDatos }) {
                     <tr key={f.k}>
                       <th scope="row">{f.nombre}</th>
                       <td>{f.v == null ? "sin dato" : CIEN.format(f.v)}</td>
-                      <td>{f.v == null || pais == null ? "—" : firmado(Math.round((f.v - pais) * 100) / 100)}</td>
+                      <td>{f.v == null || pais == null ? "—" : diferencia(f.v, pais)}</td>
                     </tr>
                   ))}
                 </tbody>

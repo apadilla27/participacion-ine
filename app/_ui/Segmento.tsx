@@ -7,7 +7,7 @@ type Opcion<T extends string> = { id: T; nombre: string };
 
 /**
  * Grupo de opciones excluyentes (radiogroup) con una sola parada de tabulación: las flechas cambian
- * la opción, Inicio y Fin van a los extremos. Cada opción mide al menos 44 px de alto.
+ * la opción, Inicio y Fin van a los extremos. Cada opción mide al menos 48 px de alto.
  */
 export function Segmento<T extends string>({
   etiqueta,

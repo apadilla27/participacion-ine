@@ -14,7 +14,8 @@ Next.js 16.4 (App Router, Cache Components) + TypeScript + CSS Modules con token
 
 - **Primario: ciudadanía de 18 a 35 años.** Llega desde redes sociales en el teléfono, con poco tiempo y sin formación estadística. Quiere entender en segundos cómo vota su entidad y su municipio, y compartirlo. Es el grupo de edad que menos participa (44% a los 25 años en 2024).
 - **Secundario: docentes y periodistas.** Necesitan cifras citables, definiciones claras, descargas y gráficas para proyectar o incrustar.
-- **Secundario: personal del INE y de los OPLE.** Prepara material educativo y de difusión local; necesita explorar su entidad y municipio con precisión.
+- **Todo público** (2026-10-29, D58-D60): la página debe entenderse a cualquier edad, también por personas mayores y por niñas y niños con poca experiencia en dispositivos. Lenguaje sencillo, palabras difíciles explicadas en un glosario visible, nada escondido detrás de menús.
+- **Secundario: personal del INE y de los OPLE.** Prepara material educativo para su entidad; necesita explorar su entidad y municipio con precisión.
 
 ## Product Purpose
 
@@ -44,8 +45,8 @@ Usa conteos censales, no muestras: cada cifra sale de los cuadernillos de la lis
 ## Brand Commitments
 
 - **El INE es el emisor y "Make the Change" es el nombre de la campaña** (decisión de la usuaria, 2026-10-27). Las bases del reto permiten usar la identidad del INE.
-- **Logotipo INE oficial** de ine.mx (`public/marca/logo-ine.png`, versión gris vigente), sin alterar color ni proporción, solo sobre fondos claros. Siempre acompañado del aviso: "Prototipo para el Reto 3 del Hackatón INE 2026. No es un sitio oficial del INE."
-- **Paleta INE:** Pantone 233 rosa mexicano (`#D5007F` en pantalla), Process Black y Cool Gray 7. El rosa es el dato principal; escala secuencial de rosa a vino para mapas y gráficas. Mujeres en vino y hombres en gris oscuro, nunca rosa contra azul (D49).
+- **Logotipo INE oficial** de ine.mx (`public/marca/logo-ine.png`, versión gris vigente), sin alterar color ni proporción, solo sobre fondos claros. Sin aviso de prototipo desde el 2026-10-29, por decisión de la usuaria (D57).
+- **Paleta INE:** Pantone 233 rosa mexicano (`#D5007F` en pantalla), Process Black y Cool Gray 7. El rosa es el dato principal; escala secuencial de rosa a vino para mapas y gráficas. Mujeres en vino y hombres en gris oscuro, nunca rosa contra azul (D49). Los capítulos alternan franjas de la misma familia: rosa claro, vino noche y rosa mexicano, con blanco y gris cálido (D59).
 - **Make the Change:** una "M" geométrica con la diagonal convertida en flecha que sube, en la paleta INE. Es la marca de la campaña, el favicon y la firma de las imágenes para compartir. Las imágenes para compartir no llevan el logotipo del INE (D50).
 - **Tipografía:** Advent Pro para títulos y cifras; Arial para el texto (D48).
 - Voz cercana, en segunda persona, sin culpar a quien no vota ("no es un regaño").
@@ -69,4 +70,4 @@ Usa conteos censales, no muestras: cada cifra sale de los cuadernillos de la lis
 
 ## Accessibility & Inclusion
 
-WCAG 2.2 AA. Diseño móvil primero con objetivos táctiles de 44 pt y área segura; texto base de 16 px y metadatos de 14 px; tabla de datos alternativa en cada gráfica; paletas distinguibles con daltonismo; respeto a `prefers-reduced-motion`; navegación completa por teclado y lector de pantalla.
+WCAG 2.2 AA. Diseño móvil primero con objetivos táctiles de 48 px y área segura; texto base de 18 px y metadatos de 16 px (D60); tabla de datos alternativa en cada gráfica; paletas distinguibles con daltonismo; respeto a `prefers-reduced-motion`; navegación completa por teclado y lector de pantalla.

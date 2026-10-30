@@ -7,13 +7,13 @@ export default function NoEncontrada() {
   return (
     <section className="contenedor" style={{ display: "grid", gap: 20, paddingTop: 64, maxWidth: "48rem" }}>
       <h1>Esta página no existe</h1>
-      <p>Puede que el enlace esté incompleto. Desde aquí puedes volver al relato o buscar tu entidad y tu municipio.</p>
+      <p>Puede que el enlace esté incompleto. Vuelve al inicio o busca tu municipio.</p>
       <div className="acciones">
         <Link className="btn btn-primario" href="/">
-          Ir al relato
+          Ir al inicio
         </Link>
         <Link className="btn btn-contorno" href="/explorar">
-          Explorar
+          Busca tu municipio
         </Link>
       </div>
     </section>
