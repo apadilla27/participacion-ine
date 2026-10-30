@@ -13,7 +13,7 @@ import {
   type CuboEntidad,
   type CuboMunicipios,
 } from "@/lib/datos/cubo";
-import { CIEN, ENTEROS, TERMINOS, deCada, firmado, frente, frenteAlPais } from "@/lib/formato";
+import { CIEN, ENTEROS, TERMINOS, deCada, diferencia, frente, frenteAlPais } from "@/lib/formato";
 import { tasa } from "@/lib/tasas";
 import estilos from "./explorar.module.css";
 
@@ -21,6 +21,7 @@ type Filtros = { e: string; ent: number; s: number; g: number; m: number | null 
 type Carga<T> = { estado: "cargando" } | { estado: "error" } | { estado: "listo"; datos: T };
 
 const SEXOS_VALIDOS = new Set<number>(SEXOS.map((x) => x.id));
+const VISIBLES = 10;
 const sinSuscripcion = () => () => {};
 const puedeCompartir = () => typeof navigator.share === "function";
 const ENTIDADES_ORDEN = ENTIDADES.filter((x) => x.clave > 0).sort((a, b) => a.corto.localeCompare(b.corto, "es-MX"));
@@ -86,6 +87,8 @@ export function Explorador() {
   const compartible = useSyncExternalStore(sinSuscripcion, puedeCompartir, () => false);
   const [intento, setIntento] = useState(0);
   const [orden, setOrden] = useState<{ por: "nombre" | "valor"; asc: boolean }>({ por: "valor", asc: false });
+  // La tabla muestra 10 municipios y un botón para ver todos: sin cajas que se desplacen por dentro.
+  const [todos, setTodos] = useState(false);
 
   const eleccion = eleccionPorSlug(filtros.e) ?? RECIENTE;
   const fueraDeEleccion = cubo.estado === "listo" && filtros.ent > 0 && !cubo.datos.entidades(eleccion.id).includes(filtros.ent);
@@ -99,6 +102,7 @@ export function Explorador() {
       escribirFiltros(siguiente);
       return siguiente;
     });
+    if ("ent" in cambio) setTodos(false);
     setAvisoEnlace(false);
     setAviso("");
   }, []);
@@ -218,13 +222,13 @@ export function Explorador() {
     <div className={estilos.explorador}>
       {avisoEnlace ? (
         <p className="estado" role="status">
-          El enlace traía un filtro que no existe; mostramos los valores por defecto.
+          Algo del enlace no existe; te mostramos lo que sí encontramos.
         </p>
       ) : null}
 
       <form className={estilos.filtros} onSubmit={(e) => e.preventDefault()} aria-label="Filtros">
         <label className="campo">
-          Elección
+          Año de la elección
           <select value={filtros.e} onChange={(e) => setFiltros({ e: e.target.value })}>
             {ELECCIONES.map((x) => (
               <option key={x.slug} value={x.slug}>
@@ -245,7 +249,7 @@ export function Explorador() {
           </select>
         </label>
         <label className="campo">
-          Sexo
+          Mujeres u hombres
           <select value={filtros.s} onChange={(e) => setFiltros({ s: Number(e.target.value) })}>
             {SEXOS.map((x) => (
               <option key={x.id} value={x.id}>
@@ -274,7 +278,7 @@ export function Explorador() {
         </div>
       ) : cubo.estado === "error" ? (
         <div className="estado" data-tono="error" role="alert">
-          <p>No pudimos cargar los datos. Revisa tu conexión.</p>
+          <p>No pudimos cargar los números. Revisa tu conexión a internet e inténtalo otra vez.</p>
           <div className="acciones">
             <button type="button" className="btn btn-primario" onClick={() => setIntento((n) => n + 1)}>
               Reintentar
@@ -288,7 +292,7 @@ export function Explorador() {
           </p>
           <div className="acciones">
             <button type="button" className="btn btn-contorno" onClick={() => setFiltros({ e: RECIENTE.slug })}>
-              Ver la federal {RECIENTE.anio}
+              Ver la elección de {RECIENTE.anio}
             </button>
           </div>
         </div>
@@ -313,7 +317,7 @@ export function Explorador() {
               </div>
             ) : valor == null ? (
               <div className="estado">
-                <p>{celda && celda[0] > 0 ? TERMINOS.umbral : "No hay personas en este corte."}</p>
+                <p>{celda && celda[0] > 0 ? TERMINOS.umbral : "En este grupo no hay personas que puedan votar."}</p>
                 <div className="acciones">
                   {filtros.s !== 9 ? (
                     <button type="button" className="btn btn-contorno" onClick={() => setFiltros({ s: 9 })}>
@@ -335,8 +339,8 @@ export function Explorador() {
                     {filtros.ent === 0 ? "En todo el país votaron" : "Aquí votaron"} <strong className="cifra">{deCada(valor)}</strong> (
                     {cortes}) en la elección {etiquetaEleccion(eleccion)}.
                   </p>
-                  {celda ? <p>Lista nominal: {ENTEROS.format(celda[0])} personas.</p> : null}
-                  {valorEntidad != null ? <p>Votaron {frente(valor, valorEntidad, nombreEntidad)}.</p> : null}
+                  {celda ? <p>Podían votar {ENTEROS.format(celda[0])} personas (la lista nominal).</p> : null}
+                  {valorEntidad != null ? <p>Votaron {frente(valor, valorEntidad, `en ${nombreEntidad}`)}.</p> : null}
                   {valorPais != null ? <p>Votaron {frenteAlPais(valor, valorPais)}.</p> : null}
                   <div className="acciones">
                     <button
@@ -435,7 +439,7 @@ export function Explorador() {
                         </ul>
                       ) : (
                         <div className="estado">
-                          <p>No hay municipios con ese nombre en {nombreEntidad}.</p>
+                          <p>No encontramos un municipio con ese nombre en {nombreEntidad}. Revisa cómo lo escribiste.</p>
                           <div className="acciones">
                             <button
                               type="button"
@@ -457,6 +461,7 @@ export function Explorador() {
                       </button>
                     ) : null}
                   </div>
+                  <p className={estilos.instruccion}>Toca el nombre de un municipio para ver sus números.</p>
                   <div className={`tabla-caja ${estilos.tablaMunicipios}`}>
                     <table className="tabla">
                       <caption>
@@ -486,11 +491,11 @@ export function Explorador() {
                               </button>
                             </th>
                           ))}
-                          <th scope="col">Frente a la entidad</th>
+                          <th scope="col">Diferencia con la entidad</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {filasMunicipios.map((x) => {
+                        {(todos ? filasMunicipios : filasMunicipios.slice(0, VISIBLES)).map((x) => {
                           const total = tasa(cubo.datos.celda(eleccion.id, filtros.ent, filtros.s, filtros.g));
                           return (
                             <tr key={x.clave} aria-current={filtros.m === x.clave ? "true" : undefined}>
@@ -500,13 +505,18 @@ export function Explorador() {
                                 </button>
                               </th>
                               <td>{x.v == null ? "sin dato" : CIEN.format(x.v)}</td>
-                              <td>{x.v == null || total == null ? "—" : firmado(Math.round((x.v - total) * 100) / 100)}</td>
+                              <td>{x.v == null || total == null ? "—" : diferencia(x.v, total)}</td>
                             </tr>
                           );
                         })}
                       </tbody>
                     </table>
                   </div>
+                  {filasMunicipios.length > VISIBLES ? (
+                    <button type="button" className="btn btn-contorno" aria-expanded={todos} onClick={() => setTodos((v) => !v)}>
+                      {todos ? "Ver solo los primeros 10" : `Ver los ${filasMunicipios.length} municipios`}
+                    </button>
+                  ) : null}
                 </>
               )}
             </section>

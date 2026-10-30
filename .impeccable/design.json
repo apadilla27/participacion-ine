@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-29T00:18:13Z",
+  "generatedAt": "2026-10-30T03:13:52Z",
   "title": "Design System: Make the Change",
   "extensions": {
     "colorMeta": {
@@ -9,6 +9,7 @@
         "displayName": "Rosa Mexicano INE",
         "canonical": "#d5007f",
         "source": "--rosa (Pantone 233)",
+        "usage": "Dato, acción principal, foco sobre claro, pestaña actual, franja del cierre.",
         "tonalRamp": [
           "#5c0c30",
           "#7a1240",
@@ -19,13 +20,14 @@
           "#f9d4e6",
           "#fdf0f6"
         ],
-        "rampSource": "Rampa tomada del código: c6, vino, c5, c4, c3, c2, c1 y rosa-50."
+        "rampSource": "Rampa tomada del código: c6/vino-900, vino, c5/rosa-700, c4/rosa, c3, c2, c1 y rosa-50."
       },
       "rosa-700": {
         "role": "primary",
         "displayName": "Rosa Profundo",
         "canonical": "#a00062",
         "source": "--rosa-700",
+        "usage": "Rosa como texto de lectura; tercer tono de íconos.",
         "tonalRamp": [
           "#5c0c30",
           "#7a1240",
@@ -36,13 +38,14 @@
           "#f9d4e6",
           "#fdf0f6"
         ],
-        "rampSource": "Rampa tomada del código: c6, vino, c5, c4, c3, c2, c1 y rosa-50."
+        "rampSource": "Rampa tomada del código: c6/vino-900, vino, c5/rosa-700, c4/rosa, c3, c2, c1 y rosa-50."
       },
       "rosa-50": {
         "role": "primary",
         "displayName": "Rubor",
         "canonical": "#fdf0f6",
         "source": "--rosa-50",
+        "usage": "Franjas del héroe, 'Otras formas de votar' y cabecera de /explorar; pestañas, momentos, figura de cien, escenario.",
         "tonalRamp": [
           "#5c0c30",
           "#7a1240",
@@ -53,13 +56,32 @@
           "#f9d4e6",
           "#fdf0f6"
         ],
-        "rampSource": "Rampa tomada del código: c6, vino, c5, c4, c3, c2, c1 y rosa-50."
+        "rampSource": "Rampa tomada del código: c6/vino-900, vino, c5/rosa-700, c4/rosa, c3, c2, c1 y rosa-50."
+      },
+      "vino-900": {
+        "role": "secondary",
+        "displayName": "Vino Noche",
+        "canonical": "#5c0c30",
+        "source": "--vino-900 (mismo valor que --c6)",
+        "usage": "Franja de la calculadora, momento activo, flecha de la M del cierre.",
+        "tonalRamp": [
+          "#5c0c30",
+          "#7a1240",
+          "#a00062",
+          "#d5007f",
+          "#e65fa3",
+          "#f2a3c8",
+          "#f9d4e6",
+          "#fdf0f6"
+        ],
+        "rampSource": "Rampa tomada del código: c6/vino-900, vino, c5/rosa-700, c4/rosa, c3, c2, c1 y rosa-50."
       },
       "vino": {
         "role": "secondary",
         "displayName": "Vino",
         "canonical": "#7a1240",
         "source": "--vino",
+        "usage": "Serie de mujeres; segundo tono de íconos.",
         "tonalRamp": [
           "#5c0c30",
           "#7a1240",
@@ -70,30 +92,14 @@
           "#f9d4e6",
           "#fdf0f6"
         ],
-        "rampSource": "Rampa tomada del código: c6, vino, c5, c4, c3, c2, c1 y rosa-50."
-      },
-      "vino-900": {
-        "role": "tertiary",
-        "displayName": "Vino Noche",
-        "canonical": "#5c0c30",
-        "source": "--vino-900 (declarado; el código usa el mismo valor como --c6)",
-        "tonalRamp": [
-          "#5c0c30",
-          "#7a1240",
-          "#a00062",
-          "#d5007f",
-          "#e65fa3",
-          "#f2a3c8",
-          "#f9d4e6",
-          "#fdf0f6"
-        ],
-        "rampSource": "Rampa tomada del código: c6, vino, c5, c4, c3, c2, c1 y rosa-50."
+        "rampSource": "Rampa tomada del código: c6/vino-900, vino, c5/rosa-700, c4/rosa, c3, c2, c1 y rosa-50."
       },
       "mujeres": {
         "role": "secondary",
         "displayName": "Vino (mujeres)",
         "canonical": "#7a1240",
         "source": "--mujeres: var(--vino)",
+        "usage": "Línea continua de 2.5 px, barras y leyendas de mujeres.",
         "tonalRamp": [
           "#5c0c30",
           "#7a1240",
@@ -104,19 +110,21 @@
           "#f9d4e6",
           "#fdf0f6"
         ],
-        "rampSource": "Rampa tomada del código: c6, vino, c5, c4, c3, c2, c1 y rosa-50."
+        "rampSource": "Rampa tomada del código: c6/vino-900, vino, c5/rosa-700, c4/rosa, c3, c2, c1 y rosa-50."
       },
       "hombres": {
         "role": "secondary",
         "displayName": "Gris Pizarra (hombres)",
         "canonical": "#4d4f53",
-        "source": "--hombres"
+        "source": "--hombres",
+        "usage": "Línea discontinua 7/6 de 2.5 px y barras de hombres."
       },
       "c1": {
         "role": "tertiary",
         "displayName": "Escala 1 de 6",
         "canonical": "#f9d4e6",
         "source": "--c1",
+        "usage": "Clase más baja del mapa; hover de pestañas; texto secundario sobre vino noche.",
         "tonalRamp": [
           "#5c0c30",
           "#7a1240",
@@ -127,13 +135,14 @@
           "#f9d4e6",
           "#fdf0f6"
         ],
-        "rampSource": "Rampa tomada del código: c6, vino, c5, c4, c3, c2, c1 y rosa-50."
+        "rampSource": "Rampa tomada del código: c6/vino-900, vino, c5/rosa-700, c4/rosa, c3, c2, c1 y rosa-50."
       },
       "c2": {
         "role": "tertiary",
         "displayName": "Escala 2 de 6",
         "canonical": "#f2a3c8",
         "source": "--c2",
+        "usage": "Segunda clase del mapa; riel del deslizador; trazo de los puntos 'no votaron'.",
         "tonalRamp": [
           "#5c0c30",
           "#7a1240",
@@ -144,13 +153,14 @@
           "#f9d4e6",
           "#fdf0f6"
         ],
-        "rampSource": "Rampa tomada del código: c6, vino, c5, c4, c3, c2, c1 y rosa-50."
+        "rampSource": "Rampa tomada del código: c6/vino-900, vino, c5/rosa-700, c4/rosa, c3, c2, c1 y rosa-50."
       },
       "c3": {
         "role": "tertiary",
         "displayName": "Escala 3 de 6",
         "canonical": "#e65fa3",
         "source": "--c3",
+        "usage": "Tercera clase del mapa; canto del riel del deslizador.",
         "tonalRamp": [
           "#5c0c30",
           "#7a1240",
@@ -161,13 +171,14 @@
           "#f9d4e6",
           "#fdf0f6"
         ],
-        "rampSource": "Rampa tomada del código: c6, vino, c5, c4, c3, c2, c1 y rosa-50."
+        "rampSource": "Rampa tomada del código: c6/vino-900, vino, c5/rosa-700, c4/rosa, c3, c2, c1 y rosa-50."
       },
       "c4": {
         "role": "tertiary",
         "displayName": "Escala 4 de 6",
         "canonical": "#d5007f",
         "source": "--c4 (mismo valor que --rosa)",
+        "usage": "Cuarta clase del mapa; desde aquí el texto va en blanco.",
         "tonalRamp": [
           "#5c0c30",
           "#7a1240",
@@ -178,13 +189,14 @@
           "#f9d4e6",
           "#fdf0f6"
         ],
-        "rampSource": "Rampa tomada del código: c6, vino, c5, c4, c3, c2, c1 y rosa-50."
+        "rampSource": "Rampa tomada del código: c6/vino-900, vino, c5/rosa-700, c4/rosa, c3, c2, c1 y rosa-50."
       },
       "c5": {
         "role": "tertiary",
         "displayName": "Escala 5 de 6",
         "canonical": "#a00062",
         "source": "--c5 (mismo valor que --rosa-700)",
+        "usage": "Quinta clase del mapa.",
         "tonalRamp": [
           "#5c0c30",
           "#7a1240",
@@ -195,13 +207,14 @@
           "#f9d4e6",
           "#fdf0f6"
         ],
-        "rampSource": "Rampa tomada del código: c6, vino, c5, c4, c3, c2, c1 y rosa-50."
+        "rampSource": "Rampa tomada del código: c6/vino-900, vino, c5/rosa-700, c4/rosa, c3, c2, c1 y rosa-50."
       },
       "c6": {
         "role": "tertiary",
         "displayName": "Escala 6 de 6",
         "canonical": "#5c0c30",
         "source": "--c6 (mismo valor que --vino-900)",
+        "usage": "Clase más alta del mapa.",
         "tonalRamp": [
           "#5c0c30",
           "#7a1240",
@@ -212,13 +225,14 @@
           "#f9d4e6",
           "#fdf0f6"
         ],
-        "rampSource": "Rampa tomada del código: c6, vino, c5, c4, c3, c2, c1 y rosa-50."
+        "rampSource": "Rampa tomada del código: c6/vino-900, vino, c5/rosa-700, c4/rosa, c3, c2, c1 y rosa-50."
       },
       "sin-dato": {
-        "role": "neutral",
+        "role": "tertiary",
         "displayName": "Trama sin dato (raya)",
         "canonical": "#cfcdc9",
         "source": "--sin-dato",
+        "usage": "Raya de la trama a 45° para celdas protegidas o ausentes.",
         "tonalRamp": [
           "#1d1d1b",
           "#4a4a48",
@@ -232,10 +246,11 @@
         "rampSource": "Rampa tomada del código: tinta, tinta-2, sin-dato, linea, trama, fondo-2, fila par de tabla y fondo."
       },
       "trama": {
-        "role": "neutral",
+        "role": "tertiary",
         "displayName": "Trama sin dato (fondo)",
         "canonical": "#f1efec",
         "source": "literal en relato.module.css y Mapa.tsx (patrón #trama)",
+        "usage": "Fondo de la trama sin dato.",
         "tonalRamp": [
           "#1d1d1b",
           "#4a4a48",
@@ -253,6 +268,7 @@
         "displayName": "Tinta Proceso",
         "canonical": "#1d1d1b",
         "source": "--tinta (Process Black)",
+        "usage": "Texto sobre claro; lo elegido en controles de datos; etiqueta del mapa.",
         "tonalRamp": [
           "#1d1d1b",
           "#4a4a48",
@@ -270,6 +286,7 @@
         "displayName": "Tinta Suave",
         "canonical": "#4a4a48",
         "source": "--tinta-2",
+        "usage": "Texto secundario, notas, ejes, pie de página.",
         "tonalRamp": [
           "#1d1d1b",
           "#4a4a48",
@@ -286,13 +303,15 @@
         "role": "neutral",
         "displayName": "Gris Frío 7",
         "canonical": "#97999b",
-        "source": "--gris (Cool Gray 7; solo trazos)"
+        "source": "--gris (Cool Gray 7)",
+        "usage": "Solo trazos: bordes de campos y opciones; barra de desplazamiento."
       },
       "linea": {
         "role": "neutral",
         "displayName": "Hilo Cálido",
         "canonical": "#dddad5",
         "source": "--linea",
+        "usage": "Filetes de 1 px.",
         "tonalRamp": [
           "#1d1d1b",
           "#4a4a48",
@@ -310,6 +329,7 @@
         "displayName": "Blanco Papel",
         "canonical": "#ffffff",
         "source": "--fondo",
+        "usage": "Franjas blancas, encabezado, tarjetas sobre franjas de color.",
         "tonalRamp": [
           "#1d1d1b",
           "#4a4a48",
@@ -327,6 +347,7 @@
         "displayName": "Papel Cálido",
         "canonical": "#f6f4f1",
         "source": "--fondo-2",
+        "usage": "Franja del mapa, filtros, estados, encabezado de tabla, pie.",
         "tonalRamp": [
           "#1d1d1b",
           "#4a4a48",
@@ -343,38 +364,43 @@
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "H1 calculado de cada página; las cifras del titular van en rosa sin cursiva.",
+        "purpose": "H1 calculado de la portada y H1 de /explorar; las cifras del H1 de la portada van en rosa sin cursiva.",
         "source": "globals.css h1"
       },
       "headline": {
         "displayName": "Headline",
-        "purpose": "Título de capítulo.",
+        "purpose": "Título de capítulo; blanco sobre vino noche y rosa.",
         "source": "globals.css h2"
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Momentos de la curva, bloques y tarjetas de 'Otras formas de votar'.",
-        "source": "globals.css h3"
+        "purpose": "Momentos, 'Otras formas de votar', escenario, ficha del mapa, bloques de /explorar.",
+        "source": "globals.css h3; explorar.module.css .titulo3"
+      },
+      "termino": {
+        "displayName": "Término",
+        "purpose": "Cada palabra del glosario.",
+        "source": "relato.module.css .palabras dt"
       },
       "destacado": {
         "displayName": "Destacado",
-        "purpose": "Frase corta que resume un resultado; la frase del caso en la huella usa 1.375rem.",
-        "source": "documento.module.css .destacado; relato.module.css .casoFrase"
+        "purpose": "Frase del resultado del caso en la calculadora.",
+        "source": "relato.module.css .casoFrase"
       },
       "cifra": {
         "displayName": "Cifra",
-        "purpose": "Toda cifra protagonista; el tamaño depende del contexto (2rem bajo pasteles, 2.25rem en el escenario).",
+        "purpose": "Toda cifra protagonista; 2rem bajo los pasteles del héroe, 2.25rem en el escenario, 1.375rem en la frase del explorador.",
         "source": "globals.css .cifra"
       },
       "entradilla": {
         "displayName": "Entradilla",
-        "purpose": "Línea fija bajo el H1 de la portada.",
+        "purpose": "Línea en Rosa Profundo bajo el H1 de la portada.",
         "source": "relato.module.css .entradilla"
       },
       "body": {
         "displayName": "Body",
-        "purpose": "Texto corrido, máximo 62ch, text-wrap: pretty.",
-        "source": "globals.css body"
+        "purpose": "Texto corrido de 18 px, máximo 62ch, text-wrap: pretty.",
+        "source": "globals.css body, --texto"
       },
       "boton": {
         "displayName": "Botón",
@@ -383,25 +409,30 @@
       },
       "label": {
         "displayName": "Label",
-        "purpose": "Etiquetas de campo y segmento, botón de menú, encabezados de tabla.",
-        "source": "globals.css .campo; ui.module.css .segmentoEtiqueta"
+        "purpose": "Etiquetas de campo y segmento, título de leyenda, encabezados de tabla, opciones de segmento.",
+        "source": "globals.css .campo; ui.module.css .segmentoEtiqueta, .segmentoOpcion"
       },
       "meta": {
         "displayName": "Meta",
-        "purpose": "Pies de figura, leyendas, notas, aviso de prototipo, celdas de tabla; en tinta suave.",
+        "purpose": "Pies, leyendas, notas, celdas de tabla, etiqueta del mapa, pie de página; el piso de lectura (16 px).",
         "source": "--meta"
       }
     },
     "shadows": [
       {
-        "name": "menu-desplegado",
-        "value": "0 12px 24px -12px rgba(29, 29, 27, 0.25)",
-        "purpose": "Solo el panel de navegación móvil abierto."
-      },
-      {
         "name": "canto-pastel",
         "value": "inset 0 0 0 1px rgba(160, 0, 98, 0.18)",
         "purpose": "Borde interno del disco del pastel."
+      },
+      {
+        "name": "canto-riel",
+        "value": "inset 0 0 0 1px var(--c3)",
+        "purpose": "Borde del riel del deslizador."
+      },
+      {
+        "name": "anillo-perilla",
+        "value": "0 0 0 1px var(--rosa-700)",
+        "purpose": "Contorno exterior de la perilla del deslizador, por fuera de su borde blanco de 4 px."
       },
       {
         "name": "canto-muestra",
@@ -411,7 +442,7 @@
       {
         "name": "doble-trazo-seleccion",
         "value": "inset 0 0 0 1px var(--tinta)",
-        "purpose": "Engrosa a 2px el borde de la tarjeta de edad elegida en el explorador."
+        "purpose": "Engrosa a 2 px el borde de la tarjeta de edad elegida en el explorador."
       }
     ],
     "motion": [
@@ -433,7 +464,7 @@
       {
         "name": "estado-control",
         "value": "150ms ease-out",
-        "purpose": "Fondo, color y borde de botones y opciones de segmento."
+        "purpose": "Fondo, color y borde de botones, pestañas y opciones de segmento."
       },
       {
         "name": "estado-bloque",
@@ -453,24 +484,24 @@
     ],
     "breakpoints": [
       {
-        "name": "mosaico",
-        "value": "420px",
-        "purpose": "Casillas del mosaico de 46 a 52px."
-      },
-      {
         "name": "campana",
         "value": "480px",
         "purpose": "Aparece el texto 'Make the Change' junto a la M."
       },
       {
+        "name": "cien",
+        "value": "640px",
+        "purpose": "Figura de cien a dos columnas (200 px y texto)."
+      },
+      {
         "name": "formas",
         "value": "720px",
-        "purpose": "Formularios de tres columnas; tarjeta de caso en dos columnas."
+        "purpose": "Preguntas de la calculadora en fila; caso y dato del explorador con el pastel a la izquierda; controles del mapa en fila; columna de edad del espejo a 6rem."
       },
       {
         "name": "angosta",
         "value": "768px",
-        "purpose": "useAngosta (max-width: 767px): curva estrecha, mapa como mosaico, segmentos en rejilla."
+        "purpose": "useAngosta (max-width: 767px): curva de 420 de ancho, mapa como cuadros, segmentos en rejilla."
       },
       {
         "name": "llega",
@@ -478,14 +509,14 @@
         "purpose": "'Otras formas de votar' a dos columnas."
       },
       {
-        "name": "nav",
+        "name": "encabezado",
         "value": "900px",
-        "purpose": "Navegación en línea, encabezado de 72px, pie de tres columnas."
+        "purpose": "Encabezado en una fila de 76 px, logotipo de 36 px, pie a tres columnas, M grande del cierre."
       },
       {
         "name": "relato",
         "value": "960px",
-        "purpose": "Héroe y curva a dos columnas; columna de la curva pegada a 120px."
+        "purpose": "Héroe y curva a dos columnas; columna de la curva pegada a 120 px."
       },
       {
         "name": "mapa",
@@ -495,7 +526,7 @@
       {
         "name": "puntero-fino",
         "value": "(pointer: fine)",
-        "purpose": "Botones de orden en filas de tabla bajan a 32px."
+        "purpose": "Botones de orden en filas de tabla bajan a 32 px."
       }
     ]
   },
@@ -504,104 +535,110 @@
       "name": "Botón primario",
       "kind": "button",
       "refersTo": "button-primario",
-      "description": "La única acción principal de una tarea, en rosa INE.",
+      "description": "La acción principal de una tarea, en rosa INE; pasa a Rosa Profundo en hover.",
       "html": "<a class=\"ds-btn ds-btn-primario\" href=\"#huella\">Calcula tu caso</a>",
-      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: var(--toque, 44px); padding: 10px 20px; border-radius: 999px; border: 2px solid var(--rosa, #d5007f); font: 700 1rem/1.2 Arial, 'Helvetica Neue', Helvetica, sans-serif; text-decoration: none; cursor: pointer; transition: background-color 150ms ease-out, color 150ms ease-out, border-color 150ms ease-out; } .ds-btn:focus-visible { outline: 3px solid var(--rosa, #d5007f); outline-offset: 2px; } .ds-btn:disabled { cursor: not-allowed; opacity: 0.55; } .ds-btn-primario { background: var(--rosa, #d5007f); color: #fff; } .ds-btn-primario:hover { background: var(--rosa-700, #a00062); border-color: var(--rosa-700, #a00062); }"
+      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: var(--toque, 48px); padding: 10px 20px; border-radius: 999px; border: 2px solid var(--rosa, #d5007f); font: 700 1.125rem/1.2 Arial, 'Helvetica Neue', Helvetica, sans-serif; text-decoration: none; cursor: pointer; transition: background-color 150ms ease-out, color 150ms ease-out, border-color 150ms ease-out; } .ds-btn:focus-visible { outline: 3px solid var(--rosa, #d5007f); outline-offset: 2px; border-radius: 4px; } .ds-btn:disabled { cursor: not-allowed; opacity: 0.55; } .ds-btn-primario { background: var(--rosa, #d5007f); color: #fff; } .ds-btn-primario:hover { background: var(--rosa-700, #a00062); border-color: var(--rosa-700, #a00062); }"
     },
     {
       "name": "Botón de contorno",
       "kind": "button",
       "refersTo": "button-contorno",
-      "description": "La ruta hermana junto al primario, o la salida de un estado vacío.",
-      "html": "<button class=\"ds-btn ds-btn-contorno\" type=\"button\">Ver el mapa</button>",
-      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: var(--toque, 44px); padding: 10px 20px; border-radius: 999px; border: 2px solid var(--rosa, #d5007f); font: 700 1rem/1.2 Arial, 'Helvetica Neue', Helvetica, sans-serif; text-decoration: none; cursor: pointer; transition: background-color 150ms ease-out, color 150ms ease-out, border-color 150ms ease-out; } .ds-btn:focus-visible { outline: 3px solid var(--rosa, #d5007f); outline-offset: 2px; } .ds-btn:disabled { cursor: not-allowed; opacity: 0.55; } .ds-btn-contorno { background: transparent; color: var(--rosa-700, #a00062); } .ds-btn-contorno:hover { background: var(--rosa-50, #fdf0f6); }"
+      "description": "La ruta hermana junto al primario, la tabla de cada gráfica o la salida de un estado.",
+      "html": "<button class=\"ds-btn ds-btn-contorno\" type=\"button\">¿Qué significan las palabras?</button>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: var(--toque, 48px); padding: 10px 20px; border-radius: 999px; border: 2px solid var(--rosa, #d5007f); font: 700 1.125rem/1.2 Arial, 'Helvetica Neue', Helvetica, sans-serif; text-decoration: none; cursor: pointer; transition: background-color 150ms ease-out, color 150ms ease-out, border-color 150ms ease-out; } .ds-btn:focus-visible { outline: 3px solid var(--rosa, #d5007f); outline-offset: 2px; border-radius: 4px; } .ds-btn:disabled { cursor: not-allowed; opacity: 0.55; } .ds-btn-contorno { background: transparent; color: var(--rosa-700, #a00062); } .ds-btn-contorno:hover { background: var(--rosa-50, #fdf0f6); }"
+    },
+    {
+      "name": "Encabezado y pestañas",
+      "kind": "nav",
+      "refersTo": "pestana",
+      "description": "Encabezado fijo blanco con la M de campaña y dos pestañas siempre visibles; la página actual se llena de rosa. El logotipo INE (imagen) va a la izquierda de la M y no se incluye aquí.",
+      "html": "<header class=\"ds-encabezado\"><a class=\"ds-campana\" href=\"#\"><svg width=\"34\" height=\"34\" viewBox=\"0 0 64 64\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M11 54V12l21 24\" fill=\"none\" stroke=\"#1d1d1b\" stroke-width=\"8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M32 36l17-20\" fill=\"none\" stroke=\"#d5007f\" stroke-width=\"8\" stroke-linecap=\"round\"/><path d=\"M41 11h14v14\" fill=\"none\" stroke=\"#d5007f\" stroke-width=\"8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M53 33v21\" fill=\"none\" stroke=\"#1d1d1b\" stroke-width=\"8\" stroke-linecap=\"round\"/></svg><span>Make the Change</span></a><nav aria-label=\"Principal\"><ul class=\"ds-nav\"><li><a href=\"#\" aria-current=\"page\">Inicio</a></li><li><a href=\"#\">Busca tu municipio</a></li></ul></nav></header>",
+      "css": ".ds-encabezado { display: grid; gap: 8px; padding: 10px 16px; background: var(--fondo, #fff); border-bottom: 1px solid var(--linea, #dddad5); font: 400 1.125rem/1.6 Arial, 'Helvetica Neue', Helvetica, sans-serif; color: var(--tinta, #1d1d1b); } .ds-campana { display: inline-flex; align-items: center; gap: 8px; min-height: var(--toque, 48px); color: var(--tinta, #1d1d1b); text-decoration: none; font: 700 1.125rem/1 var(--font-advent, 'Advent Pro'), Arial, 'Helvetica Neue', Helvetica, sans-serif; white-space: nowrap; } .ds-campana:focus-visible { outline: 3px solid var(--rosa, #d5007f); outline-offset: 2px; border-radius: 4px; } .ds-nav { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; } .ds-nav a { display: flex; align-items: center; justify-content: center; min-height: var(--toque, 48px); padding: 0 12px; border-radius: 999px; background: var(--rosa-50, #fdf0f6); color: var(--rosa-700, #a00062); font-weight: 700; text-align: center; text-decoration: none; transition: background-color 150ms ease-out, color 150ms ease-out; } .ds-nav a:hover { background: var(--c1, #f9d4e6); } .ds-nav a[aria-current=\"page\"] { background: var(--rosa, #d5007f); color: #fff; } .ds-nav a:focus-visible { outline: 3px solid var(--rosa, #d5007f); outline-offset: 2px; border-radius: 4px; }"
     },
     {
       "name": "Segmento",
       "kind": "chip",
       "refersTo": "segmento-opcion",
-      "description": "Grupo de opciones excluyentes en píldoras; lo elegido va en tinta.",
-      "html": "<div class=\"ds-segmento-caja\"><span class=\"ds-segmento-etiqueta\" id=\"ds-seg-eleccion\">Elección</span><div class=\"ds-segmento\" role=\"radiogroup\" aria-labelledby=\"ds-seg-eleccion\"><button type=\"button\" role=\"radio\" aria-checked=\"false\" tabindex=\"-1\" class=\"ds-segmento-opcion\">2018</button><button type=\"button\" role=\"radio\" aria-checked=\"false\" tabindex=\"-1\" class=\"ds-segmento-opcion\">2021</button><button type=\"button\" role=\"radio\" aria-checked=\"true\" tabindex=\"0\" class=\"ds-segmento-opcion\">2024</button><button type=\"button\" role=\"radio\" aria-checked=\"false\" tabindex=\"-1\" class=\"ds-segmento-opcion\">Judicial 2025</button></div></div>",
-      "css": ".ds-segmento-caja { display: grid; gap: 6px; min-width: 0; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; color: var(--tinta, #1d1d1b); } .ds-segmento-etiqueta { font-size: 0.875rem; font-weight: 700; } .ds-segmento { display: flex; gap: 6px; overflow-x: auto; padding: 2px; } .ds-segmento-opcion { min-height: var(--toque, 44px); padding: 8px 14px; border: 1px solid var(--gris, #97999b); border-radius: 999px; background: var(--fondo, #fff); color: var(--tinta, #1d1d1b); font: 700 0.875rem/1.2 Arial, 'Helvetica Neue', Helvetica, sans-serif; white-space: nowrap; cursor: pointer; transition: background-color 150ms ease-out, color 150ms ease-out; } .ds-segmento-opcion:hover { border-color: var(--rosa, #d5007f); } .ds-segmento-opcion[aria-checked=\"true\"] { background: var(--tinta, #1d1d1b); border-color: var(--tinta, #1d1d1b); color: #fff; } .ds-segmento-opcion:focus-visible { outline: 3px solid var(--rosa, #d5007f); outline-offset: 2px; }"
+      "description": "Opciones excluyentes en píldoras de 48 px con una sola parada de tabulación; lo elegido va en tinta.",
+      "html": "<div class=\"ds-segmento-caja\"><span class=\"ds-segmento-etiqueta\" id=\"ds-seg-eleccion\">Año de la elección</span><div class=\"ds-segmento\" role=\"radiogroup\" aria-labelledby=\"ds-seg-eleccion\"><button type=\"button\" role=\"radio\" aria-checked=\"false\" tabindex=\"-1\" class=\"ds-segmento-opcion\">2018</button><button type=\"button\" role=\"radio\" aria-checked=\"false\" tabindex=\"-1\" class=\"ds-segmento-opcion\">2021</button><button type=\"button\" role=\"radio\" aria-checked=\"true\" tabindex=\"0\" class=\"ds-segmento-opcion\">2024</button><button type=\"button\" role=\"radio\" aria-checked=\"false\" tabindex=\"-1\" class=\"ds-segmento-opcion\">Judicial 2025</button></div></div>",
+      "css": ".ds-segmento-caja { display: grid; gap: 6px; min-width: 0; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; color: var(--tinta, #1d1d1b); } .ds-segmento-etiqueta { font-size: 1rem; font-weight: 700; } .ds-segmento { display: flex; gap: 6px; overflow-x: auto; padding: 2px; } .ds-segmento-opcion { min-height: var(--toque, 48px); padding: 8px 14px; border: 1px solid var(--gris, #97999b); border-radius: 999px; background: var(--fondo, #fff); color: var(--tinta, #1d1d1b); font: 700 1rem/1.2 Arial, 'Helvetica Neue', Helvetica, sans-serif; white-space: nowrap; cursor: pointer; transition: background-color 150ms ease-out, color 150ms ease-out; } .ds-segmento-opcion:hover { border-color: var(--rosa, #d5007f); } .ds-segmento-opcion[aria-checked=\"true\"] { background: var(--tinta, #1d1d1b); border-color: var(--tinta, #1d1d1b); color: #fff; } .ds-segmento-opcion:focus-visible { outline: 3px solid var(--rosa, #d5007f); outline-offset: 2px; border-radius: 4px; }"
     },
     {
-      "name": "Campo",
+      "name": "Campo y deslizador",
       "kind": "input",
       "refersTo": "campo",
-      "description": "Selector nativo con la etiqueta encima; 44px de alto.",
-      "html": "<label class=\"ds-campo\">Lugar<select><option>Elige un lugar</option><option>Todo el país</option></select></label>",
-      "css": ".ds-campo { display: grid; gap: 6px; font: 700 0.875rem/1.55 Arial, 'Helvetica Neue', Helvetica, sans-serif; color: var(--tinta, #1d1d1b); max-width: 20rem; } .ds-campo select, .ds-campo input { min-height: var(--toque, 44px); padding: 8px 12px; border: 1px solid var(--gris, #97999b); border-radius: 8px; background: var(--fondo, #fff); color: var(--tinta, #1d1d1b); font: 400 1rem/1.3 Arial, 'Helvetica Neue', Helvetica, sans-serif; width: 100%; } .ds-campo select:focus-visible, .ds-campo input:focus-visible { outline: 3px solid var(--rosa, #d5007f); outline-offset: 2px; }"
+      "description": "Selector nativo de 48 px con la etiqueta encima, y el deslizador propio del escenario: riel en c2, avance rosa que sigue a la perilla con --avance, perilla rosa de 32 px con borde blanco. Valores tomados de la portada publicada (2024, barra al máximo).",
+      "html": "<div class=\"ds-escenario\"><label class=\"ds-campo\">1. ¿Dónde vives?<select><option>Elige tu entidad</option><option>Todo el país</option></select></label><label class=\"ds-deslizador\"><span>Si votaran <strong>69.90</strong> de cada 100 jóvenes</span><input type=\"range\" min=\"0\" max=\"100\" value=\"100\" style=\"--avance: 100%\" aria-valuetext=\"69.90 de cada 100 jóvenes\"></label><p class=\"ds-escenario-cifra\"><span class=\"ds-cifra-grande\">6,261,987</span> votos más</p></div>",
+      "css": ".ds-escenario { display: grid; gap: 14px; max-width: 30rem; padding: 24px; border-radius: 16px; background: var(--rosa-50, #fdf0f6); color: var(--tinta, #1d1d1b); font: 400 1.125rem/1.6 Arial, 'Helvetica Neue', Helvetica, sans-serif; } .ds-campo { display: grid; gap: 6px; font-size: 1rem; font-weight: 700; } .ds-campo select { min-height: var(--toque, 48px); padding: 8px 12px; border: 1px solid var(--gris, #97999b); border-radius: 8px; background: var(--fondo, #fff); color: var(--tinta, #1d1d1b); font: 400 1.125rem/1.3 Arial, 'Helvetica Neue', Helvetica, sans-serif; width: 100%; } .ds-campo select:focus-visible { outline: 3px solid var(--rosa, #d5007f); outline-offset: 2px; border-radius: 4px; } .ds-deslizador { display: grid; gap: 10px; } .ds-deslizador input { appearance: none; -webkit-appearance: none; width: 100%; height: var(--toque, 48px); background: transparent; cursor: pointer; margin: 0; } .ds-deslizador input::-webkit-slider-runnable-track { height: 10px; border-radius: 999px; background: linear-gradient(to right, var(--rosa, #d5007f) var(--avance, 0%), var(--c2, #f2a3c8) var(--avance, 0%)); box-shadow: inset 0 0 0 1px var(--c3, #e65fa3); } .ds-deslizador input::-moz-range-track { height: 10px; border-radius: 999px; background: var(--c2, #f2a3c8); box-shadow: inset 0 0 0 1px var(--c3, #e65fa3); } .ds-deslizador input::-moz-range-progress { height: 10px; border-radius: 999px; background: var(--rosa, #d5007f); } .ds-deslizador input::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 32px; height: 32px; margin-top: -11px; border: 4px solid #fff; border-radius: 50%; background: var(--rosa, #d5007f); box-shadow: 0 0 0 1px var(--rosa-700, #a00062); } .ds-deslizador input::-moz-range-thumb { width: 24px; height: 24px; border: 4px solid #fff; border-radius: 50%; background: var(--rosa, #d5007f); box-shadow: 0 0 0 1px var(--rosa-700, #a00062); } .ds-deslizador input:focus-visible { outline: 3px solid var(--rosa, #d5007f); outline-offset: 2px; border-radius: 4px; } .ds-escenario-cifra { margin: 0; color: var(--rosa-700, #a00062); } .ds-cifra-grande { font: 650 2.25rem/1.1 var(--font-advent, 'Advent Pro'), Arial, 'Helvetica Neue', Helvetica, sans-serif; font-variant-numeric: tabular-nums; margin-right: 6px; }"
     },
     {
-      "name": "Encabezado y navegación",
-      "kind": "nav",
-      "refersTo": "nav-enlace",
-      "description": "Encabezado fijo blanco con la M de campaña, enlaces en tinta y el actual subrayado en rosa profundo; el aviso de prototipo debajo. El logotipo INE (imagen) va a la izquierda de la M y no se incluye aquí.",
-      "html": "<header class=\"ds-encabezado\"><div class=\"ds-barra\"><a class=\"ds-campana\" href=\"#\"><svg width=\"34\" height=\"34\" viewBox=\"0 0 64 64\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M11 54V12l21 24\" fill=\"none\" stroke=\"#1d1d1b\" stroke-width=\"8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M32 36l17-20\" fill=\"none\" stroke=\"#d5007f\" stroke-width=\"8\" stroke-linecap=\"round\"/><path d=\"M41 11h14v14\" fill=\"none\" stroke=\"#d5007f\" stroke-width=\"8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M53 33v21\" fill=\"none\" stroke=\"#1d1d1b\" stroke-width=\"8\" stroke-linecap=\"round\"/></svg><span>Make the Change</span></a><nav aria-label=\"Principal\"><ul class=\"ds-nav\"><li><a href=\"#\" aria-current=\"page\">Relato</a></li><li><a href=\"#\">Explorar</a></li><li><a href=\"#\">Difusión</a></li><li><a href=\"#\">Metodología</a></li></ul></nav></div><p class=\"ds-aviso\">Prototipo para el Reto 3 del Hackatón INE 2026. No es un sitio oficial del INE.</p></header>",
-      "css": ".ds-encabezado { background: var(--fondo, #fff); border-bottom: 1px solid var(--linea, #dddad5); padding: 0 16px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; color: var(--tinta, #1d1d1b); } .ds-barra { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; min-height: 72px; } .ds-campana { display: inline-flex; align-items: center; gap: 8px; min-height: var(--toque, 44px); margin-right: auto; color: var(--tinta, #1d1d1b); text-decoration: none; font: 700 1.125rem/1 var(--font-advent, 'Advent Pro'), Arial, 'Helvetica Neue', Helvetica, sans-serif; white-space: nowrap; } .ds-campana:focus-visible { outline: 3px solid var(--rosa, #d5007f); outline-offset: 2px; border-radius: 4px; } .ds-nav { list-style: none; margin: 0; padding: 0; display: flex; gap: 8px; } .ds-nav a { display: flex; align-items: center; min-height: var(--toque, 44px); padding: 0 12px; color: var(--tinta, #1d1d1b); font-weight: 700; text-decoration: none; } .ds-nav a[aria-current=\"page\"] { color: var(--rosa-700, #a00062); text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 0.4em; } .ds-nav a:focus-visible { outline: 3px solid var(--rosa, #d5007f); outline-offset: 2px; border-radius: 4px; } .ds-aviso { margin: 0; padding-bottom: 8px; font-size: 0.875rem; color: var(--tinta-2, #4a4a48); }"
+      "name": "Franjas de capítulo",
+      "kind": "custom",
+      "refersTo": "banda-vino",
+      "description": "Capítulos a todo lo ancho en la familia INE. Sobre vino noche y rosa, títulos, etiquetas, foco y botones pasan a blanco; el texto secundario sobre vino va en c1 y los estados dentro de esa franja en rubor.",
+      "html": "<section class=\"ds-banda ds-banda-rubor\"><h2>Otras formas de votar</h2><p>No todas las personas votan en una casilla.</p></section><section class=\"ds-banda ds-banda-vino\"><h2>¿Cuántas personas como tú votaron?</h2><p>Responde tres preguntas y te decimos cuántas personas como tú votaron.</p><p class=\"ds-estado\">Responde las tres preguntas y aquí aparece tu resultado.</p></section><section class=\"ds-banda ds-banda-calida\"><h2>¿Dónde se vota más?</h2><p>Entre más oscuro el color, más personas votaron.</p></section><section class=\"ds-banda ds-banda-rosa\"><h2>Tu voto también cuenta</h2><div class=\"ds-acciones\"><a class=\"ds-btn ds-btn-primario\" href=\"#\">Busca tu municipio</a><a class=\"ds-btn ds-btn-contorno\" href=\"#\">Calcula tu caso</a></div></section>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: var(--toque, 48px); padding: 10px 20px; border-radius: 999px; border: 2px solid var(--rosa, #d5007f); font: 700 1.125rem/1.2 Arial, 'Helvetica Neue', Helvetica, sans-serif; text-decoration: none; cursor: pointer; transition: background-color 150ms ease-out, color 150ms ease-out, border-color 150ms ease-out; } .ds-btn:focus-visible { outline: 3px solid var(--rosa, #d5007f); outline-offset: 2px; border-radius: 4px; } .ds-btn:disabled { cursor: not-allowed; opacity: 0.55; } .ds-banda { display: grid; gap: 12px; padding: 32px 24px; font: 400 1.125rem/1.6 Arial, 'Helvetica Neue', Helvetica, sans-serif; color: var(--tinta, #1d1d1b); } .ds-banda h2 { margin: 0; font: 650 1.75rem/1.1 var(--font-advent, 'Advent Pro'), Arial, 'Helvetica Neue', Helvetica, sans-serif; letter-spacing: -0.01em; } .ds-banda p { margin: 0; max-width: 62ch; } .ds-banda-rubor { background: var(--rosa-50, #fdf0f6); } .ds-banda-vino { background: var(--vino-900, #5c0c30); color: #fff; } .ds-banda-vino h2 { color: #fff; } .ds-banda-vino p { color: var(--c1, #f9d4e6); } .ds-banda-vino .ds-estado { padding: 16px 18px; border-radius: 10px; background: var(--rosa-50, #fdf0f6); color: var(--tinta, #1d1d1b); } .ds-banda-calida { background: var(--fondo-2, #f6f4f1); } .ds-banda-rosa { background: var(--rosa, #d5007f); color: #fff; } .ds-acciones { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; } .ds-banda-rosa .ds-btn-primario { background: #fff; border-color: #fff; color: var(--rosa-700, #a00062); } .ds-banda-rosa .ds-btn-primario:hover { background: var(--rosa-50, #fdf0f6); border-color: var(--rosa-50, #fdf0f6); } .ds-banda-rosa .ds-btn-contorno { background: transparent; border-color: #fff; color: #fff; } .ds-banda-rosa .ds-btn-contorno:hover { background: var(--rosa-700, #a00062); } .ds-banda-vino :focus-visible, .ds-banda-rosa :focus-visible { outline-color: #fff; }"
     },
     {
       "name": "Pastel de cada 100",
       "kind": "custom",
       "refersTo": "pastel",
-      "description": "Firma del sistema: la rebanada rosa son quienes votaron; siempre con su cifra en Advent Pro y un pie en Meta. Cifra de muestra tomada del héroe publicado (2024).",
-      "html": "<figure class=\"ds-pastel-figura\"><div class=\"ds-pastel\" role=\"img\" aria-label=\"A los 18 años votaron 57.51 de cada 100\" style=\"--voto: 57.51%\"></div><figcaption><span class=\"ds-cifra\">57.51</span> de cada 100 a los 18 años</figcaption></figure><figure class=\"ds-pastel-figura\"><div class=\"ds-pastel\" data-vacio=\"true\" role=\"img\" aria-label=\"Sin dato\"></div><figcaption>Sin dato</figcaption></figure>",
-      "css": ".ds-pastel-figura { margin: 0 0 16px; display: grid; justify-items: start; gap: 12px; max-width: 200px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; } .ds-pastel { width: 160px; height: 160px; border-radius: 50%; background: conic-gradient(var(--rosa, #d5007f) 0 var(--voto), var(--rosa-50, #fdf0f6) var(--voto) 100%); box-shadow: inset 0 0 0 1px rgba(160, 0, 98, 0.18); transition: --voto 600ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-pastel[data-vacio=\"true\"] { background: repeating-linear-gradient(45deg, var(--fondo-2, #f6f4f1) 0 8px, var(--linea, #dddad5) 8px 10px); } .ds-pastel-figura figcaption { font-size: 0.875rem; color: var(--tinta-2, #4a4a48); } .ds-cifra { display: block; font-family: var(--font-advent, 'Advent Pro'), Arial, 'Helvetica Neue', Helvetica, sans-serif; font-weight: 650; font-size: 2rem; font-variant-numeric: tabular-nums; color: var(--tinta, #1d1d1b); }"
+      "description": "Firma del sistema: la rebanada rosa son quienes votaron. En una franja rubor el resto pasa a blanco con --pastel-resto. Cifras tomadas del héroe publicado (2024).",
+      "html": "<div class=\"ds-pasteles\"><figure class=\"ds-pastel-figura\"><div class=\"ds-pastel\" role=\"img\" aria-label=\"A los 18 años votaron 57.51 de cada 100\" style=\"--voto: 57.51%\"></div><figcaption><span class=\"ds-cifra\">57.51</span> de cada 100 jóvenes de 18 años votaron</figcaption></figure><figure class=\"ds-pastel-figura ds-sobre-rubor\"><div class=\"ds-pastel\" role=\"img\" aria-label=\"Hombres de 28 años: votaron 37.47 de cada 100\" style=\"--voto: 37.47%\"></div><figcaption><span class=\"ds-cifra\">37.47</span> de cada 100 hombres de 28 años votaron</figcaption></figure><figure class=\"ds-pastel-figura\"><div class=\"ds-pastel\" data-vacio=\"true\" role=\"img\" aria-label=\"Sin dato\"></div><figcaption>Sin dato</figcaption></figure></div>",
+      "css": ".ds-pasteles { display: flex; flex-wrap: wrap; gap: 24px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; } .ds-pastel-figura { margin: 0; display: grid; justify-items: start; align-content: start; gap: 12px; max-width: 200px; padding: 16px; } .ds-sobre-rubor { background: var(--rosa-50, #fdf0f6); --pastel-resto: #fff; } .ds-pastel { width: 160px; height: 160px; border-radius: 50%; background: conic-gradient(var(--rosa, #d5007f) 0 var(--voto), var(--pastel-resto, var(--rosa-50, #fdf0f6)) var(--voto) 100%); box-shadow: inset 0 0 0 1px rgba(160, 0, 98, 0.18); } .ds-pastel[data-vacio=\"true\"] { background: repeating-linear-gradient(45deg, var(--fondo-2, #f6f4f1) 0 8px, var(--linea, #dddad5) 8px 10px); } .ds-pastel-figura figcaption { font-size: 1rem; line-height: 1.6; color: var(--tinta-2, #4a4a48); } .ds-cifra { display: block; font: 650 2rem/1.1 var(--font-advent, 'Advent Pro'), Arial, 'Helvetica Neue', Helvetica, sans-serif; font-variant-numeric: tabular-nums; color: var(--tinta, #1d1d1b); }"
+    },
+    {
+      "name": "Glosario",
+      "kind": "custom",
+      "refersTo": "figura-cien",
+      "description": "La figura de cien puntos que explica 'de cada 100' (60 es un ejemplo fijo) y los términos con íconos propios en discos de 56 px que alternan rosa, vino y Rosa Profundo.",
+      "html": "<div class=\"ds-glosario\"><figure class=\"ds-cien\"><svg viewBox=\"0 0 200 200\" role=\"img\" aria-label=\"Cien círculos: 60 en rosa son las personas que votaron y 40 claros son las que no votaron.\"><circle cx=\"10\" cy=\"10\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"30\" cy=\"10\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"50\" cy=\"10\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"70\" cy=\"10\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"90\" cy=\"10\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"110\" cy=\"10\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"130\" cy=\"10\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"150\" cy=\"10\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"170\" cy=\"10\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"190\" cy=\"10\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"10\" cy=\"30\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"30\" cy=\"30\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"50\" cy=\"30\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"70\" cy=\"30\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"90\" cy=\"30\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"110\" cy=\"30\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"130\" cy=\"30\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"150\" cy=\"30\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"170\" cy=\"30\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"190\" cy=\"30\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"10\" cy=\"50\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"30\" cy=\"50\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"50\" cy=\"50\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"70\" cy=\"50\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"90\" cy=\"50\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"110\" cy=\"50\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"130\" cy=\"50\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"150\" cy=\"50\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"170\" cy=\"50\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"190\" cy=\"50\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"10\" cy=\"70\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"30\" cy=\"70\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"50\" cy=\"70\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"70\" cy=\"70\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"90\" cy=\"70\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"110\" cy=\"70\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"130\" cy=\"70\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"150\" cy=\"70\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"170\" cy=\"70\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"190\" cy=\"70\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"10\" cy=\"90\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"30\" cy=\"90\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"50\" cy=\"90\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"70\" cy=\"90\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"90\" cy=\"90\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"110\" cy=\"90\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"130\" cy=\"90\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"150\" cy=\"90\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"170\" cy=\"90\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"190\" cy=\"90\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"10\" cy=\"110\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"30\" cy=\"110\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"50\" cy=\"110\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"70\" cy=\"110\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"90\" cy=\"110\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"110\" cy=\"110\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"130\" cy=\"110\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"150\" cy=\"110\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"170\" cy=\"110\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"190\" cy=\"110\" r=\"7.5\" class=\"ds-voto\"/><circle cx=\"10\" cy=\"130\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"30\" cy=\"130\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"50\" cy=\"130\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"70\" cy=\"130\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"90\" cy=\"130\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"110\" cy=\"130\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"130\" cy=\"130\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"150\" cy=\"130\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"170\" cy=\"130\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"190\" cy=\"130\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"10\" cy=\"150\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"30\" cy=\"150\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"50\" cy=\"150\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"70\" cy=\"150\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"90\" cy=\"150\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"110\" cy=\"150\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"130\" cy=\"150\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"150\" cy=\"150\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"170\" cy=\"150\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"190\" cy=\"150\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"10\" cy=\"170\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"30\" cy=\"170\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"50\" cy=\"170\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"70\" cy=\"170\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"90\" cy=\"170\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"110\" cy=\"170\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"130\" cy=\"170\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"150\" cy=\"170\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"170\" cy=\"170\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"190\" cy=\"170\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"10\" cy=\"190\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"30\" cy=\"190\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"50\" cy=\"190\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"70\" cy=\"190\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"90\" cy=\"190\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"110\" cy=\"190\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"130\" cy=\"190\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"150\" cy=\"190\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"170\" cy=\"190\" r=\"7.5\" class=\"ds-novoto\"/><circle cx=\"190\" cy=\"190\" r=\"7.5\" class=\"ds-novoto\"/></svg><figcaption><strong>«De cada 100»</strong><span>Imagina a 100 personas que pueden votar. Si decimos «60 de cada 100», votaron 60 (en rosa) y no votaron 40 (en claro).</span></figcaption></figure><dl class=\"ds-palabras\"><div><svg class=\"ds-icono\" viewBox=\"0 0 32 32\" aria-hidden=\"true\"><rect x=\"8\" y=\"5\" width=\"16\" height=\"22\" rx=\"2\"/><path d=\"M12 11h8M12 16h8M12 21h5\"/></svg><dt>Lista nominal</dt><dd>La lista de todas las personas que pueden votar porque tienen su credencial para votar y no ha vencido.</dd></div><div><svg class=\"ds-icono\" viewBox=\"0 0 32 32\" aria-hidden=\"true\"><path d=\"M4 14h24M7 14v13M25 14v13\"/><path d=\"M11 14V8h10v6M14 5h4\"/></svg><dt>Casilla</dt><dd>El lugar donde votas el día de la elección, con su mesa y sus urnas.</dd></div><div><svg class=\"ds-icono\" viewBox=\"0 0 32 32\" aria-hidden=\"true\"><path d=\"M6 15h20v12H6z\"/><path d=\"M11 15V6h10v9M14 10h4\"/></svg><dt>Conteos censales</dt><dd>El INE revisó la lista de cada casilla del país y contó quién votó y quién no.</dd></div></dl></div>",
+      "css": ".ds-glosario { display: grid; gap: 40px; font: 400 1.125rem/1.6 Arial, 'Helvetica Neue', Helvetica, sans-serif; color: var(--tinta, #1d1d1b); } .ds-cien { margin: 0; display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 20px 32px; align-items: center; max-width: 48rem; padding: 24px; border-radius: 16px; background: var(--rosa-50, #fdf0f6); } .ds-cien svg { width: min(100%, 200px); height: auto; } .ds-voto { fill: var(--rosa, #d5007f); } .ds-novoto { fill: #fff; stroke: var(--c2, #f2a3c8); stroke-width: 1.5; } .ds-cien figcaption { display: grid; gap: 8px; } .ds-cien strong { font: 650 1.625rem/1.15 var(--font-advent, 'Advent Pro'), Arial, 'Helvetica Neue', Helvetica, sans-serif; color: var(--rosa-700, #a00062); } .ds-palabras { margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr)); gap: 32px 40px; } .ds-palabras > div { display: grid; grid-template-columns: 56px minmax(0, 1fr); column-gap: 16px; row-gap: 4px; align-content: start; } .ds-icono { grid-row: span 2; width: 56px; height: 56px; padding: 12px; box-sizing: border-box; border-radius: 50%; background: var(--rosa, #d5007f); fill: none; stroke: #fff; stroke-width: 2.25; stroke-linecap: round; stroke-linejoin: round; } .ds-palabras > div:nth-child(3n + 2) .ds-icono { background: var(--vino, #7a1240); } .ds-palabras > div:nth-child(3n) .ds-icono { background: var(--rosa-700, #a00062); } .ds-palabras dt { align-self: end; font: 650 1.375rem/1.15 var(--font-advent, 'Advent Pro'), Arial, 'Helvetica Neue', Helvetica, sans-serif; } .ds-palabras dd { margin: 0; }"
     },
     {
       "name": "Momento de la curva",
       "kind": "card",
       "refersTo": "momento",
-      "description": "Tarjetas del relato con desplazamiento: papel cálido en reposo, tinta cuando su momento está activo.",
-      "html": "<ol class=\"ds-momentos\"><li><h3>A los 18 votaron 57.51 de cada 100</h3><p>Es la primera elección para muchas personas.</p></li><li data-activo=\"true\"><h3>A los 68, los hombres votan más</h3><p>Desde esa edad la diferencia se invierte. Los datos muestran el cambio, no su causa.</p></li></ol>",
-      "css": ".ds-momentos { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; font: 400 1rem/1.55 Arial, 'Helvetica Neue', Helvetica, sans-serif; max-width: 26rem; } .ds-momentos li { display: grid; gap: 8px; padding: 20px; border-radius: 10px; background: var(--fondo-2, #f6f4f1); color: var(--tinta, #1d1d1b); transition: background-color 200ms ease-out, color 200ms ease-out; } .ds-momentos li[data-activo=\"true\"] { background: var(--tinta, #1d1d1b); color: #fff; } .ds-momentos h3 { margin: 0; font: 650 1.25rem/1.1 var(--font-advent, 'Advent Pro'), Arial, 'Helvetica Neue', Helvetica, sans-serif; letter-spacing: -0.01em; } .ds-momentos p { margin: 0; }"
-    },
-    {
-      "name": "Mensaje de estado",
-      "kind": "card",
-      "refersTo": "estado",
-      "description": "Caja única para vacío, protegido, espera y error; el error toma fondo rubor.",
-      "html": "<p class=\"ds-estado\">Elige lugar, edad y sexo para ver tu caso.</p><p class=\"ds-estado\" data-tono=\"espera\" role=\"status\">Cargando los datos…</p><p class=\"ds-estado\" data-tono=\"error\" role=\"alert\">No pudimos cargar los datos. Revisa tu conexión.</p>",
-      "css": ".ds-estado { display: grid; gap: 12px; margin: 0 0 12px; padding: 16px 18px; border-radius: 10px; background: var(--fondo-2, #f6f4f1); color: var(--tinta, #1d1d1b); font: 400 1rem/1.55 Arial, 'Helvetica Neue', Helvetica, sans-serif; } .ds-estado[data-tono=\"espera\"] { color: var(--tinta-2, #4a4a48); } .ds-estado[data-tono=\"error\"] { background: var(--rosa-50, #fdf0f6); }"
+      "description": "Tarjetas del relato con desplazamiento: rubor en reposo, vino noche con texto blanco cuando su momento está activo. Textos tomados de la portada publicada (2024).",
+      "html": "<ol class=\"ds-momentos\"><li><h3>A los 28 votan menos hombres que a cualquier otra edad antes de los 40</h3><p>Votaron 37.47 de cada 100 hombres de 28 años. Las mujeres de esa edad, 50.40 de cada 100.</p></li><li data-activo=\"true\"><h3>Desde los 68, los hombres votan más</h3><p>Hombres 71.87 de cada 100; mujeres 71.61 de cada 100. Antes de esa edad, ellas votan más. Los datos muestran el cambio, no su causa.</p></li></ol>",
+      "css": ".ds-momentos { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; font: 400 1.125rem/1.6 Arial, 'Helvetica Neue', Helvetica, sans-serif; max-width: 26rem; } .ds-momentos li { display: grid; gap: 8px; padding: 20px; border-radius: 10px; background: var(--rosa-50, #fdf0f6); color: var(--tinta, #1d1d1b); transition: background-color 200ms ease-out, color 200ms ease-out; } .ds-momentos li[data-activo=\"true\"] { background: var(--vino-900, #5c0c30); color: #fff; } .ds-momentos h3 { margin: 0; font: 650 1.25rem/1.1 var(--font-advent, 'Advent Pro'), Arial, 'Helvetica Neue', Helvetica, sans-serif; letter-spacing: -0.01em; } .ds-momentos p { margin: 0; }"
     },
     {
       "name": "Tabla de datos",
       "kind": "custom",
       "refersTo": "tabla-caja",
-      "description": "Alternativa en tabla de cada gráfica: caja blanca con filete, encabezado en papel cálido, cifras a la derecha. Cifras de muestra tomadas del héroe publicado (2024).",
-      "html": "<div class=\"ds-tabla-caja\"><table class=\"ds-tabla\"><caption>Votaron de cada 100. Elección 2024.</caption><thead><tr><th scope=\"col\">Grupo</th><th scope=\"col\">Votaron</th></tr></thead><tbody><tr><th scope=\"row\">18 años</th><td>57.51</td></tr><tr><th scope=\"row\">Hombres de 28 años</th><td>37.47</td></tr></tbody></table></div>",
-      "css": ".ds-tabla-caja { overflow-x: auto; border: 1px solid var(--linea, #dddad5); border-radius: 10px; background: var(--fondo, #fff); } .ds-tabla { width: 100%; border-collapse: collapse; font: 400 0.875rem/1.55 Arial, 'Helvetica Neue', Helvetica, sans-serif; font-variant-numeric: tabular-nums; color: var(--tinta, #1d1d1b); } .ds-tabla caption { text-align: left; padding: 12px 14px; color: var(--tinta-2, #4a4a48); } .ds-tabla th, .ds-tabla td { padding: 10px 14px; border-top: 1px solid var(--linea, #dddad5); text-align: right; white-space: nowrap; } .ds-tabla th:first-child, .ds-tabla td:first-child { text-align: left; } .ds-tabla thead th { background: var(--fondo-2, #f6f4f1); font-weight: 700; } .ds-tabla tbody tr { background: var(--fondo, #fff); } .ds-tabla tbody tr:nth-child(even) { background: #fbfaf8; }"
-    },
-    {
-      "name": "Marca Make the Change",
-      "kind": "custom",
-      "refersTo": null,
-      "description": "La M con la diagonal convertida en flecha que sube: tinta y rosa, trazo 8 en rejilla de 64, remates redondos. Favicon, encabezado y firma de las imágenes para compartir.",
-      "html": "<span class=\"ds-marca\"><svg width=\"40\" height=\"40\" viewBox=\"0 0 64 64\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M11 54V12l21 24\" fill=\"none\" stroke=\"#1d1d1b\" stroke-width=\"8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M32 36l17-20\" fill=\"none\" stroke=\"#d5007f\" stroke-width=\"8\" stroke-linecap=\"round\"/><path d=\"M41 11h14v14\" fill=\"none\" stroke=\"#d5007f\" stroke-width=\"8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M53 33v21\" fill=\"none\" stroke=\"#1d1d1b\" stroke-width=\"8\" stroke-linecap=\"round\"/></svg>Make the Change</span>",
-      "css": ".ds-marca { display: inline-flex; align-items: center; gap: 8px; font: 700 1.125rem/1 var(--font-advent, 'Advent Pro'), Arial, 'Helvetica Neue', Helvetica, sans-serif; color: var(--tinta, #1d1d1b); }"
+      "description": "Alternativa en tabla de cada gráfica: caja blanca con filete, encabezado en papel cálido, cifras a la derecha y la diferencia dicha con palabras. Filas tomadas de la portada publicada.",
+      "html": "<div class=\"ds-tabla-caja\"><table class=\"ds-tabla\"><caption>Votaron de cada 100 en todo el país y entre las personas de 18 a 29 años.</caption><thead><tr><th scope=\"col\">Elección</th><th scope=\"col\">País</th><th scope=\"col\">18 a 29</th><th scope=\"col\">Diferencia</th></tr></thead><tbody><tr><th scope=\"row\">2009<span>Intermedia</span></th><td>43.00</td><td>35.08</td><td>7.92 menos</td></tr><tr><th scope=\"row\">2024<span>Presidencial</span></th><td>55.83</td><td>45.83</td><td>10.00 menos</td></tr><tr><th scope=\"row\">Judicial 2025<span>Primera vez</span></th><td>12.84</td><td>7.78</td><td>5.06 menos</td></tr></tbody></table></div>",
+      "css": ".ds-tabla-caja { overflow-x: auto; border: 1px solid var(--linea, #dddad5); border-radius: 10px; background: var(--fondo, #fff); } .ds-tabla { width: 100%; border-collapse: collapse; font: 400 1rem/1.6 Arial, 'Helvetica Neue', Helvetica, sans-serif; font-variant-numeric: tabular-nums; color: var(--tinta, #1d1d1b); } .ds-tabla caption { text-align: left; padding: 12px 14px; color: var(--tinta-2, #4a4a48); } .ds-tabla th, .ds-tabla td { padding: 10px 14px; border-top: 1px solid var(--linea, #dddad5); text-align: right; white-space: nowrap; } .ds-tabla th:first-child, .ds-tabla td:first-child { text-align: left; } .ds-tabla thead th { background: var(--fondo-2, #f6f4f1); font-weight: 700; } .ds-tabla th[scope=\"row\"] span { display: block; font-weight: 400; color: var(--tinta-2, #4a4a48); } .ds-tabla tbody tr { background: var(--fondo, #fff); } .ds-tabla tbody tr:nth-child(even) { background: #fbfaf8; }"
     }
   ],
   "narrative": {
     "northStar": "De cada 100, tú",
-    "overview": "El sistema es papel blanco con una sola voz de color. Todo lo que aparece en pantalla trabaja para que una cifra se lea como \"X de cada 100\" y para que, en el siguiente gesto, la persona encuentre su propio caso. El rosa mexicano del INE no decora: es el dato. Llena la rebanada del pastel, traza la línea de \"todas las personas\", tiñe la cifra del titular y viste la única acción primaria de cada tarea. Lo demás se resuelve con tinta casi negra, un gris cálido muy claro y filetes de un píxel.\n\nLa densidad es de relato, no de tablero. Los capítulos se separan con aire generoso (de 72 a 128 px) y el texto corrido nunca pasa de 62 caracteres de ancho. Las superficies son planas: la profundidad viene de paneles en papel cálido y de filetes, no de sombras. Las formas tienen dos registros: píldoras para lo que se pulsa y tarjetas de esquina suave para lo que se lee. Dos tipos de letra conviven sin mezclarse: Advent Pro, geométrica y algo técnica, para títulos y cifras; Arial para todo lo que se lee de corrido, como pide el manual del INE.\n\nEl movimiento es escaso y funcional. El pastel llena su rebanada en 600 ms con una curva que frena al final, el marcador de la curva viaja 500 ms entre momentos, y los cambios de estado de botones y opciones duran 150 ms. Con `prefers-reduced-motion` todas las duraciones se anulan y el desplazamiento suave se apaga.",
+    "overview": "El sistema es un relato en franjas de una sola familia de color. Cada capítulo ocupa todo el ancho de la pantalla y cambia de fondo sin salir de la paleta del INE: blanco, rubor, vino noche, gris cálido y, al final, rosa mexicano. El color da ritmo y dice en qué parte del relato estás, pero el rosa sigue siendo el dato: llena la rebanada del pastel y los puntos de la figura de cien, traza la línea de \"todas las personas\", tiñe las cifras del titular y viste la acción principal. Todo trabaja para que una cifra se lea como \"X de cada 100\" y para que, en el siguiente gesto, la persona encuentre su propio caso.\n\nLa lectura está pensada para cualquier edad, de niñas y niños a personas mayores con poca experiencia en dispositivos. El texto corrido mide 18 px, nada que se lea baja de 16 px, todo control mide al menos 48 px y la navegación son dos pestañas que siempre se ven. Las palabras difíciles se explican en un glosario visible con íconos propios, y las comparaciones se dicen con palabras junto a la cifra de referencia. Las superficies son planas: la profundidad sale de poner una tarjeta clara sobre una franja de color, o una tarjeta rubor sobre blanco. Advent Pro, geométrica y algo técnica, lleva títulos, términos y cifras; Arial, como pide el manual del INE, lleva todo lo que se lee de corrido.\n\nEl movimiento es escaso y funcional. El pastel llena su rebanada en 600 ms con una curva que frena al final, el marcador de la curva viaja 500 ms entre momentos, el momento activo y el relleno del mapa cambian en 200 ms, y botones, pestañas y opciones cambian de estado en 150 ms. Con `prefers-reduced-motion` todas las duraciones se anulan y el desplazamiento suave se apaga.",
     "keyCharacteristics": [
-      "Un solo acento, el rosa INE, reservado para el dato, la acción primaria y el foco.",
-      "Escala secuencial de seis clases de rosa a vino para mapa y gráficas; trama diagonal para \"sin dato\".",
+      "Franjas a todo lo ancho que alternan blanco, rubor, vino noche, gris cálido y rosa; ningún tono fuera de la familia rosa-vino y sus neutros.",
+      "El rosa INE es el dato, la acción principal y el foco sobre fondo claro; sobre vino y rosa, el texto, el foco y los botones pasan a blanco.",
+      "Escala secuencial de seis clases de rosa a vino para el mapa y los cuadros; trama diagonal para \"sin dato\".",
       "Mujeres en vino con línea continua y hombres en gris pizarra con línea discontinua.",
-      "Advent Pro (650) para títulos y cifras; Arial para leer; numerales tabulares en todo el sitio.",
-      "Plano: paneles en papel cálido y filetes de 1 px en lugar de sombras.",
-      "Píldoras para actuar, tarjetas de 10 a 16 px para leer, círculos para el pastel.",
-      "Móvil primero: objetivos táctiles de 44 px, márgenes con área segura, mosaico en lugar de mapa en pantallas angostas."
+      "Advent Pro (650) para títulos, términos y cifras; Arial para leer; numerales tabulares en todo el sitio.",
+      "Lectura para todas las edades: texto de 18 px, nada bajo 16 px, controles de 48 px y un glosario visible con íconos propios.",
+      "Plano: una tarjeta de otro tono sobre la franja en lugar de sombras.",
+      "Píldoras para actuar, tarjetas de 10 a 16 px para leer, círculos para pasteles, puntos e íconos."
     ],
     "rules": [
       {
+        "name": "The Family Bands Rule",
+        "body": "Cada capítulo es una franja a todo lo ancho y toda franja sale de la familia rosa-vino del INE o de sus neutros: blanco, rubor, vino noche, gris cálido o rosa. En la portada el orden es héroe en rubor, glosario y curva en blanco, calculadora en vino noche, mapa en gris cálido, espejo en blanco, \"Otras formas de votar\" en rubor y cierre en rosa. Sobre vino noche y rosa, títulos, etiquetas, foco y botones van en blanco y el texto secundario sobre vino en `c1`; dentro de una tarjeta clara puesta sobre esas franjas, todo vuelve a tinta y el foco vuelve a rosa.",
+        "section": "colors"
+      },
+      {
         "name": "The Rosa Is the Datum Rule",
-        "body": "El rosa pleno marca el dato, la única acción primaria de la tarea y el foco. En texto de tamaño de lectura se usa Rosa Profundo; el rosa pleno como texto solo aparece en cifras de tamaño de título.",
+        "body": "El rosa pleno marca el dato, la acción principal y el foco sobre fondo claro. En texto de lectura se usa Rosa Profundo; el rosa pleno como texto solo aparece en cifras de tamaño de título. Cuando el rosa es la franja, cede su papel al blanco: botón primario blanco con texto Rosa Profundo, contorno blanco y foco blanco.",
         "section": "colors"
       },
       {
         "name": "The Ink Selects Rule",
-        "body": "Lo elegido se marca en tinta, nunca en rosa: opción de segmento elegida, momento activo, entidad activa del mapa (trazo de 3 px), casilla pulsada del mosaico (contorno de 3 px) y tarjeta de edad elegida. El rosa queda libre para significar participación.",
+        "body": "Lo elegido dentro de un control de datos se marca en tinta, nunca en rosa: opción de segmento elegida, entidad activa del mapa (trazo de 3 px), cuadro pulsado (contorno de 3 px) y tarjeta de edad elegida. Fuera de los datos hay dos estados propios: la pestaña de la página actual se llena de rosa para que se vea desde lejos dónde estás, y el momento activo de la curva se enciende en vino noche.",
         "section": "colors"
       },
       {
@@ -611,7 +648,7 @@
       },
       {
         "name": "The Two Voices Rule",
-        "body": "Advent Pro para títulos, cifras y una frase destacada de una sola idea; Arial para párrafos, etiquetas, controles y tablas. Si un bloque se lee de corrido, va en Arial.",
+        "body": "Advent Pro para títulos, términos del glosario, cifras y una frase destacada de una sola idea; Arial para párrafos, etiquetas, controles y tablas. Si un bloque se lee de corrido, va en Arial.",
         "section": "typography"
       },
       {
@@ -620,40 +657,52 @@
         "section": "typography"
       },
       {
-        "name": "The 44 Rule",
-        "body": "Todo control mide al menos 44 px de alto. La única excepción son los botones de orden dentro de las filas de tabla con puntero fino, que bajan a 32 px.",
+        "name": "The Eighteen Floor Rule",
+        "body": "El texto corrido mide 18 px (`--texto`) y nada que se lea baja de 16 px (`--meta`): pies, leyendas, notas, celdas de tabla, etiquetas y la abreviatura de cada cuadro del mapa.",
+        "section": "typography"
+      },
+      {
+        "name": "The 48 Rule",
+        "body": "Todo control mide al menos 48 px de alto (`--toque`): botones, pestañas, opciones, campos, coincidencias, tarjetas de edad y el área del deslizador. La única excepción son los botones de orden dentro de las filas de tabla con puntero fino, que bajan a 32 px.",
         "section": "layout"
       },
       {
         "name": "The Reading Column Rule",
-        "body": "Ningún párrafo pasa de 62ch, ni siquiera dentro de una rejilla ancha.",
+        "body": "Ningún párrafo pasa de 62ch, ni siquiera dentro de una franja o una rejilla ancha.",
         "section": "layout"
       },
       {
-        "name": "The Flat Paper Rule",
-        "body": "Tarjetas, paneles, botones y tablas no proyectan sombra. Para separar, se usa papel cálido o un filete; solo el menú móvil abierto flota.",
+        "name": "The Flat Band Rule",
+        "body": "Tarjetas, paneles, botones y tablas no proyectan sombra. Para separar se cambia de tono (tarjeta clara sobre franja de color, tarjeta rubor sobre blanco) o se usa un filete de 1 px.",
         "section": "elevation"
       }
     ],
     "dos": [
-      "Do reservar el rosa INE (#d5007f) para el dato, una sola acción primaria por tarea y el foco; usar Rosa Profundo (#a00062) cuando el rosa es texto de lectura.",
-      "Do marcar lo elegido en tinta (#1d1d1b): opción de segmento, momento activo, entidad activa, casilla pulsada.",
+      "Do alternar franjas a todo lo ancho de la familia INE: blanco (#ffffff), rubor (#fdf0f6), vino noche (#5c0c30), gris cálido (#f6f4f1) y rosa (#d5007f).",
+      "Do reservar el rosa INE (#d5007f) para el dato, la acción principal y el foco sobre fondo claro; usar Rosa Profundo (#a00062) cuando el rosa es texto de lectura.",
+      "Do pasar a blanco el texto, el foco y los botones sobre vino noche y rosa (`.sobre-oscuro`), y devolverlos a tinta y rosa dentro de las tarjetas claras de esas franjas (`.sobre-claro`).",
+      "Do pintar en blanco el resto del pastel (`--pastel-resto`) cuando el pastel vive en una franja rubor.",
+      "Do marcar en tinta (#1d1d1b) lo elegido en los controles de datos: opción de segmento, entidad activa, cuadro pulsado, tarjeta de edad.",
       "Do dibujar mujeres en vino con línea continua y hombres en gris pizarra (#4d4f53) con línea discontinua 7/6.",
       "Do usar la escala `c1`–`c6` para cualquier mapa o gráfica secuencial, con texto blanco desde `c4` y tinta hasta `c3`.",
-      "Do representar el \"sin dato\" con trama diagonal a 45° (en mapa y mosaico, #cfcdc9 sobre #f1efec) y explicarlo en la leyenda.",
-      "Do acompañar cada pastel con su cifra en Advent Pro y un pie en Meta, y cada gráfica con su tabla \"Ver datos\".",
-      "Do mantener 44px de alto mínimo en todo control y 62ch de ancho máximo en todo párrafo.",
-      "Do mostrar el logotipo INE solo sobre fondos claros, sin alterar, con el aviso de prototipo debajo."
+      "Do representar el \"sin dato\" con trama diagonal a 45° (en mapa y cuadros, #cfcdc9 sobre #f1efec) y explicarlo en la leyenda y en el glosario.",
+      "Do mantener el texto corrido en 18px, nada que se lea bajo 16px, todo control en 48px y todo párrafo en 62ch.",
+      "Do acompañar cada pastel con su cifra en Advent Pro y un texto que la lea, y cada gráfica con su tabla.",
+      "Do decir las comparaciones con palabras y la cifra de referencia (\"un poco menos que en Oaxaca (54.66 de cada 100)\") y escribir las diferencias de tabla como \"7.92 menos\" o \"23.10 más\".",
+      "Do dibujar los íconos a mano en una rejilla de 32 con trazo de 2.25 y remates redondos, en blanco sobre discos de 56px que alternan rosa, vino y Rosa Profundo."
     ],
     "donts": [
       "Don't usar rosa contra azul para distinguir sexo.",
-      "Don't introducir un segundo color de acento; vino y la escala de datos son la misma familia del rosa.",
-      "Don't usar rosa para estados de selección; compite con el dato.",
-      "Don't poner sombras proyectadas en tarjetas, paneles o botones; la profundidad es tonal.",
+      "Don't introducir un tono fuera de la familia rosa-vino y sus neutros, ni siquiera para dar más color.",
+      "Don't usar rosa para lo elegido en un control de datos; compite con el dato.",
+      "Don't poner sombras proyectadas en tarjetas, paneles o botones; la profundidad es de tono.",
       "Don't componer párrafos, etiquetas, tablas ni controles en Advent Pro.",
       "Don't usar Gris Frío 7 (#97999b) para texto; es solo para trazos.",
-      "Don't poner el logotipo del INE en las imágenes para compartir ni sobre fondos oscuros.",
-      "Don't representar una celda protegida o ausente con un tono de la escala: se confundiría con participación baja."
+      "Don't poner el logotipo del INE en las imágenes para compartir ni sobre franjas de color; va solo en el encabezado blanco y en el pie.",
+      "Don't representar una celda protegida o ausente con un tono de la escala: se confundiría con participación baja.",
+      "Don't escribir \"puntos\" ni signos de más o menos en el texto: la diferencia se dice con palabras.",
+      "Don't esconder la navegación detrás de un menú: las dos pestañas se ven siempre.",
+      "Don't añadir avisos de prototipo en el encabezado, el pie o las imágenes para compartir."
     ]
   }
 }

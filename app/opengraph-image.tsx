@@ -6,7 +6,7 @@ export const alt = "Make the Change: a los 18 años, cuántas personas de cada 1
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-/** Imagen para compartir del sitio: marca de campaña, cifra, fuente y aviso; sin logotipo del INE (D50). */
+/** Imagen para compartir del sitio: marca de campaña, cifra y fuente; sin logotipo del INE (D50). */
 export default function Imagen() {
   const d = datosRelato();
   return new ImageResponse(
@@ -39,8 +39,7 @@ export default function Imagen() {
           <div style={{ fontSize: 48, fontWeight: 700 }}>de cada 100 votaron a los 18 años en 2024</div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", fontSize: 26, color: "#4a4a48" }}>
-          <span>Fuente: INE, Conteos Censales de Participación Ciudadana.</span>
-          <span>Prototipo para el Reto 3 · No es un sitio oficial del INE.</span>
+          <span>Fuente: INE (DECEyEC), Conteos Censales de Participación Ciudadana.</span>
         </div>
       </div>
     ),

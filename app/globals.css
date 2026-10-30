@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Tokens de la identidad INE (PRODUCT.md, D38, D48, D49). Un solo lugar para color, tipo y medidas. */
+/* Tokens de la identidad INE (PRODUCT.md, D48, D49, D59). Un solo lugar para color, tipo y medidas. */
 :root {
   --rosa: #d5007f; /* Pantone 233 rosa mexicano */
   --rosa-700: #a00062;
@@ -25,10 +25,11 @@
   --c6: #5c0c30;
   --sin-dato: #cfcdc9;
 
-  --texto: 1rem; /* 16 px */
-  --meta: 0.875rem; /* 14 px */
+  /* Lectura cómoda para todas las edades (D60): nada de lectura bajo 16 px y controles de 48 px. */
+  --texto: 1.125rem; /* 18 px */
+  --meta: 1rem; /* 16 px */
   --radio: 10px;
-  --toque: 44px;
+  --toque: 48px;
   --ancho: 72rem;
   --lectura: 62ch; /* unas 75 letras de Arial por línea */
   --gutter: clamp(16px, 4vw, 40px);
@@ -67,7 +68,7 @@ body {
   color: var(--tinta);
   font-family: var(--font-texto);
   font-size: var(--texto);
-  line-height: 1.55;
+  line-height: 1.6;
   font-variant-numeric: tabular-nums;
 }
 
@@ -130,8 +131,13 @@ a:hover {
   border-radius: 4px;
 }
 
+/* Sobre bandas de color el foco es blanco; dentro de una tarjeta clara vuelve a rosa. */
 .sobre-oscuro :focus-visible {
   outline-color: #fff;
+}
+
+.sobre-oscuro .sobre-claro :focus-visible {
+  outline-color: var(--rosa);
 }
 
 * {

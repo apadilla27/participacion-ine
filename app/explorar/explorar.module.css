@@ -1,13 +1,23 @@
-.pagina {
-  display: grid;
-  gap: 32px;
-  padding-top: clamp(32px, 6vw, 64px);
+/* Cabecera en la misma franja rosa claro de la portada; debajo, la herramienta sobre blanco. */
+.cabeceraBanda {
+  background: var(--rosa-50);
+  padding-block: clamp(40px, 6vw, 72px);
 }
 
 .cabecera {
   display: grid;
   gap: 12px;
+}
+
+/* El ancho de lectura va en el texto: el contenedor conserva su alineación con el resto de la página. */
+.cabecera > * {
   max-width: var(--lectura);
+}
+
+.pagina {
+  display: grid;
+  gap: 32px;
+  padding-block: clamp(32px, 5vw, 56px) clamp(56px, 8vw, 104px);
 }
 
 .explorador {
@@ -132,9 +142,15 @@
   background: var(--rosa-50);
 }
 
-.tablaMunicipios {
-  max-height: 34rem;
-  overflow: auto;
+.instruccion {
+  font-weight: 700;
+}
+
+/* Los nombres son botones: subrayado continuo en rosa para que se note que se pueden tocar. */
+.tablaMunicipios th[scope="row"] :global(.orden) {
+  color: var(--rosa-700);
+  text-decoration: underline solid;
+  text-decoration-thickness: 2px;
 }
 
 /* Nombres como "San Juan Bautista Tlacoatzintepec" parten en líneas: así las cifras quedan a la vista en móvil. */

@@ -4,7 +4,7 @@ import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { Segmento } from "@/app/_ui/Segmento";
 import { useAngosta } from "@/app/_ui/useAngosta";
 import type { Momentos, PuntoCurva, RelatoDatos } from "@/lib/datos/tipos";
-import { CIEN, deCada, firmado } from "@/lib/formato";
+import { CIEN, deCada, diferencia } from "@/lib/formato";
 import estilos from "./relato.module.css";
 
 // En móvil el lienzo es más angosto para que la curva tenga altura y el texto del eje se lea.
@@ -19,38 +19,45 @@ function momentosTexto(m: Momentos, puntos: PuntoCurva[]): Momento[] {
   const juventud = puntos.filter((p) => p.edad <= 29 && p.todos != null).map((p) => p.todos as number);
   const esMaxima = m.estreno.todos >= Math.max(...juventud);
   const cambio = Math.round((m.alAnio.todos - m.estreno.todos) * 100) / 100;
+  const esCumbre = m.cumbre.todos >= Math.max(...puntos.map((p) => p.todos ?? 0));
+  const todosEnPiso = puntos.find((p) => p.edad === m.piso.edad)?.todos ?? null;
   const lista: Momento[] = [
     {
       edad: 18,
       titulo: `A los 18 votaron ${deCada(m.estreno.todos)}`,
       cuerpo: esMaxima
-        ? "Es la primera elección para muchas personas, y la participación más alta entre los 18 y los 29 años."
-        : "Es la primera elección para muchas personas.",
+        ? "Es la primera vez que pueden votar, y votan más que cualquier otra edad antes de los 30."
+        : "Es la primera vez que pueden votar.",
     },
     {
       edad: 19,
       titulo: `A los 19, ${deCada(m.alAnio.todos)}`,
       cuerpo:
         cambio === 0
-          ? "En un año de vida la participación no cambia."
-          : `En un solo año de vida la participación ${cambio < 0 ? "baja" : "sube"} ${CIEN.format(Math.abs(cambio))} puntos.`,
+          ? "Un cumpleaños después, votan igual."
+          : `Basta un cumpleaños de diferencia: a los 19 votan ${CIEN.format(Math.abs(cambio))} de cada 100 ${cambio < 0 ? "menos" : "más"} que a los 18.`,
     },
     {
       edad: m.piso.edad,
-      titulo: `El punto más bajo de los hombres: ${m.piso.edad} años`,
+      titulo: `A los ${m.piso.edad} votan menos hombres que a cualquier otra edad antes de los 40`,
       cuerpo: `Votaron ${deCada(m.piso.hombres)} hombres de ${m.piso.edad} años. Las mujeres de esa edad, ${deCada(m.piso.mujeres)}.`,
     },
     {
       edad: m.cumbre.edad,
-      titulo: `A los ${m.cumbre.edad}, el punto más alto: ${deCada(m.cumbre.todos)}`,
-      cuerpo: `Entre el punto más bajo de los hombres y este hay ${CIEN.format(m.cumbre.todos - m.piso.hombres)} puntos. La participación sube con la edad, despacio, durante décadas.`,
+      titulo: esCumbre
+        ? `A los ${m.cumbre.edad} se vota más que a cualquier otra edad: ${deCada(m.cumbre.todos)}`
+        : `A los ${m.cumbre.edad} se vota más que a cualquier otra edad entre los 50 y los 80: ${deCada(m.cumbre.todos)}`,
+      cuerpo:
+        todosEnPiso == null
+          ? "El voto crece con los años, poco a poco."
+          : `Son ${CIEN.format(m.cumbre.todos - todosEnPiso)} de cada 100 más que a los ${m.piso.edad}. El voto crece con los años, poco a poco.`,
     },
   ];
   if (m.volteo) {
     lista.push({
       edad: m.volteo.edad,
-      titulo: `A los ${m.volteo.edad}, los hombres votan más`,
-      cuerpo: `Hombres ${deCada(m.volteo.hombres)}; mujeres ${deCada(m.volteo.mujeres)}. Desde esa edad la diferencia se invierte. Los datos muestran el cambio, no su causa.`,
+      titulo: `Desde los ${m.volteo.edad}, los hombres votan más`,
+      cuerpo: `Hombres ${deCada(m.volteo.hombres)}; mujeres ${deCada(m.volteo.mujeres)}. Antes de esa edad, ellas votan más. Los datos muestran el cambio, no su causa.`,
     });
   }
   return lista;
@@ -100,15 +107,16 @@ export function Curva({
   }, [lista.length]);
 
   return (
-    <section className={estilos.curva} id="curva" aria-labelledby={titulo}>
+    <section className={`${estilos.seccion} ${estilos.curva}`} id="curva" aria-labelledby={titulo}>
       <div className={`contenedor ${estilos.curvaRejilla}`}>
         <div className={estilos.curvaFijo}>
-          <h2 id={titulo}>La montaña rusa de tu generación</h2>
+          <h2 id={titulo}>La montaña rusa del voto, de los 18 a los 100 años</h2>
           <p>
-            Cada punto es un año de edad en la lista nominal. Cambia la elección para comparar.
+            La línea va de los 18 a los 100 años: entre más alta, más personas de esa edad votaron. Elige otro año de
+            elección para comparar.
           </p>
           <Segmento
-            etiqueta="Elección"
+            etiqueta="Año de la elección"
             opciones={datos.elecciones.map((e) => ({ id: e.slug, nombre: e.etiqueta }))}
             valor={eleccion}
             onCambio={onEleccion}
@@ -133,7 +141,7 @@ export function Curva({
                 </text>
               </g>
             ))}
-            <text className={estilos.eje} x="0" y="12">
+            <text className={estilos.eje} x="0" y="16">
               Votaron de cada 100
             </text>
             <path className={estilos.lineaMujeres} d={trazo("mujeres")} />
@@ -145,7 +153,7 @@ export function Curva({
                 <circle r="5" />
               </g>
             ) : null}
-            {(ancho === LIENZO.angosto ? [18, 40, 60, 80, 100] : [18, 30, 40, 50, 60, 70, 80, 100]).map((edad) => (
+            {(ancho === LIENZO.angosto ? [18, 40, 60, 100] : [18, 30, 40, 50, 60, 70, 80, 100]).map((edad) => (
               <text
                 key={edad}
                 className={estilos.eje}
@@ -163,7 +171,7 @@ export function Curva({
             aria-expanded={verDatos}
             onClick={() => setVerDatos((v) => !v)}
           >
-            {verDatos ? "Ocultar datos" : "Ver datos"}
+            {verDatos ? "Ocultar la tabla" : "Ver los números en tabla"}
           </button>
           {verDatos ? (
             <div className="tabla-caja">
@@ -209,16 +217,24 @@ export function Curva({
       </div>
 
       <div className="contenedor">
-        <h3 className={estilos.subtitulo}>La distancia entre los 18-29 años y el país, elección por elección</h3>
+        <h3 className={estilos.subtitulo}>¿Los jóvenes votan menos en todas las elecciones?</h3>
+        <p className={estilos.subtituloTexto}>
+          {datos.serie.every((f) => f.joven == null || f.joven < f.pct)
+            ? "Sí. Desde 2009, en cada elección las personas de 18 a 29 años votaron menos que en todo el país."
+            : "Casi siempre. Compara cada elección en la tabla."}
+        </p>
         <div className="tabla-caja">
           <table className={`tabla ${estilos.tablaSerie}`}>
-            <caption>Votaron de cada 100 en el país y entre las personas de 18 a 29 años.</caption>
+            <caption>
+              Votaron de cada 100 en todo el país y entre las personas de 18 a 29 años. La diferencia dice cuántas personas
+              de cada 100 votaron de más o de menos los jóvenes.
+            </caption>
             <thead>
               <tr>
                 <th scope="col">Elección</th>
                 <th scope="col">País</th>
                 <th scope="col">18{" "}a{" "}29</th>
-                <th scope="col">Diferencia (puntos)</th>
+                <th scope="col">Diferencia</th>
               </tr>
             </thead>
             <tbody>
@@ -226,11 +242,11 @@ export function Curva({
                 <tr key={f.slug}>
                   <th scope="row">
                     {f.etiqueta}
-                    <span>{f.tipo === "judicial" ? "Otra jornada" : f.presidencial ? "Presidencial" : "Intermedia"}</span>
+                    <span>{f.tipo === "judicial" ? "Primera vez" : f.presidencial ? "Presidencial" : "Intermedia"}</span>
                   </th>
                   <td>{CIEN.format(f.pct)}</td>
                   <td>{f.joven == null ? "sin dato" : CIEN.format(f.joven)}</td>
-                  <td>{f.joven == null ? "—" : firmado(Math.round((f.joven - f.pct) * 100) / 100)}</td>
+                  <td>{f.joven == null ? "—" : diferencia(f.joven, f.pct)}</td>
                 </tr>
               ))}
             </tbody>

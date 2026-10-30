@@ -1,11 +1,166 @@
 .relato {
   display: grid;
-  gap: clamp(72px, 10vw, 128px);
-  padding-top: clamp(32px, 6vw, 72px);
 }
 
 .relato section {
   scroll-margin-top: 120px;
+}
+
+/* Cada capítulo es una franja a todo lo ancho; las de color se alternan con las blancas (D59). */
+.seccion {
+  padding-block: clamp(56px, 8vw, 104px);
+}
+
+.bandaRubor {
+  background: var(--rosa-50);
+  --pastel-resto: #fff;
+}
+
+.bandaVino {
+  background: var(--vino-900);
+  color: #fff;
+}
+
+.bandaVino h2,
+.bandaVino :global(.campo) {
+  color: #fff;
+}
+
+.bandaVino .intro p,
+.bandaVino :global(.nota) {
+  color: var(--c1);
+}
+
+.bandaVino :global(.estado) {
+  background: var(--rosa-50);
+}
+
+.bandaRosa {
+  background: var(--rosa);
+  color: #fff;
+}
+
+/* En la franja rosa la acción principal es blanca y la secundaria, contorno blanco. */
+.bandaRosa :global(.btn-primario) {
+  background: #fff;
+  border-color: #fff;
+  color: var(--rosa-700);
+}
+
+.bandaRosa :global(.btn-primario):hover {
+  background: var(--rosa-50);
+  border-color: var(--rosa-50);
+}
+
+.bandaRosa :global(.btn-contorno) {
+  border-color: #fff;
+  color: #fff;
+}
+
+.bandaRosa :global(.btn-contorno):hover {
+  background: var(--rosa-700);
+}
+
+/* Título de capítulo y su explicación corta. */
+.intro {
+  display: grid;
+  gap: 12px;
+  max-width: var(--lectura);
+}
+
+/* Palabras para entender los números */
+.glosario {
+  display: grid;
+  gap: 40px;
+}
+
+.cien {
+  margin: 0;
+  display: grid;
+  gap: 20px 32px;
+  align-items: center;
+  max-width: 48rem;
+  padding: 24px;
+  border-radius: 16px;
+  background: var(--rosa-50);
+}
+
+.cien svg {
+  width: min(100%, 200px);
+  height: auto;
+}
+
+.voto {
+  fill: var(--rosa);
+}
+
+.noVoto {
+  fill: #fff;
+  stroke: var(--c2);
+  stroke-width: 1.5;
+}
+
+.cien figcaption {
+  display: grid;
+  gap: 8px;
+}
+
+.cien strong {
+  font: 650 1.625rem / 1.15 var(--font-advent), var(--font-texto);
+  color: var(--rosa-700);
+}
+
+@media (min-width: 640px) {
+  .cien {
+    grid-template-columns: 200px minmax(0, 1fr);
+  }
+}
+
+.palabras {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+  gap: 32px 40px;
+}
+
+.palabras > div {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  column-gap: 16px;
+  row-gap: 4px;
+  align-content: start;
+}
+
+.icono {
+  grid-row: span 2;
+  width: 56px;
+  height: 56px;
+  padding: 12px;
+  border-radius: 50%;
+  background: var(--rosa);
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Tres tonos de la misma familia para que la lista tenga ritmo sin salir de la paleta INE. */
+.palabras > div:nth-child(3n + 2) .icono {
+  background: var(--vino);
+}
+
+.palabras > div:nth-child(3n) .icono {
+  background: var(--rosa-700);
+}
+
+.palabras dt {
+  align-self: end;
+  font: 650 1.375rem / 1.15 var(--font-advent), var(--font-texto);
+}
+
+.palabras dd {
+  margin: 0;
 }
 
 /* Hero */
@@ -27,8 +182,9 @@
 }
 
 .entradilla {
-  font-size: 1.25rem;
+  font-size: 1.375rem;
   font-weight: 700;
+  color: var(--rosa-700);
 }
 
 .heroPasteles {
@@ -157,10 +313,11 @@
   stroke-width: 1;
 }
 
+/* 20 unidades del lienzo se ven a unos 16 px en pantalla, en móvil y en escritorio (D60). */
 .guia text,
 .eje {
   fill: var(--tinta-2);
-  font-size: 16px;
+  font-size: 20px;
 }
 
 /* Grosor y guiones en píxeles de pantalla, iguales en móvil y escritorio. */
@@ -233,16 +390,21 @@
   gap: 8px;
   padding: 20px;
   border-radius: var(--radio);
-  background: var(--fondo-2);
+  background: var(--rosa-50);
   transition: background-color 200ms ease-out, color 200ms ease-out;
 }
 
 .momentos li[data-activo="true"] {
-  background: var(--tinta);
+  background: var(--vino-900);
   color: #fff;
 }
 
 .subtitulo {
+  margin-bottom: 8px;
+}
+
+.subtituloTexto {
+  max-width: var(--lectura);
   margin-bottom: 16px;
 }
 
@@ -267,12 +429,6 @@
   gap: 24px;
 }
 
-.huellaIntro {
-  display: grid;
-  gap: 12px;
-  max-width: var(--lectura);
-}
-
 .huellaForma {
   display: grid;
   gap: 16px;
@@ -294,8 +450,9 @@
   gap: 24px;
   align-items: center;
   padding: 24px;
-  border: 1px solid var(--linea);
   border-radius: 16px;
+  background: #fff;
+  color: var(--tinta);
 }
 
 @media (min-width: 720px) {
@@ -319,7 +476,8 @@
   gap: 14px;
   padding: 24px;
   border-radius: 16px;
-  background: var(--fondo-2);
+  background: var(--rosa-50);
+  color: var(--tinta);
   max-width: 48rem;
 }
 
@@ -328,10 +486,54 @@
   gap: 10px;
 }
 
+/* Barra propia: riel visible y perilla rosa de 32 px, fácil de tomar con el dedo o el ratón. */
 .deslizador input[type="range"] {
+  appearance: none;
   width: 100%;
   height: var(--toque);
-  accent-color: var(--rosa);
+  background: transparent;
+  cursor: pointer;
+}
+
+/* La parte recorrida se pinta en rosa (--avance llega desde el componente); el resto, rosa claro con canto. */
+.deslizador input[type="range"]::-webkit-slider-runnable-track {
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--rosa) var(--avance, 0%), var(--c2) var(--avance, 0%));
+  box-shadow: inset 0 0 0 1px var(--c3);
+}
+
+.deslizador input[type="range"]::-moz-range-track {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--c2);
+  box-shadow: inset 0 0 0 1px var(--c3);
+}
+
+.deslizador input[type="range"]::-moz-range-progress {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--rosa);
+}
+
+.deslizador input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 32px;
+  height: 32px;
+  margin-top: -11px;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  background: var(--rosa);
+  box-shadow: 0 0 0 1px var(--rosa-700);
+}
+
+.deslizador input[type="range"]::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  background: var(--rosa);
+  box-shadow: 0 0 0 1px var(--rosa-700);
 }
 
 .escenarioCifra {
@@ -346,7 +548,6 @@
 /* Mapa */
 .mapa {
   background: var(--fondo-2);
-  padding: clamp(40px, 6vw, 72px) 0;
 }
 
 .mapaIntro {
@@ -445,29 +646,26 @@
   white-space: nowrap;
 }
 
+/* Casillas cuadradas que crecen con la pantalla hasta 56 px: en 390 px ya miden más de 48. */
 .mosaico {
   display: grid;
-  grid-template-columns: repeat(var(--columnas), 46px);
-  grid-template-rows: repeat(var(--filas), 46px);
+  grid-template-columns: repeat(var(--columnas), minmax(0, 56px));
+  grid-template-rows: repeat(var(--filas), auto);
   gap: 2px;
   justify-content: center;
   padding: 12px 0;
 }
 
 .casilla {
+  aspect-ratio: 1;
   display: grid;
   place-content: center;
-  gap: 2px;
   padding: 0;
   border: 0;
   border-radius: 6px;
-  font: 700 0.875rem / 1 var(--font-texto);
+  font: 700 1rem / 1 var(--font-texto);
+  letter-spacing: -0.03em; /* CDMX y QROO caben en casillas de 48 px */
   cursor: pointer;
-}
-
-.casilla span:last-child {
-  font-weight: 400;
-  font-size: 0.8125rem;
 }
 
 .casilla[data-vacio="true"] {
@@ -479,16 +677,15 @@
   outline-offset: 1px;
 }
 
-@media (min-width: 420px) {
-  .mosaico {
-    grid-template-columns: repeat(var(--columnas), 52px);
-    grid-template-rows: repeat(var(--filas), 52px);
-  }
+.leyendaTitulo {
+  margin-top: 16px;
+  font-size: var(--meta);
+  font-weight: 700;
 }
 
 .leyenda {
   list-style: none;
-  margin: 16px 0 0;
+  margin: 8px 0 0;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
@@ -507,6 +704,11 @@
   height: 14px;
   border-radius: 3px;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+.ayudaMapa {
+  margin-top: 12px;
+  font-weight: 700;
 }
 
 .leyendaTrama {
@@ -569,8 +771,6 @@
 
 .tablaEntidades > div {
   width: 100%;
-  max-height: 32rem;
-  overflow: auto;
 }
 
 /* Espejo */
@@ -579,10 +779,9 @@
   gap: 32px;
 }
 
-.espejoIntro {
-  display: grid;
-  gap: 16px;
-  max-width: var(--lectura);
+.comoLeer {
+  font-size: var(--meta);
+  color: var(--tinta-2);
 }
 
 /* Columnas fijas: la edad al centro y dos pistas iguales. Cada barra mide su porcentaje de la pista,
@@ -659,10 +858,6 @@
   gap: 24px;
 }
 
-.llegaEntrada {
-  max-width: var(--lectura);
-}
-
 .llegaRejilla {
   display: grid;
   gap: 32px 48px;
@@ -673,7 +868,7 @@
   gap: 10px;
   align-content: start;
   padding-top: 20px;
-  border-top: 2px solid var(--tinta);
+  border-top: 4px solid var(--rosa);
 }
 
 .llegaRejilla h3 span {
@@ -712,4 +907,23 @@
 
 .cierre p {
   max-width: var(--lectura);
+  font-size: 1.25rem;
+}
+
+/* La M de la campaña firma el cierre, grande, en blanco con la flecha en vino. */
+.cierreFirma {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .cierre {
+    position: relative;
+  }
+  .cierreFirma {
+    display: block;
+    position: absolute;
+    right: max(var(--gutter), env(safe-area-inset-right));
+    top: 50%;
+    transform: translateY(-50%);
+  }
 }
