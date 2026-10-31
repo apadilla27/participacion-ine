@@ -637,6 +637,9 @@
 }
 
 @media print {
+  .curvaGrafica {
+    break-inside: avoid;
+  }
   .lineasRecorridas {
     clip-path: none;
   }
